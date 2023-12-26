@@ -1,0 +1,114 @@
+#guide-sections {
+    background-color: rgb(15, 15, 15);
+    z-index: 40;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Pasek przewijania */
+#guide-sections::-webkit-scrollbar {
+    width: 8px;
+}
+
+#guide-sections::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+#guide-sections::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+#guide:hover #guide-sections::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+
+.guide-item {
+    width: 204px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 1.25rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition: background-color .3s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    padding: 0 12px;
+}
+
+.guide-item:hover, .guide-item.active {
+    background-color: #FFFFFF1A;
+}
+
+.guide-item.active:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+}
+
+.guide-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.guide-icon.color {
+    filter: none;
+}
+
+.line {
+    border-bottom: 1px solid rgba(241, 241, 241, 0.2);
+    padding-top: 12px;
+    margin-bottom: 12px;
+}
+
+
+/*GuideFooter*/
+
+.footer-links {
+    color: #AAAAAA;
+    font-size: 13px;
+    padding: 12px;
+    font-weight: bolder;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.footer-links a {
+    margin-right: 8px;
+    text-decoration: none;
+    outline: none;
+}
+
+#copyright {
+    padding: 12px;
+    color: #717171;
+    font-size: 12px;
+}
+
+/*GuideMini*/
+
+.mini-guide-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 74px;
+    margin: 1px;
+    border-radius: 8px;
+    font-size: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.mini-guide-item.active, .mini-guide-item:hover {
+    background-color: #FFFFFF1A;
+
+}

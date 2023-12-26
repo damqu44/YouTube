@@ -1,0 +1,26 @@
+/*MAIN*/
+#masthead-container {
+    background-color: rgb(15, 15, 15);
+    z-index: 44;
+}
+
+/*CENTER*/
+#search-container {
+    background-color: #121212;
+    border: 1px solid #FFFFFF1A;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    width: 30vw;
+}
+
+#search-icon-legacy {
+    background-color: #FFFFFF1A;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+#voice-search-button {
+    background-color: #FFFFFF1A;
+}
+

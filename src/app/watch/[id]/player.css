@@ -1,0 +1,90 @@
+#columns {
+    max-width: 1850px;
+    width: 100%;
+}
+
+iframe {
+    height: 716px;
+}
+
+.gray-color {
+    color: #AAAAAA;
+}
+
+#channel-info {
+    max-width: 210px;
+}
+
+.actions-color {
+    background-color: #FFFFFF1A;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.actions-color:hover, .chip:hover, .infocards-buttons:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+}
+
+#like-button::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    box-shadow: 0 0 0 .3px white;
+    height: 70%;
+}
+
+.chip {
+    white-space: nowrap;
+    background-color: #FFFFFF1A;
+    cursor: pointer;
+    margin-right: 8px;;
+    padding: 6px 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chip.active {
+    background-color: white;
+}
+
+.chip.active span {
+    color: black;
+}
+
+.arrow {
+    cursor: pointer;
+    height: auto;
+    width: 10%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+
+}
+
+.details-color, .details-color span{
+        color: #AAAAAA;
+        cursor: pointer;
+}
+
+.placeholder-input {
+    background: transparent;
+    border-bottom: 1px solid #4b5563;
+    outline: none;
+    transition: border-bottom-color 1s;
+    padding-bottom: 3px;
+}
+
+.placeholder-input:focus {
+    border-bottom: 2px solid #e5e7eb;
+}
+
+#content .hide-guide #guide {
+    display: none;
+}
