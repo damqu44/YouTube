@@ -37,18 +37,6 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-
-/* COLORS */
-
-.light-gray-color {
-  background-color: #FFFFFF1A;
-}
-
-.dark-gray-color {
-  color: #AAAAAA;
-}
-
-
 /* Pasek przewijania */
 ::-webkit-scrollbar {
   width: 12px;

@@ -28,7 +28,7 @@ const Header: React.FC = () => {
     return (
         <div id={'chips-wrapper'} className={'flex flex-row w-full justify-center items-center sticky top-14'}>
             <div id={'header-left-arrow'} className={'mr-2 header-arrow'}>
-                <Image src={leftarrow} alt={'left arrow'} className={'brightness-0 invert hidden'}/>
+                <Image src={leftarrow} alt={'left arrow'} className={'brightness-0 invert'}/>
             </div>
             <div id={'chips-content'}
                  className={'flex w-full justify-start items-center text-sm font-bold'}>
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                 ))}
             </div>
             <div id={'header-right-arrow'} className={'ml-2 header-arrow'}>
-                <Image src={rightarrow} alt={'right arrow'} className={'brightness-0 invert hidden'}/>
+                <Image src={rightarrow} alt={'right arrow'} className={'brightness-0 invert'}/>
             </div>
         </div>
     )

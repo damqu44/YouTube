@@ -1,7 +1,7 @@
 import Image from "next/image";
 import monkey from '@/../public/monkey.png'
 import youtubelogo from '@/../public/icons/yttextblack.svg'
-import searchicon from '@/../public/icons/search.svg'
+import {Icons} from "@/components/icons";
 import Link from "next/link";
 
 const NotFoundPage = () => {
@@ -24,7 +24,7 @@ const NotFoundPage = () => {
                                placeholder={'Szukaj'} className={'px-2 py-0.5 h-7 w-56 outline-0 text-black bg-white border border-gray-400'}
                                title={'Szukaj'} aria-label={'Szukaj'}/>
                         <button id={'error-masthead-search-button'} type={'submit'} className={'h-7 bg-white bg-opacity-60 border border-gray-400 text-gray-500 hover:bg-opacity-25 hover:shadow-gray-500'}>
-                            <Image src={searchicon} alt={'Search icon'} width={18} height={18} className={'mx-6'}/>
+                            <Icons.magnifier className={'w-4 h-4 mx-6'}/>
                         </button>
                     </div>
                 </div>

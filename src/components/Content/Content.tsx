@@ -5,14 +5,17 @@ import React from "react";
 import Guide from "@/components/Guide/Guide";
 import Header from "@/components/Content/Header/Header";
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
-
+import {
+    useClerk,
+} from "@clerk/nextjs";
 const Content: React.FC = () => {
+    const { user } = useClerk();
 
     return (
         <>
             <div id={'content'} className={'flex w-full'}>
                 <Guide/>
-                <div id={'primary'} className={'flex flex-col justify-start items-center px-12 w-full'}>
+                <div id={'primary'} className={'flex flex-col justify-start items-center px-7 w-full'}>
                     <CategoryProvider>
                         <Header/>
                         <div id={'contents'} className={'h-full w-full flex justify-center items-start'}>

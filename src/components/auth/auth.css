@@ -1,3 +1,17 @@
 #auth-signin, #auth-footer {
     max-width: 403px;
 }
+
+#auth-signin {
+    min-height: 432px;
+}
+
+option {
+    color: #4b5563;
+}
+
+.login-btn:hover {
+    background-color: #263850;
+    border: none;
+}
+

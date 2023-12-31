@@ -4,6 +4,8 @@ import './globals.css'
 import React from "react";
 import MastHeadContainer from "@/components/MastHead/MastHeadContainer";
 import {ActivePageProvider} from "@/contexts/ActivePageContext";
+import {ClerkProvider} from "@clerk/nextjs";
+import {GuideProvider} from "@/contexts/GuideContext";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -20,14 +22,20 @@ export default function RootLayout({
 
 
     return (
-        <html lang="en">
-        <body className={inter.className}>
+        <>
+            <ClerkProvider>
+                <html lang="en">
+                <body className={inter.className}>
                 <ActivePageProvider>
-                <MastHeadContainer/>
-                {children}
+                    <GuideProvider>
+                        <MastHeadContainer/>
+                        {children}
+                    </GuideProvider>
                 </ActivePageProvider>
-            </body>
-        </html>
+                </body>
+                </html>
+            </ClerkProvider>
+        </>
 
     )
 }

@@ -1,9 +1,9 @@
 'use client'
+import '../../FullVideo.css'
 import formatToWordDate from "@/hooks/formats/formatToWordDate";
 import Image from "next/image";
-import wideoicon from "../../../../../public/icons/wideo.svg";
-import infoicon from "../../../../../public/icons/info.svg";
-import React from "react";
+import {Icons} from "@/components/icons";
+import React, {useState} from "react";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import Link from "next/link";
 
@@ -20,12 +20,16 @@ type VideoProps = {
 }
 const Description: React.FC<VideoProps> = (props) => {
     const {formatSubscribers} = useNumbersFormatting();
-
+    const [isExpanded, setIsExpanded] = useState(false);
     const descriptionLines = props.description.split('\\n');
+
+    const toggleDescription = () => {
+        setIsExpanded((prev) => !prev);
+    };
 
     return (
         <div id={'description'}
-             className={'light-gray-color mt-3 flex flex-col justify-start items-start p-3 rounded-xl'}>
+             className={`relative bg-primary mt-3 flex flex-col justify-start items-start p-3 rounded-xl ${isExpanded ? '' : 'expanded'}`}>
             <div id={'info-container'}
                  className={'w-full flex'}>
                 <div id={'video-views'}
@@ -60,7 +64,7 @@ const Description: React.FC<VideoProps> = (props) => {
                             <h3>Transkrypcja</h3>
                         </div>
                         <div id={'transcript-subheader'}
-                             className={'font-medium text-sm mt-2 dark-gray-color'}>
+                             className={'font-medium text-sm mt-2 text-secondary'}>
                             Śledź dialogi za pomocą transkrypcji.
                         </div>
                         <div id={'transcript-button'}
@@ -93,20 +97,27 @@ const Description: React.FC<VideoProps> = (props) => {
                              className={'w-full flex flex-row justify-start items-start mt-3 mb-8'}>
                             <Link id={'infocard-video-button'} href={`/${props.channelId}/wideo`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 mr-3 cursor-pointer'}>
-                                <Image src={wideoicon} alt={'video icon'}
-                                       className={'brightness-0 invert mr-2'}/>
+                                <Icons.your_vid
+                                    className={'brightness-0 invert mr-2'}/>
                                 <span className={'text-sm font-medium'}>Wideo</span>
                             </Link>
                             <Link id={'infocard-info-button'} href={`/${props.channelId}`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 cursor-pointer'}>
-                                <Image src={infoicon} alt={'information icon'}
-                                       className={'brightness-0 invert mr-2'}/>
+                                <Icons.your_profile
+                                    className={'brightness-0 invert mr-2'}/>
                                 <span className={'text-sm font-medium'}>Informacje</span>
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div id={'collapse'} className={'cursor-pointer'}>Pokaż mniej</div>
+                {isExpanded ? (
+                    <div id={'collapse'} className={'absolute font-bold bottom-2 z-20 cursor-pointer'}
+                         onClick={toggleDescription}>Pokaż mniej</div>
+                ) : (
+                    <div id={'collapse'} className={'collapse-expand'}
+                         onClick={toggleDescription}>
+                    </div>
+                )}
             </div>
         </div>
     )

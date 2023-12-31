@@ -12,6 +12,7 @@ export interface VideoItem {
     thumbnail: string;
     url_id: string;
     duration: string;
+    category: [];
     description: string;
 }
 
@@ -22,7 +23,7 @@ export interface ChannelItem {
     description: string;
     subscriptions: string;
     videos_amount: string;
-    videosInfo: VideoItem;
+    videos: VideoItem[];
 }
 
 const useChannels = () => {

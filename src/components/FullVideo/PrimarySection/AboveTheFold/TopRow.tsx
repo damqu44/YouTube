@@ -1,13 +1,10 @@
 import Image from "next/image";
-import likeicon from "@/../public/icons/like.svg";
-import dislikeicon from "@/../public/icons/dislike.svg";
-import shareicon from "@/../public/icons/share.svg";
-import saveicon from "@/../public/icons/save.svg";
-import threehorizontaldots from "@/../public/icons/threehorizontaldots.svg";
+import {Icons} from "@/components/icons";
 import React from "react";
-import SubscribeButton from "@/components/UI/SubscribeButton";
+import SubscribeButton from "@/components/ui/subscribe-button";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import Link from "next/link";
+import {useUser} from "@clerk/nextjs";
 
 type VideoProps = {
     _id: string;
@@ -18,7 +15,8 @@ type VideoProps = {
     channelId: string;
 };
 const TopRow: React.FC<VideoProps> = (props) => {
-    const { formatSubscribers } = useNumbersFormatting();
+    const {formatSubscribers} = useNumbersFormatting();
+    const {isSignedIn, user} = useUser()
 
     return (
         <div id={'top-row'} className={'flex flex-row pt-4'}>
@@ -30,7 +28,7 @@ const TopRow: React.FC<VideoProps> = (props) => {
                 <div id={'channel-info'}
                      className={'flex flex-col justify-center items-center pr-8'}>
                     <Link id={'channel'} href={`/${props.channelId}`}
-                         className={'w-full h-6 text-base font-medium cursor-pointer overflow-hidden'}>
+                          className={'w-full h-6 text-base font-medium cursor-pointer overflow-hidden'}>
                         {props.channel}
                     </Link>
                     <div id={'subscriptions'}
@@ -39,7 +37,7 @@ const TopRow: React.FC<VideoProps> = (props) => {
                     </div>
                 </div>
                 <div id={'subscribe-button'}>
-                    <SubscribeButton />
+                    <SubscribeButton/>
                 </div>
             </div>
             <div id={'actions'}
@@ -49,34 +47,52 @@ const TopRow: React.FC<VideoProps> = (props) => {
                          className={'flex flex-row justify-center items-center'}>
                         <div id={'like-button'}
                              className={'flex flex-row actions-color rounded-l-full justify-center items-center relative'}>
-                            <Image src={likeicon} alt={'like icon'}
-                                   className={'brightness-0 invert mr-3'}/>
+                            <Icons.like
+                                className={'w-6 h-7 brightness-0 invert mr-3'}/>
                             <span className={'mr-4'}>{props.likes}</span>
                         </div>
                         <div id={'dislike-button'}
-                             className={'flex flex-row actions-color rounded-r-full justify-center items-center mr-2 '}>
-                            <Image src={dislikeicon} alt={'dislike icon'}
-                                   className={'brightness-0 invert ml-2 mr-1'}/>
+                             className={'flex flex-row actions-color rounded-r-full justify-center items-center mr-2'}>
+                            <Icons.dislike
+                                className={'w-6 h-7 brightness-0 invert ml-2 mr-1'}/>
                         </div>
                     </div>
                     <div id={'share-button'}
                          className={'flex flex-row actions-color rounded-full justify-center items-center mr-2'}>
-                        <Image src={shareicon} alt={'share icon'}
-                               className={'brightness-0 invert mr-1'}/>
+                        <Icons.share
+                            className={'w-6 h-6 brightness-0 invert mr-1'}/>
                         <span className={'mr-2'}>Udostępnij</span>
                     </div>
-                    <div id={'save-button'}
-                         className={'flex flex-row actions-color rounded-full justify-center items-center mr-3'}>
-                        <Image src={saveicon} alt={'save icon'}
-                               className={'brightness-0 invert mr-1'}/>
-                        <span className={'mr-2'}>Zapisz</span>
+                    {!isSignedIn ? (
+                        <div id={'save-button'}
+                             className={'flex flex-row actions-color rounded-full justify-center items-center mr-3'}>
+                            <Icons.save
+                                className={'w-6 h-6 brightness-0 invert mr-1'}/>
+                            <span className={'mr-2'}>Zapisz</span>
+                        </div>
+                    ) : (
+                        <>
+                            <div id={'download-button'}
+                                 className={'flex flex-row actions-color rounded-full justify-center items-center mr-3'}>
+                                <Icons.download
+                                    className={'w-6 h-6 brightness-0 invert mr-1'}/>
+                                <span className={'mr-2'}>Pobierz</span>
+                            </div>
+                            <div id={'clip-button'}
+                                 className={'flex flex-row actions-color rounded-full justify-center items-center mr-3'}>
+                                <Icons.scissors
+                                    className={'w-6 h-6 brightness-0 invert mr-1'}/>
+                                <span className={'mr-2'}>Klip</span>
+                            </div>
+                        </>
+                    )}
+                    <div id={'spec-button'}
+                         className={'actions-color h-full flex justify-center items-center rounded-full hover:cursor-not-allowed'}>
+                        <Icons.three_dots
+                            className={'w-6 h-7 brightness-0 invert'}/>
                     </div>
-                </div>
-                <div id={'spec-button'}
-                     className={'actions-color h-full flex justify-center items-center rounded-full'}>
-                    <Image src={threehorizontaldots}
-                           alt={'three horizontal dots - settings'}
-                           className={'brightness-0 invert'}/>
+
+
                 </div>
             </div>
         </div>

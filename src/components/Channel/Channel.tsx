@@ -1,13 +1,15 @@
 'use client'
 import React, {FC, useEffect, useState} from "react";
 import rightarrow from '@/../public/icons/right-arrow-light.svg'
-import searchicon from '@/../public/icons/search.svg'
+import {Icons} from "@/components/icons";
 import profileicon from '@/../public/icons/profile.svg'
 import './Channel.css'
 import Image from "next/image";
-import SubscribeButton from "@/components/UI/SubscribeButton";
+import SubscribeButton from "@/components/ui/subscribe-button";
 import useChannels, {ChannelItem} from "@/hooks/firebase/useChannels";
+import useVideos from "@/hooks/firebase/useVideos";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
+import Video from "@/components/Content/Video/Video";
 
 interface ChannelProps {
     channelId: string;
@@ -19,15 +21,15 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
     const [selectedChannel, setSelectedChannel] = useState<ChannelItem | null>(null);
     const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        const foundChannel = channels.find((channel) => channel._id === channelId);
+        console.log(foundChannel)
+        if (foundChannel) {
+            setSelectedChannel(foundChannel);
+        }
 
-        useEffect(() => {
-            const foundChannel = channels.find((channel) => channel._id === channelId);
-            if (foundChannel) {
-                setSelectedChannel(foundChannel);
-            }
-
-            setLoading(false);
-        }, [channels, channelId]);
+        setLoading(false);
+    }, [channels, channelId]);
 
 
     const channelDetails = {
@@ -37,7 +39,7 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
         subscriptions: selectedChannel?.subscriptions ?? '',
         avatar_link: selectedChannel?.avatar_link ?? '',
         videos_amount: selectedChannel?.videos_amount ?? '',
-        videoInfo: selectedChannel?.videosInfo ?? ''
+        videos: selectedChannel?.videos ?? []
     }
 
     return (
@@ -101,18 +103,23 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
                                 <div className={'tab'}>Społeczność</div>
                                 <div id={'channel-search'}
                                      className={'dark-gray-color p-2 active:bg-gray-600 active:bg-opacity-30 rounded-full'}>
-                                    <Image src={searchicon} alt={'Search Icon'}
-                                           className={'w-6 h-6 brightness-0 invert opacity-60 cursor-pointer'}/>
+                                    <Icons.magnifier
+                                        className={'w-6 h-6 brightness-0 invert opacity-60 cursor-pointer'}/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id={'channel-contents'}
-                     className={'w-full flex flex-col justify-start items-start'}>
-                    <div className={'w-full flex justify-center items-start pt-32'}>
-                        <div>GŁÓWNA : WIDEO : SPOŁECZNOŚĆ</div>
-                    </div>
+                     className={'w-full flex flex-wrap justify-start items-start'}>
+                    {channelDetails.videos.map((video) => (
+                        <Video _id={video.id} title={video.title} channel={video.channel}
+                               channelId={channelDetails._id}
+                               thumbnail={video.thumbnail} views={video.views} date={video.date}
+                               duration={video.duration} avatar_link={null}
+                               category={video.category}/>
+                    ))}
+
                 </div>
             </div>
         )

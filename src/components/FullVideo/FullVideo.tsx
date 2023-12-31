@@ -37,19 +37,15 @@ const FullVideo: FC<FullVideoProps> = ({videoId}) => {
 
     return (
         <>
-            <div id={'content'} className={'flex w-full h-full'}>
-                <div className={'flex justify-center items-start w-full h-screen'}>
-                    <div id={'columns'} className={'flex justify-center items-start pt-5'}>
-                        <PrimarySection _id={videoId} title={videoDetails.title} channel={videoDetails.channel}
-                                        subscriptions={videoDetails.subscriptions} likes={videoDetails.likes}
-                                        views={videoDetails.views} date={videoDetails.date}
-                                        thumbnail={videoDetails.thumbnail} url_id={videoDetails.url_id}
-                                        description={videoDetails.description} avatar_link={videoDetails.avatar_link}
-                                        channelId={videoDetails.channelId}/>
+            <div id={'content'} className={'flex w-full h-full justify-center items-start pt-5'}>
+                <PrimarySection _id={videoId} title={videoDetails.title} channel={videoDetails.channel}
+                                subscriptions={videoDetails.subscriptions} likes={videoDetails.likes}
+                                views={videoDetails.views} date={videoDetails.date}
+                                thumbnail={videoDetails.thumbnail} url_id={videoDetails.url_id}
+                                description={videoDetails.description} avatar_link={videoDetails.avatar_link}
+                                channelId={videoDetails.channelId}/>
 
-                        <SecondarySection videos={videos}/>
-                    </div>
-                </div>
+                <SecondarySection videos={videos}/>
             </div>
         </>
     )

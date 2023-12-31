@@ -1,16 +1,14 @@
 import Guide from "@/components/Guide/Guide";
-import You from "@/components/SubPages/You/You";
+import Shorts from "@/components/shorts/shorts";
 
-const HistoryPage = () => {
+export default function ShortsPage(){
 
     return (
         <>
             <div id={'content'} className={'flex flex-row w-full h-full'}>
                 <Guide/>
-
+                <Shorts />
             </div>
         </>
     )
 }
-
-export default HistoryPage

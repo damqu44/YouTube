@@ -1,0 +1,18 @@
+#description.expanded {
+    height: 100px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+}
+
+.collapse-expand {
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.50) 0 -30px 36px -30px inset;
+    position: absolute;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}

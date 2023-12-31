@@ -1,6 +1,5 @@
 import Image from "next/image";
-import likeicon from "@/../public/icons/like.svg";
-import dislikeicon from "@/../public/icons/dislike.svg";
+import {Icons} from "@/components/icons";
 import React from "react";
 
 const CommentsContents = () => {
@@ -31,14 +30,14 @@ const CommentsContents = () => {
                                  className={'flex flex-row justify-start items-center'}>
                                 <div id={'comment-like-button'}
                                      className={'flex justify-center items-center'}>
-                                    <Image src={likeicon} alt={'like icon'}
-                                           className={'brightness-0 invert mr-2 cursor-pointer'}/>
+                                    <Icons.like
+                                        className={'brightness-0 invert mr-2 w-6 h-6 cursor-pointer'}/>
                                     <span className={'mr-3'}>186</span>
                                 </div>
                                 <div id={'comment-dislike-button'}
                                      className={'flex justify-center items-center mr-2'}>
-                                    <Image src={dislikeicon} alt={'dislike icon'}
-                                           className={'brightness-0 invert mr-1 cursor-pointer'}/>
+                                    <Icons.dislike
+                                        className={'brightness-0 invert mr-1 w-6 h-6 cursor-pointer'}/>
                                 </div>
                                 <div id={'reply-button'}
                                      className={'text-sm cursor-not-allowed'}>
