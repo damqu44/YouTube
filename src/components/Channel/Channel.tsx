@@ -7,9 +7,8 @@ import './Channel.css'
 import Image from "next/image";
 import SubscribeButton from "@/components/ui/subscribe-button";
 import useChannels, {ChannelItem} from "@/hooks/firebase/useChannels";
-import useVideos from "@/hooks/firebase/useVideos";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
-import Video from "@/components/Content/Video/Video";
+import Video from "@/components/Content/VideoList/Video/Video";
 
 interface ChannelProps {
     channelId: string;

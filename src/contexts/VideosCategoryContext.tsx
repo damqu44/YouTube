@@ -12,7 +12,7 @@ interface CategoryProviderProps {
 }
 
 export const CategoryProvider: React.FC<CategoryProviderProps> = ({children}) => {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>('');
 
     const contextValue: CategoryContextProps = {
         selectedCategory,

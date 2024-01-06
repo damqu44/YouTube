@@ -1,15 +1,11 @@
 'use client'
 import './Content.css'
-import Videos from "@/components/Content/Video/Videos";
+import VideoList from "@/components/Content/VideoList/VideoList";
 import React from "react";
 import Guide from "@/components/Guide/Guide";
 import Header from "@/components/Content/Header/Header";
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
-import {
-    useClerk,
-} from "@clerk/nextjs";
 const Content: React.FC = () => {
-    const { user } = useClerk();
 
     return (
         <>
@@ -20,7 +16,7 @@ const Content: React.FC = () => {
                         <Header/>
                         <div id={'contents'} className={'h-full w-full flex justify-center items-start'}>
                             <div id={'contents-row'} className={'w-full flex flex-wrap justify-start items-start'}>
-                                <Videos/>
+                                <VideoList/>
                             </div>
                         </div>
                     </CategoryProvider>

@@ -21,7 +21,7 @@ const CompaktVideo: React.FC<CompaktVideoProps> = (props) => {
 
     return (
         <div id={'compact-video'} className={'h-24 w-full flex flex-row justify-center items-start mb-2'}>
-            <Link id={'compact-video-thumbnail'} href={`/watch/${props._id}`}
+            <Link id={'compact-video-thumbnail'} href={`/watch/${props._id}?autoplay=1`}
                   className={'relative h-full w-2/5 mr-2 cursor-pointer'}>
                 <Image src={props.thumbnail} width={256} height={144} alt={'video thumbnail'}
                        className={'rounded-xl h-full'}/>
@@ -30,7 +30,6 @@ const CompaktVideo: React.FC<CompaktVideoProps> = (props) => {
                     {formatDuration(props.duration)}
                 </div>
             </Link>
-
             <div id={'compact-video-details'}
                  className={'w-3/5 h-full flex flex-col justify-start items-start pt-1'}>
                 <Link href={`/watch/${props._id}`} id={'compact-video-title'}

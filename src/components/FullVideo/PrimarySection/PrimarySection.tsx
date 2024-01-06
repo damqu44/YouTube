@@ -25,7 +25,7 @@ const PrimarySection: React.FC<VideoProps> = (props) => {
                 <div id={'player'} className={'h-full'}>
                     <div id={'aspect-content'} className={'h-full'}>
                         <iframe
-                            src={`https://www.youtube.com/embed/${props.url_id}`}
+                            src={`https://www.youtube.com/embed/${props.url_id}?autoplay=1`}
                             title={props.title}
                             className={'w-full rounded-xl'}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -6,11 +6,9 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {useUser} from "@clerk/nextjs";
 
-
 export default function GuideNav() {
     const currentRoute = usePathname();
     const {isSignedIn, user} = useUser()
-
 
     return (
         <div id={'nav'} className={'flex flex-col'}>
@@ -18,8 +16,8 @@ export default function GuideNav() {
                 <Icons.home className={'guide-icon'}/>
                 <span>Główna</span>
             </Link>
-            <Link id={'shorts'} className={currentRoute === '/shorts' ? 'guide-item active' : 'guide-item'}
-                  href={'/shorts'}>
+            <Link id={'shorts'} className={currentRoute!.startsWith('/shorts/') ? 'guide-item active' : 'guide-item'}
+                  href={`/shorts/id`}>
                 <Icons.shorts className={'guide-icon'}/>
                 <span>Shorts</span>
             </Link>
@@ -62,7 +60,8 @@ export default function GuideNav() {
                         <Icons.to_watch className={'guide-icon'}/>
                         <span>Do obejrzenia</span>
                     </Link>
-                    <Link id={'downloads'} className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
+                    <Link id={'downloads'}
+                          className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
                           href={'/feed/downloads'}>
                         <Icons.download className={'guide-icon'}/>
                         <span>Pobrane</span>

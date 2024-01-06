@@ -1,15 +1,13 @@
 'use client'
 import useVideos from "@/hooks/firebase/useVideos";
-import Video from "@/components/Content/Video/Video";
-import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
+import Video from "@/components/Content/VideoList/Video/Video";
 import {useCategory} from "@/contexts/VideosCategoryContext";
-import useSortBySearchVideos from "@/hooks/sorts/useSortBySearchVideos";
+import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
 
-const Videos = () => {
+const VideoList = () => {
     const {videos, isLoading, error} = useVideos()
     const {selectedCategory} = useCategory()
-
-    const {sortedVideos } = useSortByCategoryVideos(videos, selectedCategory)
+    const {sortedVideos } = useSortByCategoryVideos(videos, selectedCategory, 'category')
 
     return (
         <>
@@ -26,10 +24,11 @@ const Videos = () => {
                     duration={video.duration}
                     avatar_link={video.channelInfo.avatar_link}
                     category={video.category}
+                    url_id={video.url_id}
                 />
             ))}
         </>
     )
 }
 
-export default Videos
+export default VideoList

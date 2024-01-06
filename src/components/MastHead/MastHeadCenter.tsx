@@ -1,8 +1,6 @@
 'use client'
-import Image from "next/image";
 import './MastHead.css'
 import {Icons} from "@/components/icons";
-import microphoneicron from '@/../public/icons/microphone.svg'
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 
@@ -50,7 +48,7 @@ const MastHeadCenter: React.FC = () => {
             </div>
             <button id={'voice-search-button'}
                     className={'flex justify-center items-center rounded-full w-10 h-10 ml-4 bg-primary hover:bg-lightgray'}>
-                <Image src={microphoneicron} alt={'microphone icon'} className={'h-6 w-6 brightness-0 invert'}/>
+                <Icons.microphone className={'h-6 w-6 brightness-0 invert'}/>
             </button>
         </div>
     )

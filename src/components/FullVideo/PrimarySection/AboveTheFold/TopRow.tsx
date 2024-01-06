@@ -16,7 +16,7 @@ type VideoProps = {
 };
 const TopRow: React.FC<VideoProps> = (props) => {
     const {formatSubscribers} = useNumbersFormatting();
-    const {isSignedIn, user} = useUser()
+    const {isSignedIn} = useUser()
 
     return (
         <div id={'top-row'} className={'flex flex-row pt-4'}>

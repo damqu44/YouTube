@@ -13,7 +13,7 @@ export interface VideoItem {
     url_id: string;
     duration: string;
     description: string;
-    category: [];
+    category: string[];
     channelInfo: ChannelItem;
 }
 

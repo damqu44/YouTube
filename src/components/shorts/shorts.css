@@ -1,0 +1,25 @@
+#short {
+    height: calc(100vh - 56px);
+}
+
+iframe {
+    min-width: 315px;
+    min-height: 560px;
+}
+
+#short-actions {
+    right: 0;
+    padding: 12px 12px 0 12px;
+    transform: translateX(100%);
+}
+
+#short-actions div {
+    padding-top: 16px;
+    width: 48px;
+    height: 72px;
+}
+
+#short-actions div svg {
+    width: 48px;
+    height: 48px;
+}
