@@ -28,11 +28,11 @@ interface ChannelItem {
 
 const useVideos = () => {
     const [videos, setVideos] = useState<VideoItem[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [isVideosLoading, setIsVideosLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null | Error>(null);
 
     const fetchVideoData = useCallback(async () => {
-        setIsLoading(true);
+        setIsVideosLoading(true);
         setError(null);
 
         try {
@@ -53,14 +53,14 @@ const useVideos = () => {
             setError((error as Error).message);
         }
 
-        setIsLoading(false);
+        setIsVideosLoading(false);
     }, []);
 
     useEffect(() => {
         fetchVideoData();
     }, [fetchVideoData]);
 
-    return { videos, isLoading, error };
+    return { videos, isVideosLoading, error };
 };
 
 export default useVideos;

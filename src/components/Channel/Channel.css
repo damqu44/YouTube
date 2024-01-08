@@ -45,3 +45,7 @@
     font-weight: bolder;
     border-bottom: 2px solid white;
 }
+
+#channel-video {
+    width: calc(25% - 17px);
+}

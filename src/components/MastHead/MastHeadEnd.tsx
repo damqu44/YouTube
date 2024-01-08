@@ -60,10 +60,13 @@ export default function MastHeadEnd() {
                             <button
                                 className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
                                 <Icons.create className={'w-6 h-6 invert '}/></button>
-                            <button className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
+                            <button
+                                className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
                                 <Icons.notifications className={'w-6 h-6 invert'}/></button>
-                            <button className={'rounded-full border border-transparent focus:border focus:border-myblue'}><Image src={user?.imageUrl} alt={'profile image'} width={32} height={32}
-                                        className={'rounded-full cursor-pointer'} onClick={toggleMenu}/></button>
+                            <button
+                                className={'rounded-full border border-transparent focus:border focus:border-myblue'}>
+                                <Image src={user?.imageUrl} alt={'profile image'} width={32} height={32}
+                                       className={'rounded-full cursor-pointer'} onClick={toggleMenu}/></button>
                             {isMenuOpen && (
                                 <div id={'profile-menu'} ref={menuRef}
                                      className={'flex flex-col justify-start items-start w-80 rounded-xl absolute bg-gray-600 pb-3 top-8 right-0 z-50'}>
@@ -75,7 +78,9 @@ export default function MastHeadEnd() {
                                         </div>
                                         <div>
                                             <div className={'text-base'}>{user?.firstName}</div>
-                                            <div className={'text-sm pt-1 cursor-pointer text-myblue'}>Wyświetl swój kanał
+                                            <div className={'text-base'}>{user?.emailAddresses[0].emailAddress}</div>
+                                            <div className={'text-sm pt-1 cursor-pointer text-myblue'}>Wyświetl swój
+                                                kanał
                                             </div>
                                         </div>
                                     </div>

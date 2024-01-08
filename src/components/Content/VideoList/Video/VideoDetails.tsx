@@ -29,16 +29,16 @@ const VideoDetails: React.FC<VideoProps> = ({avatar_link,channelId,_id,title,cha
                 <div id={'metadata'} className={'w-56 flex flex-col justify-start items-start text-sm'}>
                     <Link id={'video-title-link'} href={`/watch/${_id}?autoplay=1`}
                           className={'text-base font-medium cursor-pointer line-clamp-3'}>{title}</Link>
-                    <Link id={'channel-name'} className={'w-full video-color-channel truncate'}
+                    <Link id={'channel-name'} className={'w-full text-secondary hover:text-white truncate'}
                           href={`/${channelId}`}>{channel}</Link>
                     <Link href={`/watch/${_id}?autoplay=1`} id={'by-line-container'}
                           className={'text-xs flex'}>
                         <div id={'video-views'}
-                             className={'video-color-views'}>{formatViews(views)}
+                             className={'text-secondary'}>{formatViews(views)}
                         </div>
                         <div className={'font-bold px-1'}>{'\u00B7'}</div>
                         <div id={'video-time-added'}
-                             className={'video-color-views'}>{formatTimeElapsed(date)}</div>
+                             className={'text-secondary'}>{formatTimeElapsed(date)}</div>
                     </Link>
                 </div>
             </div>

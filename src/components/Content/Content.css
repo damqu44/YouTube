@@ -1,11 +1,37 @@
 #contents-row, #chips-wrapper {
-    max-width: 1725px;
+    max-width: 2150px;
 }
 
-#video {
-    flex: 1 0 calc(20%);
-    max-width: 320px;
+@media only screen and (max-width: 1074px) {
+    #video {
+        width: calc(50% - 13px)
+    }
 }
+
+@media only screen and (min-width: 1075px) {
+    #video {
+        width: calc(33% - 13px)
+    }
+}
+
+@media only screen and (min-width: 1580px) {
+    #video {
+        width: calc(25% - 13px)
+    }
+}
+
+@media only screen and (min-width: 1900px)  {
+    #video {
+        width: calc(20% - 13px);
+    }
+}
+
+@media only screen and (min-width: 2225px)  {
+    #video {
+        width: calc(16.5% - 10px);
+    }
+}
+
 
 
 /*.video-color-channel {*/

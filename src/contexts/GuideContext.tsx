@@ -3,6 +3,9 @@ import React, {createContext, ReactNode, useContext, useState} from "react";
 
 interface GuideContextProps {
     isGuideMiniOpen: boolean;
+    isGuideVisible: boolean;
+    setIsGuideMiniOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsGuideVisible: React.Dispatch<React.SetStateAction<boolean>>;
     toggleGuideMini: () => void;
 }
 
@@ -14,13 +17,22 @@ const GuideContext = createContext<GuideContextProps | undefined>(undefined)
 
 export const GuideProvider: React.FC<GuideProviderProps> = ({children}) => {
     const [isGuideMiniOpen, setIsGuideMiniOpen] = useState(false)
+    const [isGuideVisible, setIsGuideVisible] = useState(true)
 
     const toggleGuideMini = () => {
-        setIsGuideMiniOpen((prev) => !prev)
+        if (!isGuideVisible){
+            setIsGuideVisible(true)
+            setIsGuideMiniOpen((prev) => !prev)
+        } else {
+            setIsGuideMiniOpen((prev) => !prev)
+        }
     }
 
     const contextValue = {
         isGuideMiniOpen,
+        isGuideVisible,
+        setIsGuideMiniOpen,
+        setIsGuideVisible,
         toggleGuideMini
     }
 

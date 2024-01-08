@@ -9,31 +9,56 @@ import {useGuideContext} from "@/contexts/GuideContext";
 import GuideSubscriptions from "@/components/Guide/GuideSubscriptions";
 import {useUser} from "@clerk/nextjs";
 import {ShortsProvider} from "@/contexts/shortsContext";
+import {useEffect} from "react";
 
 export default function Guide() {
-    const {isGuideMiniOpen} = useGuideContext()
+    const {isGuideMiniOpen, setIsGuideMiniOpen} = useGuideContext()
+    const {isGuideVisible, setIsGuideVisible} = useGuideContext()
     const {isSignedIn} = useUser()
+    const handleResize = () => {
+        if (window.innerWidth <= 250) {
+            setIsGuideVisible(false)
+        } else if (window.innerWidth <= 1320) {
+            setIsGuideMiniOpen(true)
+        } else {
+            setIsGuideMiniOpen(false)
+            setIsGuideVisible(true)
+        }
+    };
+
+    useEffect(() => {
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
-
-        <div id={'guide'}>
-            <ShortsProvider>
-                {!isGuideMiniOpen ? (
-                    <div id={'guide-sections'} className={'flex flex-col w-64 p-4 sticky top-14 pb-14'}>
-                        <GuideNav/>
-                        {isSignedIn ? <GuideSubscriptions/> : null}
-                        <GuideExplore/>
-                        <GuideFeatures/>
-                        <GuideMenu/>
-                        <GuideFooter/>
-                    </div>
-                ) : (
-                    <div id={'guide-sections'} className={'flex sticky top-14'}>
-                        <GuideMini/>
-                    </div>
-                )}
-            </ShortsProvider>
-        </div>
-
+        <>
+            {isGuideVisible ? (
+                <div id={'guide'}>
+                    <ShortsProvider>
+                        {!isGuideMiniOpen ? (
+                            <div id={'guide-sections'} className={'flex flex-col w-64 p-4 sticky top-14 pb-14'}>
+                                <GuideNav/>
+                                {isSignedIn ? <GuideSubscriptions/> : null}
+                                <GuideExplore/>
+                                <GuideFeatures/>
+                                <GuideMenu/>
+                                <GuideFooter/>
+                            </div>
+                        ) : (
+                            <div id={'guide-sections'} className={'flex sticky top-14'}>
+                                <GuideMini/>
+                            </div>
+                        )}
+                    </ShortsProvider>
+                </div>
+            ) : (
+                <></>
+            )}
+        </>
     )
 }

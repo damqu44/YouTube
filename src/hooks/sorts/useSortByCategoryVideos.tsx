@@ -4,7 +4,7 @@ import shuffleArray from "@/lib/data/shuffleArray";
 import {VideoItem} from "@/lib/types";
 
 const useSortByCategoryVideos = (videos: VideoItem[] = [], selectedCategory: string | null, sortBy: string | null) => {
-    const [sortedVideos, setSortedVideos] = useState<VideoItem[]>([]);
+    const [sortedVideos, setSortedVideos] = useState<VideoItem[] | null> (null);
 
     useEffect(() => {
         let videosToSort = videos;

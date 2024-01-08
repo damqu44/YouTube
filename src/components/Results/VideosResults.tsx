@@ -3,8 +3,12 @@ import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
 import useVideos from "@/hooks/firebase/useVideos";
 import useSortBySearchVideos from "@/hooks/sorts/useSortBySearchVideos";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import VideoResult from "@/components/Results/VideoResult";
+import Loading from "@/components/ui/loading/loading";
+import {Icons} from "@/components/icons";
+import Error from "@/components/ui/error/error";
+import NotFound from "@/components/ui/error/notFound";
 
 interface VideoResultsProps {
     resultsId: string;
@@ -12,21 +16,33 @@ interface VideoResultsProps {
 
 const VideosResults: React.FC<VideoResultsProps> = ({resultsId}) => {
     const {selectedCategory} = useCategory()
-    const {videos} = useVideos()
+    const {videos, error} = useVideos()
     const {searchedSortedVideos, handleSearch} = useSortBySearchVideos();
     const {sortedVideos} = useSortByCategoryVideos(searchedSortedVideos, selectedCategory, 'category')
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleSubmit = () => {
         handleSearch(resultsId, videos)
+        setIsLoading(false)
     }
 
     useEffect(() => {
         handleSubmit()
     }, [resultsId, videos])
 
+    if (isLoading || sortedVideos === null) {
+        return <Loading/>
+    }
+    if (error) {
+        return <Error/>
+    }
+    if (sortedVideos?.length === 0) {
+        return <NotFound/>
+    }
+
     return (
         <>
-            {sortedVideos.map((video) => (
+            {sortedVideos?.map((video) => (
                 <VideoResult
                     key={video.id}
                     _id={video.id}
