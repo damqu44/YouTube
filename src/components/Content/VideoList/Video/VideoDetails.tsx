@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import '../../Content.css'
 import formatTimeElapsed from "@/hooks/formats/formatTimeElapsed";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import menuicon from "@/../public/icons/menu.svg";
@@ -44,7 +45,7 @@ const VideoDetails: React.FC<VideoProps> = ({avatar_link,channelId,_id,title,cha
             </div>
             <div className={'w-8'}>
                 <Image src={menuicon} alt={'video settings'}
-                       className={'pb-6 brightness-0 invert cursor-not-allowed'}></Image>
+                       className={'pb-4 brightness-0 invert cursor-not-allowed'}></Image>
             </div>
         </div>
     )

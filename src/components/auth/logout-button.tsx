@@ -1,26 +1,32 @@
 "use client"
 import * as React from "react"
 import {useRouter} from "next/navigation"
-import {SignOutButton} from "@clerk/nextjs"
+import {UserAuth} from "@/contexts/AuthContext";
+import {Icons} from "@/components/icons";
 
-interface LogoutButtonProps {
-    children: React.ReactNode;
-}
-
-export function LogoutButton({children}: LogoutButtonProps) {
+export function LogoutButton() {
     const router = useRouter()
-    const [isPending, startTransition] = React.useTransition()
+    // @ts-ignore
+    const {user, logOut} = UserAuth()
+    console.log(user)
+
+    const handleLogout = async () => {
+        try {
+            if (logOut) {
+                await logOut()
+                router.push('/')
+            } else {
+                console.error('logOut is not defined')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
-        <SignOutButton
-            signOutCallback={() =>
-                startTransition(() => {
-                    router.push(`${window.location.origin}/?redirect=false`)
-                })
-            }
-        >
-            {children}
-        </SignOutButton>
-
+        <div onClick={handleLogout} className={'flex w-full h-full justify-start items-center'}>
+            <Icons.signout className={'menu-icon'}/>
+            <span>Wyloguj się</span>
+        </div>
     )
 }

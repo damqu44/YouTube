@@ -1,8 +1,8 @@
-import React, {useRef, useState} from "react";
+import React from "react";
+import '../../Content.css'
 import VideoThumbnail from "@/components/Content/VideoList/Video/VideoThumbnail";
 import VideoDetails from "@/components/Content/VideoList/Video/VideoDetails";
-import Link from "next/link";
-import ReactPlayer from "react-player/youtube";
+import ReactPlayerContainer from "@/components/reactPlayer/ReactPlayerContainer";
 
 type VideoProps = {
     _id: string;
@@ -19,54 +19,15 @@ type VideoProps = {
 };
 
 const Video: React.FC<VideoProps> = (props) => {
-    const ReactPlayerContent = () => (
-            <ReactPlayer
-                playing={true}
-                controls={false}
-                url={`https://www.youtube.com/embed/${props.url_id}`}
-                width="100%"
-                height="176px"
-                volume={0}
-                muted={true}
-            >
-            </ReactPlayer>
-    );
-
-
-    const ReactPlayerContainer: React.FC<{
-        triggerInset?: string;
-        renderReactPlayer: () => React.ReactNode;
-        children: React.ReactNode;
-    }> = ({renderReactPlayer, children}) => {
-        const [showReactPlayer, setShowReactPlayer] = useState(false)
-        const containerRef = useRef<HTMLDivElement | null>(null)
-
-        return (
-            <div ref={containerRef} onMouseLeave={() => setShowReactPlayer(false)}
-                 className={'relative flex flex-col w-full h-full overflow-hidden cursor-pointer'}>
-                <div onMouseEnter={() => setShowReactPlayer(true)}
-                      className={'flex flex-col w-full h-full'}>
-                    {children}
-                </div>
-
-                {showReactPlayer && (
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: '0',
-                            left: '0',
-                            width: '100%',
-                            maxHeight: '176px',
-                            overflow: 'hidden'
-                        }}>
-                        {renderReactPlayer()}
-                    </div>)}
-            </div>
-        );
-    };
 
     return (
-        <ReactPlayerContainer renderReactPlayer={ReactPlayerContent}>
+        <ReactPlayerContainer props={{
+            _id: props._id,
+            url_id: props.url_id,
+            flexDirection: 'column',
+            height: '176px',
+            width: '100%'
+        }}>
             <VideoThumbnail thumbnail={props.thumbnail} duration={props.duration} _id={props.duration}
                             url_id={props.url_id}/>
             <VideoDetails avatar_link={props.avatar_link} channelId={props.channelId} _id={props._id}

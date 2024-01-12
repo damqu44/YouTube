@@ -9,20 +9,29 @@ import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import Video from "@/components/Content/VideoList/Video/Video";
 import './spinner.css'
 import Loading from "@/components/ui/loading/loading";
+import {UserAuth} from "@/contexts/AuthContext";
+import {isAuthenticated} from "@/utils/Auth";
+import {arrayUnion, doc, setDoc, updateDoc} from "@firebase/firestore";
+import {db} from "@/lib/firebase/firebase";
+import {redirect} from "next/navigation";
+import useSubscribedChannels from "@/hooks/firebase/useSubscribedChannels";
 
 interface ChannelProps {
     channelId: string;
 }
 
 const Channel: FC<ChannelProps> = ({channelId}) => {
+    const isAuth = isAuthenticated()
     const {formatSubscribers, formatMovies} = useNumbersFormatting();
     const {channels} = useChannels()
+    const {subscribedChannels} = useSubscribedChannels()
     const [selectedChannel, setSelectedChannel] = useState<ChannelItem | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [sub, setSub] = useState(false)
+    const {user} = UserAuth()
 
     useEffect(() => {
         const foundChannel = channels.find((channel) => channel._id === channelId);
-        console.log(foundChannel)
         if (foundChannel) {
             setSelectedChannel(foundChannel);
         }
@@ -38,6 +47,36 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
         avatar_link: selectedChannel?.avatar_link ?? '',
         videos_amount: selectedChannel?.videos_amount ?? '',
         videos: selectedChannel?.videos ?? []
+    }
+
+    const userEmail = user?.email;
+    const ChannelID = userEmail ? doc(db, 'users', userEmail) : null
+
+    const subChannel = async () => {
+        console.log(ChannelID)
+        if (isAuth && userEmail && ChannelID) {
+            setSub(true)
+            await updateDoc(ChannelID, {
+                subscriptions: arrayUnion({
+                    id: channelDetails._id,
+                }),
+            })
+        } else {
+            alert('Please log in to sub a channel!')
+        }
+    }
+
+    const channelRef = doc(db, 'users', `${user?.email}`)
+    const unSubChannel = async (passedID: string) => {
+        try {
+            const result = subscribedChannels.filter((channel) => channel._id !== passedID)
+            const resultId = result.map((channel) => ({ id: channel._id }))
+            await updateDoc(channelRef, {
+                subscriptions: resultId,
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     if (isLoading) {
@@ -97,6 +136,8 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
                             </div>
                             <div id={'channel-buttons'} className={'pt-3'}>
                                 <div id={'channel-subscribe-button'}>
+                                    <button onClick={subChannel}>SUBSKRYBUJ</button>
+                                    <button onClick={() => unSubChannel(channelDetails._id)}>ODSUBSKRYBUJ</button>
                                     <SubscribeButton/>
                                 </div>
                             </div>

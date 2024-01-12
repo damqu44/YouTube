@@ -4,13 +4,16 @@ import useVideos from "@/hooks/firebase/useVideos";
 import useSortShorts from "@/hooks/sorts/useSortShorts";
 import {usePathname, useRouter} from "next/navigation";
 import Short from "@/components/shorts/short";
+import Loading from "@/components/ui/loading/loading";
+import Error from "@/components/ui/error/error";
+import NotFound from "@/components/ui/error/notFound";
 
 type VideoProps = {
     videoId: string;
 }
 
 const Shorts: React.FC<VideoProps> = React.memo((props) => {
-    const {videos, isLoading, error} = useVideos()
+    const {videos, isVideosLoading, error} = useVideos()
     const {sortedVideos} = useSortShorts(videos, 'duration');
     const currentRoute = usePathname();
     const router = useRouter()
@@ -19,14 +22,14 @@ const Shorts: React.FC<VideoProps> = React.memo((props) => {
 
     console.log(sortedVideos)
     useEffect(() => {
-        if (!isLoading && !error && sortedVideos.length > 0 && currentRoute === '/shorts/id') {
+        if (!isVideosLoading && !error && sortedVideos.length > 0 && currentRoute === '/shorts/id') {
             const shortVideo = sortedVideos[0];
             if (shortVideo) {
                 router.push(`/shorts/${shortVideo.id}`);
                 setCurrentShortId(shortVideo.id)
             }
         }
-    }, [isLoading, error, sortedVideos, router]);
+    }, [isVideosLoading, error, sortedVideos, router]);
 
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
@@ -55,12 +58,14 @@ const Shorts: React.FC<VideoProps> = React.memo((props) => {
         };
     }, [currentShortId, sortedVideos]);
 
-    if (isLoading) {
-        return <div className={'w-full h-screen flex justify-center items-center'}>Loading...</div>;
+    if (isVideosLoading || sortedVideos === null) {
+        return <Loading/>
     }
-
     if (error) {
-        return <div>Error: {error}</div>;
+        return <Error/>
+    }
+    if (sortedVideos?.length === 0) {
+        return <NotFound/>
     }
 
     return (

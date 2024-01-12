@@ -4,7 +4,6 @@ import youtubelogo from '@/../public/icons/yttextblack.svg'
 import Image from "next/image";
 import Link from "next/link";
 import {FC, useState} from "react";
-import {type OAuthStrategy} from '@clerk/types'
 
 interface pageProps {
     email: string
@@ -13,7 +12,6 @@ interface pageProps {
 const SignInPass: FC<pageProps> = ({email}) => {
     const [isChecked, setChecked] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false)
-    const [isLoading, setIsLoading] = useState<OAuthStrategy | null>(null)
     const handleCheckboxChange = () => {
         setChecked(!isChecked);
         setPasswordVisible(!isChecked)

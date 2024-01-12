@@ -4,17 +4,16 @@ import Image from "next/image";
 import LoginButton from '@/components/auth/login-button'
 import menuicon from '@/../public/icons/menu.svg'
 import {LogoutButton} from "@/components/auth/logout-button";
-import {
-    useUser
-} from "@clerk/nextjs";
 import {Icons} from "@/components/icons";
 import React, {useEffect, useRef, useState} from 'react';
+import {UserAuth} from "@/contexts/AuthContext";
 
 export default function MastHeadEnd() {
-    const {isSignedIn, user} = useUser()
+    // @ts-ignore
+    const {user} = UserAuth()
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
-
+    console.log(user, 'email')
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -46,13 +45,12 @@ export default function MastHeadEnd() {
 
         <div id={'end'} className={'flex justify-center items-center mr-8'}>
             {
-                !isSignedIn ? (
+                !user?.email ? (
                     <div id={'buttons'} className={'flex justify-center items-center'}>
                         <button id={'menu-button'} className={'w-10 h-10 flex items-center'}>
                             <Image src={menuicon} alt={'menu icon'} className={'w-8 h-8 brightness-0 invert mt-2'}/>
                         </button>
                         <LoginButton/>
-
                     </div>
                 ) : (
                     <>
@@ -64,21 +62,32 @@ export default function MastHeadEnd() {
                                 className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
                                 <Icons.notifications className={'w-6 h-6 invert'}/></button>
                             <button
+                                onClick={toggleMenu}
                                 className={'rounded-full border border-transparent focus:border focus:border-myblue'}>
-                                <Image src={user?.imageUrl} alt={'profile image'} width={32} height={32}
-                                       className={'rounded-full cursor-pointer'} onClick={toggleMenu}/></button>
+                                {user?.photoURL ? (
+                                    <Image src={user?.photoURL} alt={'profile image'} width={32} height={32}
+                                           className={'rounded-full cursor-pointer'}/>
+                                ) : (
+                                    <Icons.profile className={'rounded-full h-8 w-8'}/>
+                                )}
+                            </button>
                             {isMenuOpen && (
                                 <div id={'profile-menu'} ref={menuRef}
                                      className={'flex flex-col justify-start items-start w-80 rounded-xl absolute bg-gray-600 pb-3 top-8 right-0 z-50'}>
                                     <div id={'profile-header'}
                                          className={'w-full flex flex-row p-4'}>
                                         <div className={'mr-2'}>
-                                            <Image src={user?.imageUrl} alt={'profile image'} width={40} height={40}
-                                                   className={'rounded-full cursor-pointer mx-2'}/>
+                                            {user?.photoURL ? (
+
+                                                <Image src={user?.photoURL} alt={'profile image'} width={40} height={40}
+                                                       className={'rounded-full cursor-pointer mx-2'}/>
+                                            ) : (
+                                                <Icons.profile className={'rounded-full h-8 w-8'}/>
+                                            )}
                                         </div>
                                         <div>
-                                            <div className={'text-base'}>{user?.firstName}</div>
-                                            <div className={'text-base'}>{user?.emailAddresses[0].emailAddress}</div>
+                                            <div className={'text-base'}>{user?.displayName}</div>
+                                            <div className={'text-base'}>{user?.email}</div>
                                             <div className={'text-sm pt-1 cursor-pointer text-myblue'}>Wyświetl swój
                                                 kanał
                                             </div>
@@ -96,12 +105,7 @@ export default function MastHeadEnd() {
                                                 <span>Przełącz konto</span>
                                             </div>
                                             <div className={'item'}>
-                                                <LogoutButton>
-                                                    <div className={'flex w-full h-full justify-start items-center'}>
-                                                        <Icons.signout className={'menu-icon'}/>
-                                                        <span>Wyloguj się</span>
-                                                    </div>
-                                                </LogoutButton>
+                                                <LogoutButton/>
                                             </div>
                                         </div>
                                         <div className={'profile-section'}>

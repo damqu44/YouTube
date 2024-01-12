@@ -17,9 +17,10 @@ const VideoThumbnail: React.FC<VideoProps> = (props) => {
                     <Image src={props.thumbnail}
                            fill={true}
                            className={'rounded-xl'}
+                           sizes="(max-width: 500px) 100vw, (max-width: 60px) 50vw, 600px"
                            alt={'an image presenting the theme of the video'}></Image>
                     <div id={'video-length'}
-                         className={'absolute text-sm right-5 bottom-2 bg-zinc-950 px-1 bg-opacity-80 rounded-md'}>
+                         className={'absolute text-sm right-1 bottom-1 bg-zinc-950 px-1 bg-opacity-80 rounded-md'}>
                         {formatDuration(props.duration)}
                     </div>
         </Link>

@@ -4,7 +4,7 @@ import React from "react";
 import SubscribeButton from "@/components/ui/subscribe-button";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import Link from "next/link";
-import {useUser} from "@clerk/nextjs";
+import {UserAuth} from "@/contexts/AuthContext";
 
 type VideoProps = {
     _id: string;
@@ -16,7 +16,7 @@ type VideoProps = {
 };
 const TopRow: React.FC<VideoProps> = (props) => {
     const {formatSubscribers} = useNumbersFormatting();
-    const {isSignedIn} = useUser()
+    const {user} = UserAuth()
 
     return (
         <div id={'top-row'} className={'flex flex-row pt-4'}>
@@ -63,7 +63,7 @@ const TopRow: React.FC<VideoProps> = (props) => {
                             className={'w-6 h-6 brightness-0 invert mr-1'}/>
                         <span className={'mr-2'}>Udostępnij</span>
                     </div>
-                    {!isSignedIn ? (
+                    {!user?.email ? (
                         <div id={'save-button'}
                              className={'flex flex-row actions-color rounded-full justify-center items-center mr-3'}>
                             <Icons.save

@@ -7,14 +7,14 @@ import GuideFooter from "@/components/Guide/GuideFooter";
 import GuideMini from "@/components/Guide/GuideMini";
 import {useGuideContext} from "@/contexts/GuideContext";
 import GuideSubscriptions from "@/components/Guide/GuideSubscriptions";
-import {useUser} from "@clerk/nextjs";
 import {ShortsProvider} from "@/contexts/shortsContext";
 import {useEffect} from "react";
+import {UserAuth} from "@/contexts/AuthContext";
 
 export default function Guide() {
     const {isGuideMiniOpen, setIsGuideMiniOpen} = useGuideContext()
     const {isGuideVisible, setIsGuideVisible} = useGuideContext()
-    const {isSignedIn} = useUser()
+    const {user} = UserAuth()
     const handleResize = () => {
         if (window.innerWidth <= 250) {
             setIsGuideVisible(false)
@@ -43,7 +43,7 @@ export default function Guide() {
                         {!isGuideMiniOpen ? (
                             <div id={'guide-sections'} className={'flex flex-col w-64 p-4 sticky top-14 pb-14'}>
                                 <GuideNav/>
-                                {isSignedIn ? <GuideSubscriptions/> : null}
+                                {user?.email ? <GuideSubscriptions/> : null}
                                 <GuideExplore/>
                                 <GuideFeatures/>
                                 <GuideMenu/>

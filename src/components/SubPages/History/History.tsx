@@ -3,8 +3,11 @@ import React from "react";
 import {Icons} from "@/components/icons";
 import LoginButton from '@/components/auth/login-button'
 import Link from "next/link";
+import useChannelss from "@/hooks/firebase/useChannelss";
 
 const History = () => {
+    const {channels} = useChannelss()
+    console.log(channels)
 
     return (
         <>

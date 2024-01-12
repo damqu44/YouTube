@@ -9,7 +9,7 @@ interface FullVideoProps {
 }
 
 const FullVideo: FC<FullVideoProps> = ({videoId}) => {
-    const {videos, isLoading, error} = useVideos()
+    const {videos, isVideosLoading, error} = useVideos()
 
     const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 

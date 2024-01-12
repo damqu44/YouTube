@@ -1,13 +1,13 @@
 import './Guide.css'
 import {Icons} from "@/components/icons";
-import {useUser} from "@clerk/nextjs";
+import {UserAuth} from "@/contexts/AuthContext";
 
 export default function GuideFeatures() {
-    const {isSignedIn} = useUser()
+    const {user} = UserAuth()
 
     return (
         <>
-            {!isSignedIn ? (
+            {!user?.email ? (
                 <>
                     <div className={'line'}/>
 

@@ -26,7 +26,7 @@ const VideoList = () => {
     return (
         <>
             {sortedVideos.map((video, index) => (
-                <div key={index} id={'video'} className={'flex flex-col mt-3 mb-5 mr-3'}>
+                <div key={index} id={'video'} className={'mt-3 mb-5 mr-3'}>
                     <Video
                         key={video.id}
                         _id={video.id}

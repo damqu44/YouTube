@@ -1,6 +1,6 @@
 'use client'
 import './Results.css'
-import VideosResults from "@/components/Results/VideosResults";
+import VideosResults from "@/components/Results/VideoResults/VideosResults";
 import Header from '@/components/Content/Header/Header'
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
 import React from "react";

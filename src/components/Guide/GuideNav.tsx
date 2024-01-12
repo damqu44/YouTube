@@ -4,11 +4,11 @@ import LoginButton from '@/components/auth/login-button'
 import './Guide.css'
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {useUser} from "@clerk/nextjs";
+import {UserAuth} from "@/contexts/AuthContext";
 
 export default function GuideNav() {
     const currentRoute = usePathname();
-    const {isSignedIn, user} = useUser()
+    const {user} = UserAuth()
 
     return (
         <div id={'nav'} className={'flex flex-col'}>
@@ -27,7 +27,7 @@ export default function GuideNav() {
                 <Icons.subs className={'guide-icon'}/>
                 <span>Subskrypcje</span>
             </Link>
-            {isSignedIn ? (
+            {user?.email ? (
                 <>
                     <Link id={'youtube-music'} className={'guide-item'} href={'https://music.youtube.com/'}>
                         <Icons.youtube_music_white className={'guide-icon'}/>
@@ -39,8 +39,8 @@ export default function GuideNav() {
                         <span className={'mr-2 font-bold text-base'}>Ty</span>
                         <Icons.right_arrow_light className={'w-5 h-5 brightness-100 invert'}/>
                     </Link>
-                    <Link className={currentRoute === `/${user?.firstName}` ? 'guide-item active' : 'guide-item'}
-                          href={`/${user?.firstName}`}>
+                    <Link className={currentRoute === `/${user?.email}` ? 'guide-item active' : 'guide-item'}
+                          href={`/${user?.email}`}>
                         <Icons.your_profile className={'guide-icon'}/>
                         <span>Twój kanał</span>
                     </Link>
