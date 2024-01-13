@@ -8,14 +8,15 @@ import GuideMini from "@/components/Guide/GuideMini";
 import {useGuideContext} from "@/contexts/GuideContext";
 import GuideSubscriptions from "@/components/Guide/GuideSubscriptions";
 import {ShortsProvider} from "@/contexts/shortsContext";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {UserAuth} from "@/contexts/AuthContext";
 
 export default function Guide() {
     const {isGuideMiniOpen, setIsGuideMiniOpen} = useGuideContext()
     const {isGuideVisible, setIsGuideVisible} = useGuideContext()
     const {user} = UserAuth()
-    const handleResize = () => {
+
+    const handleResize = React.useCallback(() => {
         if (window.innerWidth <= 250) {
             setIsGuideVisible(false)
         } else if (window.innerWidth <= 1320) {
@@ -24,7 +25,7 @@ export default function Guide() {
             setIsGuideMiniOpen(false)
             setIsGuideVisible(true)
         }
-    };
+    }, [setIsGuideMiniOpen, setIsGuideVisible])
 
     useEffect(() => {
         handleResize();

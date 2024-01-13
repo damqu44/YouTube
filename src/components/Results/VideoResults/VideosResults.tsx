@@ -3,7 +3,7 @@ import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
 import useVideos from "@/hooks/firebase/useVideos";
 import useSortBySearchVideos from "@/hooks/sorts/useSortBySearchVideos";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import VideoResult from "@/components/Results/VideoResults/VideoResult/VideoResult";
 import Loading from "@/components/ui/loading/loading";
 import Error from "@/components/ui/error/error";
@@ -20,10 +20,10 @@ const VideosResults: React.FC<VideoResultsProps> = ({resultsId}) => {
     const {sortedVideos} = useSortByCategoryVideos(searchedSortedVideos, selectedCategory, 'category')
     const [isLoading, setIsLoading] = useState(true);
 
-    const handleSubmit = () => {
+    const handleSubmit = React.useCallback(() => {
         handleSearch(resultsId, videos)
         setIsLoading(false)
-    }
+    }, [resultsId, videos, handleSearch])
 
     useEffect(() => {
         handleSubmit()
