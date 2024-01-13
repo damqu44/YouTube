@@ -18,7 +18,7 @@ const useSortByCategoryVideos = (videos: VideoItem[] = [], selectedCategory: str
 
         const shuffledVideos = shuffleArray(videosToSort);
         setSortedVideos(shuffledVideos);
-    }, [videos, selectedCategory]);
+    }, [videos, selectedCategory, sortBy]);
     return {sortedVideos};
 };
 

@@ -35,7 +35,7 @@ const useChannels = () => {
         };
 
         fetchData();
-    }, []);
+    }, [db]);
 
     return {channels, isChannelsLoading, error};
 }

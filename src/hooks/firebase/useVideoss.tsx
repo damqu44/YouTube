@@ -35,7 +35,7 @@ const useVideos = () => {
         };
 
         fetchData();
-    }, []);
+    }, [db]);
 
     return {videos, isVideosLoading, error}
 };
