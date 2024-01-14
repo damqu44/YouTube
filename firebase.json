@@ -22,7 +22,7 @@
     "singleProjectMode": true
   },
   "hosting": {
-    "public": "out",
+    "public": ".next",
     "ignore": [
       "firebase.json",
       "**/.*",
