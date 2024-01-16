@@ -4,7 +4,7 @@ import {Button} from "@/components/ui/button";
 import * as React from "react";
 import {useRouter} from "next/navigation";
 
-export default function loginButton() {
+export default function LoginButton() {
     const router = useRouter()
     return (
             <Button variant={'login'} size={'login'} className={'login-btn'} onClick={() => router.push('/signin')}>

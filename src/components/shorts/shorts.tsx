@@ -29,7 +29,7 @@ const Shorts: React.FC<VideoProps> = React.memo((props) => {
                 setCurrentShortId(shortVideo.id)
             }
         }
-    }, [isVideosLoading, error, sortedVideos, router]);
+    }, [isVideosLoading, error, sortedVideos, router, currentRoute]);
 
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
@@ -78,4 +78,5 @@ const Shorts: React.FC<VideoProps> = React.memo((props) => {
     )
 })
 
+Shorts.displayName = 'Shorts';
 export default Shorts

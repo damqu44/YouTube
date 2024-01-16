@@ -27,7 +27,7 @@ const VideosResults: React.FC<VideoResultsProps> = ({resultsId}) => {
 
     useEffect(() => {
         handleSubmit()
-    }, [resultsId, videos])
+    }, [resultsId, videos, handleSearch])
 
     if (isLoading || sortedVideos === null) {
         return <Loading/>

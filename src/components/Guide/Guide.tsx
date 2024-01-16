@@ -33,7 +33,7 @@ export default function Guide() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [handleResize]);
 
     return (
         <>
