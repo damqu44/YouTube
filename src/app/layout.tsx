@@ -6,6 +6,7 @@ import MastHeadContainer from "@/components/MastHead/MastHeadContainer";
 import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
 import {AuthContextProvider} from "@/contexts/AuthContext";
+import {ResultsProvider} from "@/contexts/resultsContext";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -24,16 +25,18 @@ export default function RootLayout({
     return (
         <>
             <AuthContextProvider>
-                    <html lang="en">
-                    <body className={inter.className}>
-                    <ActivePageProvider>
-                        <GuideProvider>
+                <html lang="en">
+                <body className={inter.className}>
+                <ActivePageProvider>
+                    <GuideProvider>
+                        <ResultsProvider>
                             <MastHeadContainer/>
                             {children}
-                        </GuideProvider>
-                    </ActivePageProvider>
-                    </body>
-                    </html>
+                        </ResultsProvider>
+                    </GuideProvider>
+                </ActivePageProvider>
+                </body>
+                </html>
             </AuthContextProvider>
         </>
 

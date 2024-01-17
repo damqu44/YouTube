@@ -1,67 +1,88 @@
 'use client'
 import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
-import useVideos from "@/hooks/firebase/useVideos";
-import useSortBySearchVideos from "@/hooks/sorts/useSortBySearchVideos";
+import useVideos, {VideoItem} from "@/hooks/firebase/useVideos";
 import React, {useEffect, useState} from "react";
 import VideoResult from "@/components/Results/VideoResults/VideoResult/VideoResult";
 import Loading from "@/components/ui/loading/loading";
 import Error from "@/components/ui/error/error";
 import NotFound from "@/components/ui/error/notFound";
+import {useResults} from "@/contexts/resultsContext";
 
 interface VideoResultsProps {
     resultsId: string;
 }
 
-const VideosResults: React.FC<VideoResultsProps> = ({resultsId}) => {
-    const {selectedCategory} = useCategory()
-    const {videos, error} = useVideos()
-    const {searchedSortedVideos, handleSearch} = useSortBySearchVideos();
-    const {sortedVideos} = useSortByCategoryVideos(searchedSortedVideos, selectedCategory, 'category')
-    const [isLoading, setIsLoading] = useState(true);
+const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsId}) => {
+        const {selectedCategory} = useCategory()
+        const {videos, error, isVideosLoading} = useVideos()
+        const {searchedSortedVideos, setSearchedSortedVideos, searchQuery, setSearchQuery} = useResults();
+        const {sortedVideos, isVideosSorting} = useSortByCategoryVideos(searchedSortedVideos, selectedCategory, 'category')
+        const handleSearch = (query: string, videos: VideoItem[]) => {
+            setSearchQuery(query);
 
-    const handleSubmit = () => {
-        handleSearch(resultsId, videos)
-        setIsLoading(false)
-    }
+            if (!query.trim()) {
+                setSearchedSortedVideos(videos);
+                return;
+            }
 
-    useEffect(() => {
-        handleSubmit()
-    }, [resultsId, videos, handleSearch])
+            const queryLower = query.toLowerCase();
 
-    if (isLoading || sortedVideos === null) {
-        return <Loading/>
-    }
-    if (error) {
-        return <Error/>
-    }
-    if (sortedVideos?.length === 0) {
-        return <NotFound/>
-    }
+            const sortedByRelevance = videos
+                .map((video) => {
+                    const titleMatches = video.title.toLowerCase().includes(queryLower);
+                    const channelMatches = video.channelInfo.name.toLowerCase().includes(queryLower);
+                    const descriptionMatches = video.description.toLowerCase().includes(queryLower);
 
-    return (
-        <>
-            {sortedVideos?.map((video, index) => (
-                <div key={index} id={'video-result'} className={'mb-5 flex w-full'}>
-                    <VideoResult
-                        key={video.id}
-                        _id={video.id}
-                        title={video.title}
-                        channel={video.channelInfo.name}
-                        channelId={video.channelInfo._id}
-                        thumbnail={video.thumbnail}
-                        views={video.views}
-                        date={video.date}
-                        duration={video.duration}
-                        avatar_link={video.channelInfo.avatar_link}
-                        category={video.category}
-                        description={video.description}
-                        url_id={video.url_id}
-                    />
-                </div>
-            ))}
-        </>
-    )
-}
+                    const relevanceScore = (titleMatches ? 3 : 0) + (channelMatches ? 2 : 0) + (descriptionMatches ? 1 : 0);
+
+                    return {...video, relevanceScore};
+                })
+                .filter((video) => video.relevanceScore > 0)
+                .sort((a, b) => b.relevanceScore - a.relevanceScore);
+
+            setSearchedSortedVideos(sortedByRelevance);
+        };
+
+        useEffect(() => {
+            handleSearch(resultsId, videos)
+        }, [resultsId, videos]);
+
+
+        if (isVideosLoading || isVideosSorting) {
+            return <Loading/>
+        }
+        if (error) {
+            return <Error/>
+        }
+        if (sortedVideos?.length === 0) {
+            return <NotFound/>
+        }
+
+        return (
+            <>
+                {sortedVideos?.map((video, index) => (
+                    <div key={index} id={'video-result'} className={'mb-5 flex w-full'}>
+                        <VideoResult
+                            key={video.id}
+                            _id={video.id}
+                            title={video.title}
+                            channel={video.channelInfo.name}
+                            channelId={video.channelInfo._id}
+                            thumbnail={video.thumbnail}
+                            views={video.views}
+                            date={video.date}
+                            duration={video.duration}
+                            avatar_link={video.channelInfo.avatar_link}
+                            category={video.category}
+                            description={video.description}
+                            url_id={video.url_id}
+                        />
+                    </div>
+                ))}
+            </>
+        )
+    }
+)
 
 export default VideosResults

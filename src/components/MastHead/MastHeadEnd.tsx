@@ -13,7 +13,6 @@ export default function MastHeadEnd() {
     const {user} = UserAuth()
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
-    console.log(user, 'email')
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {

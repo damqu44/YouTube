@@ -13,14 +13,14 @@ const MastHeadCenter: React.FC = () => {
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault()
+        event.preventDefault();
         const trimmedInputValue = inputValue.trim();
         if (trimmedInputValue === '' || trimmedInputValue === '/' || trimmedInputValue === '.') {
-            return
+            return;
         }
+        setInputValue('');
         router.push(`/results/${trimmedInputValue}`);
-        setInputValue('')
-    }
+    };
 
     return (
         <div id={'center'} className={'flex justify-center items-center'}>

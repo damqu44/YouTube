@@ -5,8 +5,13 @@ import {VideoItem} from "@/lib/types";
 
 const useSortByCategoryVideos = (videos: VideoItem[] = [], selectedCategory: string | null, sortBy: string | null) => {
     const [sortedVideos, setSortedVideos] = useState<VideoItem[] | null> (null);
+    const [isVideosSorting, setIsVideosSorting] = useState(true)
 
     useEffect(() => {
+        if (videos.length === 0) {
+            setSortedVideos([])
+        }
+
         let videosToSort = videos;
 
         if (selectedCategory === '' && sortBy === 'category') {
@@ -18,8 +23,9 @@ const useSortByCategoryVideos = (videos: VideoItem[] = [], selectedCategory: str
 
         const shuffledVideos = shuffleArray(videosToSort);
         setSortedVideos(shuffledVideos);
+        setIsVideosSorting(false)
     }, [videos, selectedCategory]);
-    return {sortedVideos, sortBy};
+    return {sortedVideos, sortBy, isVideosSorting};
 };
 
 export default useSortByCategoryVideos;

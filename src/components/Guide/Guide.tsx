@@ -15,25 +15,25 @@ export default function Guide() {
     const {isGuideMiniOpen, setIsGuideMiniOpen} = useGuideContext()
     const {isGuideVisible, setIsGuideVisible} = useGuideContext()
     const {user} = UserAuth()
-    const handleResize = () => {
-        if (window.innerWidth <= 250) {
-            setIsGuideVisible(false)
-        } else if (window.innerWidth <= 1320) {
-            setIsGuideMiniOpen(true)
-        } else {
-            setIsGuideMiniOpen(false)
-            setIsGuideVisible(true)
-        }
-    };
-
     useEffect(() => {
-        handleResize();
+        const handleResize = () => {
+            if (window.innerWidth <= 250) {
+                setIsGuideVisible(false);
+            } else if (window.innerWidth <= 1320) {
+                setIsGuideMiniOpen(true);
+            } else {
+                setIsGuideMiniOpen(false);
+                setIsGuideVisible(true);
+            }
+        };
+
+        handleResize();  // Initial call
         window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, [handleResize]);
+    }, [setIsGuideVisible, setIsGuideMiniOpen]);
 
     return (
         <>
