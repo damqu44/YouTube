@@ -329,6 +329,26 @@ export const Icons = {
         </svg>
 
     ),
+    youtube_logo_text_black: (props: IconProps) => (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 388 96"
+            {...props}
+        >
+            <image width="374" height="84"
+                   href="data:img/png;base64,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"/>
+        </svg>
+    ),
+    youtube_logo_text_white: (props: IconProps) => (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 388 96"
+            {...props}
+        >
+            <image height="84"
+                   href="data:img/png;base64,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"/>
+        </svg>
+    ),
     dolar: (props: IconProps) => (
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 24 24"
@@ -829,9 +849,9 @@ export const Icons = {
 
             <path
                 d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z"
-                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 9V13" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 17.0195V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 9V13" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 17.0195V17" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     ),
     not_found: (props: IconProps) => (
@@ -877,13 +897,58 @@ export const Icons = {
     comments: (props: IconProps) => (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 24 24"
-             focusable="false"
-             {...props}
+            viewBox="0 0 24 24"
+            focusable="false"
+            {...props}
         >
             <path clip-rule="evenodd"
                   d="M21 5c0-1.105-.895-2-2-2H5c-1.105 0-2 .895-2 2v12c0 1.105.895 2 2 2h12l3.146 3.146c.315.315.854.092.854-.353V5ZM7 9c0-.552.448-1 1-1h8c.552 0 1 .448 1 1s-.448 1-1 1H8c-.552 0-1-.448-1-1Zm1 3c-.552 0-1 .448-1 1s.448 1 1 1h5c.552 0 1-.448 1-1s-.448-1-1-1H8Z"
                   fill-rule="evenodd"/>
+        </svg>
+    ),
+    eyeShowPassword: (props: IconProps) => (
+        <svg
+            width="800px"
+            height="800px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                  strokeLinejoin="round"/>
+            <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                  strokeLinejoin="round"/>
+            <circle cx="12" cy="12" r="3" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                    strokeLinejoin="round"/>
+        </svg>
+    ),
+    eyeHidePassword: (props: IconProps) => (
+        <svg
+            width="800px"
+            height="800px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            {...props}
+        >
+            <path d="M2 2L22 22" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+                d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
+                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+                d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
+                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    ),
+    error: (props: IconProps) => (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 88 88"
+            {...props}
+        >
+            <image
+                href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAYAAAAcaxDBAAACCUlEQVR4nO2d2W3DMBAFJSOt5D/9d5JqHMDA2gx18HqUeMwUEHEHj+sFIYXr78/30gBP0RLWu0v5uum5KoGhv3u54CuF1pIY+8xL5F4h9A6Re9g6qoqtKbQVkT5VxdYQ2qpInypilUJ7EekjFfsQL6pnJDUohI4g0yiupWTLjyTSpagF5CZ0VJkuWTXmCJ1BppFca6rQmWQaSTWnCJ1RphFde6zQmWUaUQ5UcygkCCWdH4IuQkKRueXUyZlQZB5z6IYeKuZIKOkMs+uIhIrZOxxpJZ2hw4kW1vn010lCxfhC6Z3p/HNGQsW4QklnPm93JFQMQsWYULZ7OS+HJFQMQsUgVMyD/inlSULFIFQMQsUgVAxCxSBUDELFIFQMQsUgVAxCxSBUzF0fz8bQ5aENCRWDUDEIFYNQMY8W/q3EQKwkVAxCxSBUjA32a4ODdA8v3Lq81ktCxSBUjCuU8SmftzsSKsYXSkrT4SuQmuydh7YyQvVwHrrZ0SRUzJFQemmYXUckVMyZUFJ6zKGbUEKRuuXUScyWR+qHoAt6qJhYoaQ00kFKQmeWGl176pafUWpSzTk9dCapybXm/ijNIDWrxpKXxeyBo32JVxQWxdg0UlqLa1HNoSNIldSgfD+01xbQ7MUARi9iu7m6wmhVbLeXqxitiB3m+h/DLegquUNfUOXiFzrGFWrLsvwBtAc9992e76YAAAAASUVORK5CYII="/>
         </svg>
     ),
     avatar: AvatarIcon,

@@ -46,7 +46,7 @@ const Short: React.FC<VideoProps> = (props) => {
                             )}
                             <Link id={'channel-name'} className={'pr-2'}
                                   href={`/${shortVideo.channelInfo._id}`}>{shortVideo.channelInfo._id}</Link>
-                            <SubscribeButton/>
+                            <SubscribeButton channelId={shortVideo.channelInfo._id}/>
                         </div>
                         <div className={'px-2 pb-2'}>Tutaj jest opis filmu...</div>
                     </div>

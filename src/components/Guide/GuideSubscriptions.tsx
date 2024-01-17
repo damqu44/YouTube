@@ -12,24 +12,26 @@ interface Subscription {
 export default function GuideSubscriptions() {
     const {subscribedChannels} = useSubscribedChannels()
     return (
-        <div id={'guide-subscriptions'}>
-            <div className={'guide-item'}>
-                <span className={'text-base font-bold'}>Subskrypcje</span>
-            </div>
-            {subscribedChannels.map((sub, index) => (
-                <Link href={`/${sub?._id}`} key={index} className={'guide-item'}>
-                    {sub.avatar_link ? (
-                        <Image src={sub.avatar_link} alt={'channel image'} width={24} height={24}
-                               className={'mr-5'}></Image>
-                    ) : (
-                        <Icons.your_profile className={'guide-icon'}/>
-                    )}
-                    <span className={'truncate'}>{sub?.name}</span>
-                </Link>
-            ))}
-
-
-            <div className={'line'}></div>
-        </div>
+        <>
+            {subscribedChannels.length > 0 ? (
+                <div id={'guide-subscriptions'}>
+                    <div className={'guide-item'}>
+                        <span className={'text-base font-bold'}>Subskrypcje</span>
+                    </div>
+                    {subscribedChannels.map((sub, index) => (
+                        <Link href={`/${sub?._id}`} key={index} className={'guide-item'}>
+                            {sub.avatar_link ? (
+                                <Image src={sub.avatar_link} alt={'channel image'} width={24} height={24}
+                                       className={'mr-5'}></Image>
+                            ) : (
+                                <Icons.your_profile className={'guide-icon'}/>
+                            )}
+                            <span className={'truncate'}>{sub?.name}</span>
+                        </Link>
+                    ))}
+                    <div className={'line'}></div>
+                </div>
+            ) : null}
+        </>
     )
 }

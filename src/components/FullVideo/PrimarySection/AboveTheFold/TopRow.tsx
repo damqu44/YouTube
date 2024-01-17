@@ -37,7 +37,7 @@ const TopRow: React.FC<VideoProps> = (props) => {
                     </div>
                 </div>
                 <div id={'subscribe-button'}>
-                    <SubscribeButton/>
+                    <SubscribeButton channelId={props.channelId}/>
                 </div>
             </div>
             <div id={'actions'}

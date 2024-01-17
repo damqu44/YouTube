@@ -31,7 +31,8 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
         return createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setDoc(doc(db, 'users', email), {
-                    subscriptions: []
+                    subscriptions: [],
+                    likedVideos: []
                 })
                 return userCredential
             })
