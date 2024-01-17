@@ -85,4 +85,5 @@ const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsId}) => {
     }
 )
 
+VideosResults.displayName = 'VideoResults'
 export default VideosResults
