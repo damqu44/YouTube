@@ -8,7 +8,6 @@ export function LogoutButton() {
     const router = useRouter()
     // @ts-ignore
     const {user, logOut} = UserAuth()
-    console.log(user)
 
     const handleLogout = async () => {
         try {

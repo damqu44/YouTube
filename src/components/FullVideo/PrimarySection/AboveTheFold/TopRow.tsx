@@ -1,10 +1,14 @@
 import Image from "next/image";
 import {Icons} from "@/components/icons";
-import React from "react";
+import Link from "next/link";
+import {db} from "@/lib/firebase/firebase";
+import React, {useEffect, useState} from "react";
 import SubscribeButton from "@/components/ui/subscribe-button";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
-import Link from "next/link";
 import {UserAuth} from "@/contexts/AuthContext";
+import {arrayUnion, doc, getDoc, updateDoc} from "@firebase/firestore";
+import {isAuthenticated} from "@/utils/Auth";
+import useLikedVideos from "@/hooks/firebase/useLikeVideos";
 
 type VideoProps = {
     _id: string;
@@ -15,15 +19,82 @@ type VideoProps = {
     channelId: string;
 };
 const TopRow: React.FC<VideoProps> = (props) => {
-    const {formatSubscribers} = useNumbersFormatting();
+    const isAuth = isAuthenticated()
     const {user} = UserAuth()
+    const {formatSubscribers} = useNumbersFormatting();
+    const {likedVideos} = useLikedVideos()
+    const [like, setLike] = useState<boolean>(false)
+
+    const userEmail = user?.email;
+    const userRef = userEmail ? doc(db, 'users', userEmail) : null
+
+    //check is video liked
+    useEffect(() => {
+        const checkLike = async () => {
+            if (isAuth && userEmail && userRef) {
+                try {
+                    const docSnap = await getDoc(userRef);
+                    if (docSnap.exists()) {
+                        const likedVideos = docSnap.data().likedVideos || [];
+                        const isLiked = likedVideos.some((likedVideo: {
+                            id: string
+                        }) => likedVideo.id === props._id);
+                        setLike(isLiked);
+                    }
+                } catch (error) {
+                    console.error("Błąd podczas sprawdzania subskrypcji:", error);
+                }
+            }
+        };
+
+        checkLike();
+    }, [isAuth, userEmail, userRef, props._id]);
+
+    //make video to be liked
+    const likeVideo = async () => {
+        console.log('Starting..')
+        if (isAuth && userEmail && userRef) {
+            console.log('Working..')
+            setLike(true)
+            await updateDoc(userRef, {
+                likedVideos: arrayUnion({
+                    id: props._id,
+                }),
+            })
+        } else {
+            alert('Please log in to like a video!')
+        }
+    }
+
+    //make video to be unliked
+    const unLikeVideo = async (passedID: string) => {
+        try {
+            if (userRef) {
+                const result = likedVideos.filter((video) => video.id !== passedID)
+                const resultId = result.map((video) => ({id: video.id}))
+                setLike(false)
+                await updateDoc(userRef, {
+                    likedVideos: resultId,
+                })
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    const handleClick = async () => {
+        await unLikeVideo(props._id)
+    }
 
     return (
         <div id={'top-row'} className={'flex flex-row pt-4'}>
             <div id={'owner'} className={'flex flex-row w-1/2 justify-start items-center'}>
                 <Link className={'pr-3'} href={`/${props.channelId}`}>
-                    <Image src={props.avatar_link} alt={'channel image'} width={40} height={40}
-                           className={'rounded-full cursor-pointer'}></Image>
+                    {props.avatar_link ? (
+                        <Image src={props.avatar_link} alt={'channel image'} width={40} height={40}
+                               className={'rounded-full cursor-pointer'}></Image>
+                    ) : (
+                        <Icons.profile className={'w-10 h-10 rounded-full cursor-pointer'}/>
+                    )}
                 </Link>
                 <div id={'channel-info'}
                      className={'flex flex-col justify-center items-center pr-8'}>
@@ -45,14 +116,22 @@ const TopRow: React.FC<VideoProps> = (props) => {
                 <div id={'top-level-buttons'} className={'flex flex-row h-full'}>
                     <div id={'like-dislike-button'}
                          className={'flex flex-row justify-center items-center'}>
-                        <div id={'like-button'}
-                             className={'flex flex-row actions-color rounded-l-full justify-center items-center relative'}>
-                            <Icons.like
-                                className={'w-6 h-7 brightness-0 invert mr-3'}/>
-                            <span className={'mr-4'}>{props.likes}</span>
-                        </div>
-                        <div id={'dislike-button'}
-                             className={'flex flex-row actions-color rounded-r-full justify-center items-center mr-2'}>
+                        {like ? (
+                            <div onClick={handleClick}
+                                 className={'flex flex-row actions-color rounded-l-full justify-center items-center relative'}>
+                                <Icons.like_filled
+                                    className={'w-6 h-7 brightness-0 invert mr-3'}/>
+                                <span className={'mr-4'}>{props.likes}</span>
+                            </div>
+                        ) : (
+                            <div onClick={likeVideo}
+                                 className={'flex flex-row actions-color rounded-l-full justify-center items-center relative'}>
+                                <Icons.like
+                                    className={'w-6 h-7 brightness-0 invert mr-3'}/>
+                                <span className={'mr-4'}>{props.likes}</span>
+                            </div>
+                        )}
+                        <div className={'flex flex-row actions-color rounded-r-full justify-center items-center mr-2'}>
                             <Icons.dislike
                                 className={'w-6 h-7 brightness-0 invert ml-2 mr-1'}/>
                         </div>

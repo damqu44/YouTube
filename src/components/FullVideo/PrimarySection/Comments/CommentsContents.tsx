@@ -9,8 +9,9 @@ const CommentsContents = () => {
                 <div id={'comment'}
                      className={'w-full h-20 flex flex-row justify-start items-start mb-5'}>
                     <div id={'comment-channel-avatar'} className={'mr-4'}>
-                        <Image src={''} alt={'channel image'}
-                               className={'h-10 w-10 rounded-full cursor-pointer'}></Image>
+                        {/*<Image src={''} alt={'channel image'}*/}
+                        {/*       className={'h-10 w-10 rounded-full cursor-pointer'}></Image>*/}
+                        <Icons.profile className={'w-10 h-10 rounded-full cursor-pointer'}/>
                     </div>
                     <div id={'comment-main'}
                          className={'w-full flex flex-col justify-start items-start'}>

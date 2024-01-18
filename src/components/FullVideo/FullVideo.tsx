@@ -1,8 +1,9 @@
 'use client'
 import React, {FC, useEffect, useState} from "react";
-import useVideos, {VideoItem} from "@/hooks/firebase/useVideos";
+import useVideos from "@/hooks/firebase/useVideos";
 import PrimarySection from "@/components/FullVideo/PrimarySection/PrimarySection";
 import SecondarySection from "@/components/FullVideo/SecondarySection/SecondarySection";
+import {VideoItem} from "@/lib/types";
 
 interface FullVideoProps {
     videoId: string

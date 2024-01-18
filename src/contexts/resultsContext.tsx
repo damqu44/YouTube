@@ -1,6 +1,6 @@
 'use client'
 import React, {createContext, ReactNode, useContext, useState} from 'react';
-import { VideoItem } from "@/hooks/firebase/useVideos";
+import { VideoItem} from "@/lib/types";
 
 interface ResultsContextProps {
     searchQuery: string;

@@ -1,14 +1,16 @@
 'use client'
-import React, {FC, useEffect, useState} from "react";
 import {Icons} from "@/components/icons";
-import './Channel.css'
 import Image from "next/image";
-import SubscribeButton from "@/components/ui/subscribe-button";
-import useChannels, {ChannelItem} from "@/hooks/firebase/useChannels";
-import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
-import Video from "@/components/Content/VideoList/Video/Video";
+import './Channel.css'
 import './spinner.css'
+import {ChannelItem} from "@/lib/types";
+import React, {FC, useEffect, useState} from "react";
+import SubscribeButton from "@/components/ui/subscribe-button";
+import Video from "@/components/Content/VideoList/Video/Video";
 import Loading from "@/components/ui/loading/loading";
+import useChannels from "@/hooks/firebase/useChannels";
+import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
+
 
 interface ChannelProps {
     channelId: string;
@@ -95,7 +97,7 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
                                 </div>
                             </div>
                             <div id={'channel-buttons'} className={'pt-3'}>
-                                    <SubscribeButton channelId={channelDetails._id}/>
+                                <SubscribeButton channelId={channelDetails._id}/>
                             </div>
                         </div>
                     </div>
@@ -128,5 +130,6 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
         </div>
     )
 }
+
 
 export default Channel

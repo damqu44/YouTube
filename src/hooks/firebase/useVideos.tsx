@@ -1,66 +1,41 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react';
-import { fetchVideosAndChannels } from './apiUtils';
-
-export interface VideoItem {
-    id: string;
-    title: string;
-    channel: string;
-    likes: string;
-    views: string;
-    date: string;
-    thumbnail: string;
-    url_id: string;
-    duration: string;
-    description: string;
-    category: string[];
-    channelInfo: ChannelItem;
-}
-
-interface ChannelItem {
-    _id: string;
-    name: string;
-    avatar_link: string;
-    description: string;
-    subscriptions: string;
-    videos_amount: string;
-}
+import {useEffect, useState} from 'react';
+import {fetchChannels} from "@/hooks/firebase/fetchChannels";
+import {fetchVideos} from "@/hooks/firebase/fetchVideos";
+import { ChannelItem, VideoItem } from "@/lib/types";
 
 const useVideos = () => {
     const [videos, setVideos] = useState<VideoItem[]>([]);
     const [isVideosLoading, setIsVideosLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null | Error>(null);
 
-    const fetchVideoData = useCallback(async () => {
-        setIsVideosLoading(true);
-        setError(null);
-
-        try {
-            const { videosData, channelsData } = await fetchVideosAndChannels();
-
-            const loadedVideos = Object.keys(videosData).map((key) => {
-                const videoWithChannel: VideoItem = {
-                    id: key,
-                    ...videosData[key],
-                    channelInfo: channelsData.find((channel: ChannelItem) => channel._id === videosData[key].channel_id),
-                };
-
-                return videoWithChannel;
-            });
-
-            setVideos(loadedVideos);
-        } catch (error) {
-            setError((error as Error).message);
-        }
-
-        setIsVideosLoading(false);
-    }, []);
-
     useEffect(() => {
-        fetchVideoData();
-    }, [fetchVideoData]);
+        const fetchVideoData = async () => {
+            setIsVideosLoading(true);
+            setError(null);
 
-    return { videos, isVideosLoading, error };
-};
+            try {
+                const {channelsData} = await fetchChannels()
+                const {videosData} = await fetchVideos()
+
+                const videosWithChannels = videosData.map((video: VideoItem) => {
+                    const associatedChannel = channelsData.find((channel: ChannelItem) => channel._id === video.channel_id);
+
+                    return {
+                        ...video,
+                        channelInfo: associatedChannel!,
+                    };
+                });
+                setVideos(videosWithChannels);
+            } catch (error) {
+                setError((error as Error).message);
+            }
+            setIsVideosLoading(false);
+        }
+        fetchVideoData()
+    }, [])
+
+    return {videos, isVideosLoading, error};
+}
 
 export default useVideos;

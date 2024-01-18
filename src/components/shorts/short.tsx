@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import './shorts.css'
-import {VideoItem} from "@/hooks/firebase/useVideos";
+import {VideoItem} from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
 import SubscribeButton from "@/components/ui/subscribe-button";

@@ -29,7 +29,8 @@ export default function GuideNav() {
             </Link>
             {user?.email ? (
                 <>
-                    <Link id={'youtube-music'} className={'guide-item'} href={'https://music.youtube.com/'}>
+                    <Link id={'youtube-music'} className={'guide-item'} target={'_blank'}
+                          href={'https://music.youtube.com/'}>
                         <Icons.youtube_music_white className={'guide-icon'}/>
                         <span>YouTube Music</span>
                     </Link>

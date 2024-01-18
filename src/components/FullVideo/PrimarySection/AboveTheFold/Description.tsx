@@ -77,10 +77,14 @@ const Description: React.FC<VideoProps> = (props) => {
                         <div id={'infocards-header'}
                              className={'w-full h-20 flex flex-row justify-start items-start'}>
                             <Link id={'channel-avatar'} href={`/${props.channelId}`}>
-                                <Image
-                                    src={props.avatar_link}
-                                    width={72} height={72} alt={'channel image'}
-                                    className={'rounded-full cursor-pointer'}></Image>
+                                {props.avatar_link ? (
+                                    <Image
+                                        src={props.avatar_link}
+                                        width={72} height={72} alt={'channel image'}
+                                        className={'rounded-full cursor-pointer'}></Image>
+                                ) : (
+                                    <Icons.profile className={'w-10 h-10 rounded-full cursor-pointer'}/>
+                                )}
                             </Link>
                             <div id={'infocards-by-line-container'}
                                  className={'w-full h-full text-xs text-white flex flex-col justify-center items-start pl-4'}>

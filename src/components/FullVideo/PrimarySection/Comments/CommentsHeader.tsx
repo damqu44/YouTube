@@ -18,8 +18,9 @@ const CommentsHeader = () => {
             <div id={'comment-box'} className={'w-full flex flex-row mt-4'}>
                 <div id={'your-thumbnail'}
                      className={'flex flex-row pr-3'}>
-                    <Image src={''} alt={'channel image'}
-                           className={'h-10 w-10 rounded-full cursor-pointer'}/>
+                    {/*<Image src={''} alt={'channel image'}*/}
+                    {/*       className={'h-10 w-10 rounded-full cursor-pointer'}/>*/}
+                    <Icons.profile className={'w-10 h-10 rounded-full cursor-pointer'}/>
                 </div>
                 <div className={'w-full flex flex-col'}>
                     <div id={'placeholder-area'} className={'w-full pr-5'}>

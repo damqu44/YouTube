@@ -1,7 +1,8 @@
 'use client'
 import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
-import useVideos, {VideoItem} from "@/hooks/firebase/useVideos";
+import useVideos from "@/hooks/firebase/useVideos";
+import {VideoItem} from "@/lib/types";
 import React, {useEffect, useState} from "react";
 import VideoResult from "@/components/Results/VideoResults/VideoResult/VideoResult";
 import Loading from "@/components/ui/loading/loading";
@@ -63,6 +64,7 @@ const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsId}) => {
             <>
                 {sortedVideos?.map((video, index) => (
                     <div key={index} id={'video-result'} className={'mb-5 flex w-full'}>
+
                         <VideoResult
                             key={video.id}
                             _id={video.id}

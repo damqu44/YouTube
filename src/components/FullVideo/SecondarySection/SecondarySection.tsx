@@ -1,6 +1,6 @@
 import CompaktVideos from "@/components/FullVideo/SecondarySection/CompaktVideoSection/CompaktVideos";
 import React from "react";
-import {VideoItem} from "@/hooks/firebase/useVideos";
+import {VideoItem} from "@/lib/types";
 import ChipCloud from "@/components/FullVideo/SecondarySection/ChipCloudSection/ChipCloud";
 
 type VideoProps = {

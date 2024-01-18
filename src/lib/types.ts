@@ -1,8 +1,7 @@
-import {useState} from "react";
-
 export interface VideoItem {
     id: string;
     title: string;
+    channel_id: string;
     channel: string;
     likes: string;
     views: string;
@@ -15,6 +14,20 @@ export interface VideoItem {
     channelInfo: ChannelItem;
 }
 
+export interface VideoItemWithoutChannelInfo {
+    id: string;
+    title: string;
+    channel_id: string;
+    channel: string;
+    likes: string;
+    views: string;
+    date: string;
+    thumbnail: string;
+    url_id: string;
+    duration: string;
+    description: string;
+    category: string[];
+}
 export interface ChannelItem {
     _id: string;
     name: string;
@@ -22,4 +35,6 @@ export interface ChannelItem {
     description: string;
     subscriptions: string;
     videos_amount: string;
+    videos: VideoItemWithoutChannelInfo[]
 }
+

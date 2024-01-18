@@ -1,7 +1,7 @@
 'use client'
 import CompaktVideo from "@/components/FullVideo/SecondarySection/CompaktVideoSection/CompaktVideo";
 import React from "react";
-import {VideoItem} from "@/hooks/firebase/useVideos";
+import {VideoItem} from "@/lib/types";
 
 type CompaktVideosProps = {
     videos: VideoItem[]
@@ -16,8 +16,8 @@ const CompaktVideos: React.FC<CompaktVideosProps> = ({videos}) => {
                     key={video.id}
                     _id={video.id}
                     title={video.title}
-                    channel={video.channelInfo.name}
-                    channelId={video.channelInfo._id}
+                    channel={video.channelInfo!.name}
+                    channelId={video.channelInfo!._id}
                     thumbnail={video.thumbnail}
                     views={video.views}
                     date={video.date}

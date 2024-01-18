@@ -17,14 +17,14 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
     const {subscribedChannels} = useSubscribedChannels()
 
     const userEmail = user?.email;
-    const channelID = userEmail ? doc(db, 'users', userEmail) : null
+    const userRef = userEmail ? doc(db, 'users', userEmail) : null
 
     //check is channel subscribed
     useEffect(() => {
         const checkSubscription = async () => {
-            if (isAuth && userEmail && channelID) {
+            if (isAuth && userEmail && userRef) {
                 try {
-                    const docSnap = await getDoc(channelID);
+                    const docSnap = await getDoc(userRef);
                     if (docSnap.exists()) {
                         const subscriptions = docSnap.data().subscriptions || [];
                         const isSubscribed = subscriptions.some((subscription: {
@@ -39,14 +39,13 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
         };
 
         checkSubscription();
-    }, [isAuth, userEmail, channelID, channelId]);
+    }, [isAuth, userEmail, userRef, channelId]);
 
-    //make channe be subscribed
+    //make channel be subscribed
     const subChannel = async () => {
-        console.log(channelID)
-        if (isAuth && userEmail && channelID) {
+        if (isAuth && userEmail && userRef) {
             setSub(true)
-            await updateDoc(channelID, {
+            await updateDoc(userRef, {
                 subscriptions: arrayUnion({
                     id: channelId,
                 }),
@@ -56,18 +55,19 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
         }
     }
 
-    ////make channe be unsubscribed
-    const channelRef = doc(db, 'users', `${user?.email}`)
+    //make channel be unsubscribed
     const unSubChannel = async (passedID: string) => {
         try {
-            const result = subscribedChannels.filter((channel) => channel._id !== passedID)
-            const resultId = result.map((channel) => ({id: channel._id}))
-            setSub(false)
-            await updateDoc(channelRef, {
-                subscriptions: resultId,
-            })
-        } catch (error) {
-            console.log(error)
+            if (userRef) {
+                const result = subscribedChannels.filter((channel) => channel._id !== passedID)
+                const resultId = result.map((channel) => ({id: channel._id}))
+                setSub(false)
+                await updateDoc(userRef, {
+                    subscriptions: resultId,
+                })
+            }
+        } catch (err) {
+            console.error(err)
         }
     }
     const handleClick = async () => {

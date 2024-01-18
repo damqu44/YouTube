@@ -15,9 +15,9 @@ export default function GuideSubscriptions() {
         <>
             {subscribedChannels.length > 0 ? (
                 <div id={'guide-subscriptions'}>
-                    <div className={'guide-item'}>
+                    <Link href={'/feed/subscriptions'} className={'guide-item'}>
                         <span className={'text-base font-bold'}>Subskrypcje</span>
-                    </div>
+                    </Link>
                     {subscribedChannels.map((sub, index) => (
                         <Link href={`/${sub?._id}`} key={index} className={'guide-item'}>
                             {sub.avatar_link ? (
