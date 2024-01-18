@@ -1,7 +1,7 @@
 'use client'
 import React, {ReactNode, useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {UserAuth} from "@/contexts/AuthContext";
+import {isAuthenticated} from "@/utils/Auth";
 
 interface ProtectedRouteProps {
     children: ReactNode;
@@ -9,19 +9,16 @@ interface ProtectedRouteProps {
 
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
-    const router = useRouter()
-    const {user} = UserAuth()
-    console.log(user)
+    const isAuth = isAuthenticated()
 
-    useEffect(() => {
-        console.log(user)
+    // const router = useRouter()
+    // useEffect(() => {
+    //     if (!isAuth) {
+    //         router.push('/');
+    //     }
+    // }, [isAuth, router]);
 
-        if (!user) {
-            router.push('/');
-        }
-    }, [user, router]);
-
-    if (!user) {
+    if (!isAuth) {
         return null;
     }
 

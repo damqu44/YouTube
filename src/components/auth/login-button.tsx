@@ -1,3 +1,4 @@
+'use client'
 import {Icons} from "@/components/icons";
 import './auth.css'
 import {Button} from "@/components/ui/button";

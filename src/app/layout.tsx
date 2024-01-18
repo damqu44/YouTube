@@ -7,6 +7,7 @@ import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
 import {AuthContextProvider} from "@/contexts/AuthContext";
 import {ResultsProvider} from "@/contexts/resultsContext";
+import {getUser} from "@/utils/Auth";
 
 const inter = Inter({subsets: ['latin']})
 

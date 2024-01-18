@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from "react";
 import {UserAuth} from "@/contexts/AuthContext";
-import {useRouter} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 import Link from "next/link";
 import {Icons} from "../icons";
 
@@ -9,10 +9,11 @@ const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState<string | null>(null)
-    const {logIn} = UserAuth()
+    const {logIn, user} = UserAuth()
     const router = useRouter()
     const [isChecked, setChecked] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false)
+
     const toggleShowPassword = () => {
         setChecked(!isChecked);
         setPasswordVisible(!isChecked)

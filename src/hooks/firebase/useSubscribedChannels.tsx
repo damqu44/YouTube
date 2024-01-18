@@ -16,10 +16,6 @@ const useSubscribedChannels = () => {
     const [subscriptions, setSubscriptions] = useState<{ id: string }[]>([])
     const {user} = UserAuth()
 
-    if (!isAuth) {
-        return {subscribedChannels: [], isChannelsLoading: false, error: null}
-    }
-
     useEffect(() => {
         onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
             setSubscriptions(doc.data()?.subscriptions)
@@ -27,35 +23,40 @@ const useSubscribedChannels = () => {
     }, [user?.email])
 
     useEffect(() => {
-        const fetchData = async () => {
-            setIsChannelsLoading(true);
+        if (!isAuth) {
+            setIsChannelsLoading(false)
+            return
+        } else {
+            const fetchData = async () => {
+                setIsChannelsLoading(true);
 
-            try {
-                const channelsQuery = query(collection(db, 'channels'));
-                const unsubscribeChannels = onSnapshot(channelsQuery, (channelsSnapshot) => {
-                    let channelsArr: ChannelItemId[] = [];
-                    channelsSnapshot.forEach((doc) => {
-                        const channelData = doc.data() as ChannelItemId;
-                        channelsArr.push({...channelData});
-                        const foundSubscribedChannels = channelsArr.filter((channel: ChannelItemId) => {
-                            const matchingSubs = subscriptions.filter((sub) => sub.id === channel._id);
-                            return matchingSubs.length > 0;
+                try {
+                    const channelsQuery = query(collection(db, 'channels'));
+                    const unsubscribeChannels = onSnapshot(channelsQuery, (channelsSnapshot) => {
+                        let channelsArr: ChannelItemId[] = [];
+                        channelsSnapshot.forEach((doc) => {
+                            const channelData = doc.data() as ChannelItemId;
+                            channelsArr.push({...channelData});
+                            const foundSubscribedChannels = channelsArr.filter((channel: ChannelItemId) => {
+                                const matchingSubs = subscriptions.filter((sub) => sub.id === channel._id);
+                                return matchingSubs.length > 0;
+                            });
+                            setSubscribedChannels(foundSubscribedChannels);
                         });
-                        setSubscribedChannels(foundSubscribedChannels);
                     });
-                });
 
-                return () => {
-                    unsubscribeChannels();
-                };
-            } catch (error) {
-                setError("Error fetching channels: " + (error instanceof Error ? error.message : String(error)));
-            } finally {
-                setIsChannelsLoading(false);
-            }
-        };
+                    return () => {
+                        unsubscribeChannels();
+                    };
+                } catch (error) {
+                    setError("Error fetching channels: " + (error instanceof Error ? error.message : String(error)));
+                } finally {
+                    setIsChannelsLoading(false);
+                }
+            };
 
-        fetchData();
+            fetchData();
+        }
     }, [subscriptions]);
 
     return {subscribedChannels, isChannelsLoading, error};

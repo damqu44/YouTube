@@ -8,7 +8,7 @@ import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import {UserAuth} from "@/contexts/AuthContext";
 import {arrayUnion, doc, getDoc, updateDoc} from "@firebase/firestore";
 import {isAuthenticated} from "@/utils/Auth";
-import useLikedVideos from "@/hooks/firebase/useLikeVideos";
+import useLikedVideos from "@/hooks/firebase/useLikedVideos";
 
 type VideoProps = {
     _id: string;

@@ -25,7 +25,6 @@ const AuthContext = createContext<AuthContextProps>({user: null});
 
 export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<FirebaseUser | null>(null);
-    console.log()
 
     function signUp(email: string, password: string): Promise<any> {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -65,3 +64,10 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
 export function UserAuth() {
     return useContext(AuthContext)
 }
+
+// export function GetUser(): Promise<FirebaseUser | null> {
+//     return new Promise((resolve) => {
+//         const {user} = useContext(AuthContext)
+//         resolve(user)
+//     })
+// }
