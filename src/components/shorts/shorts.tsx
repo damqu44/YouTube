@@ -20,7 +20,6 @@ const Shorts: React.FC<VideoProps> = React.memo((props) => {
     const [currentShortId, setCurrentShortId] = useState<string>(props.videoId)
     const shortsDivRef = useRef<HTMLDivElement>(null);
 
-    console.log(sortedVideos)
     useEffect(() => {
         if (!isVideosLoading && !error && sortedVideos.length > 0 && currentRoute === '/shorts/id') {
             const shortVideo = sortedVideos[0];

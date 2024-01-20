@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {arrayUnion, doc, getDoc, updateDoc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
 import {UserAuth} from "@/contexts/AuthContext";
 import {isAuthenticated} from "@/utils/Auth";
 import useSubscribedChannels from "@/hooks/firebase/useSubscribedChannels";
+import LoginButton from "@/components/auth/login-button";
 
 interface SubscribeButtonProps {
     channelId: string;
@@ -15,6 +16,8 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
     const {user} = UserAuth()
     const [sub, setSub] = useState<boolean>(false)
     const {subscribedChannels} = useSubscribedChannels()
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const subButtonRef = useRef<HTMLDivElement>(null);
 
     const userEmail = user?.email;
     const userRef = userEmail ? doc(db, 'users', userEmail) : null
@@ -41,6 +44,30 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
         checkSubscription();
     }, [isAuth, userEmail, userRef, channelId]);
 
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (subButtonRef.current && !subButtonRef.current.contains(event.target as Node)) {
+                setIsModalOpen(false)
+            }
+        }
+
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && subButtonRef.current) {
+                setIsModalOpen(false)
+            }
+        };
+
+        if (isModalOpen) {
+            document.addEventListener('click', handleOutsideClick);
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [isModalOpen])
+
     //make channel be subscribed
     const subChannel = async () => {
         if (isAuth && userEmail && userRef) {
@@ -51,7 +78,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
                 }),
             })
         } else {
-            alert('Please log in to sub a channel!')
+            setIsModalOpen(true)
         }
     }
 
@@ -75,7 +102,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
     }
 
     return (
-        <>
+        <div className={'relative'}>
             {!sub ? (
                 <button
                     onClick={subChannel}
@@ -87,7 +114,17 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
                     className={'font-medium text-sm bg-primary hover:bg-lightgray ac px-5 py-2 text-center text-white rounded-2xl flex justify-center items-center'}>Subskrybujesz
                 </button>
             )}
-        </>
+            {isModalOpen ? (
+            <div
+                ref={subButtonRef}
+                className={'absolute min-w-[378px] min-h-[174px] bg-darkgray z-[9] flex flex-col top-full left-0 rounded-md'}>
+                <span className={'px-5 pt-5 text-base'}>Chcesz zasubskrybować ten kanał?</span>
+                <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, aby zasubskrybować ten kanał.</span>
+                <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
+            </div>
+            ) : null}
+        </div>
+
     )
 }
 

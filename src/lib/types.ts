@@ -38,3 +38,8 @@ export interface ChannelItem {
     videos: VideoItemWithoutChannelInfo[]
 }
 
+export interface VideoInteractions {
+    id: string;
+    like: boolean;
+    disLike: boolean;
+}

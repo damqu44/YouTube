@@ -12,6 +12,7 @@ const config: Config = {
         primary: '#FFFFFF1A',
         secondary: '#AAAAAA',
         lightgray: '#FFFFFF33',
+        darkgray: '#212121',
         myblue: '#3ea4fb'
       },
       backgroundImage: {
