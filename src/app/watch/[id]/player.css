@@ -15,22 +15,9 @@ iframe {
     max-width: 210px;
 }
 
-.actions-color {
-    background-color: #FFFFFF1A;
-    cursor: pointer;
-    padding: 5px 10px;
-}
 
-.actions-color:hover, .chip:hover, .infocards-buttons:hover {
+.chip:hover, .infocards-buttons:hover {
     background-color: rgba(255, 255, 255, 0.20);
-}
-
-#like-button::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    box-shadow: 0 0 0 .3px white;
-    height: 70%;
 }
 
 .chip {

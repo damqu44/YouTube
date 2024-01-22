@@ -7,7 +7,7 @@ import {Icons} from "@/components/icons";
 import LoginButton from "@/components/auth/login-button";
 import Modal from "./Modal";
 import {onSnapshot} from "firebase/firestore";
-
+import '../../../FullVideo.css'
 interface LikeDislikeButtonProps {
     _id: string;
     likes: string;
@@ -92,7 +92,7 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
     const handleModalClose = () => {
         setIsLikeModalOpen(false);
         setIsDisLikeModalOpen(false);
-    };
+    }
 
 
     const handleClickToDisLikeVideo = async () => {
@@ -108,42 +108,41 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
         await changeVideosInteractions(false, false)
     }
 
-
+    const styles = 'absolute min-w-[400px] min-h-[174px] bg-darkgray z-[9] flex-col top-full left-0 rounded-md'
     return (
-        <div
-            className={`relative flex flex-row justify-center items-center`}>
-            <div onClick={!like ? handleClickToLikeVideo : handleClickToUnLikeVideo}
-                 className={'relative flex flex-row actions-color rounded-l-full justify-center items-center'}>
-                {!like ? (
-                    <Icons.like className={'w-6 h-7 brightness-0 invert mr-3 transition-all'}/>
-                ) : (
-                    <Icons.like_filled className={'w-6 h-7 brightness-0 invert mr-3 transition-all'}/>
-                )}
-                <span className={'mr-4'}>{likes}</span>
-                <Modal isOpen={isLikeModalOpen} onClose={handleModalClose}>
+        <>
+            <div
+                onClick={!like ? handleClickToLikeVideo : handleClickToUnLikeVideo}
+                 className={'action-button flex rounded-l-full border-right'}>
+                    {!like ? (
+                        <Icons.like className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
+                    ) : (
+                        <Icons.like_filled className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
+                    )}
+                    <span className={'mr-4'}>{likes}</span>
+                    <Modal isOpen={isLikeModalOpen} onClose={handleModalClose} styles={styles}>
                     <span
                         className={'px-5 pt-5 text-base'}>Podoba Ci się ten film?</span>
-                    <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, żeby Twoja opinia została wzięta pod uwagę.</span>
-                    <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
-                </Modal>
+                        <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, żeby Twoja opinia została wzięta pod uwagę.</span>
+                        <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
+                    </Modal>
             </div>
             <div onClick={!disLike ? handleClickToDisLikeVideo : handleClickToUnDisLikeVideo}
-                 className={'relative flex flex-row actions-color rounded-r-full justify-center items-center mr-2'}>
+                 className={'action-button rounded-r-full mr-2 border-left'}>
                 {!disLike ? (
-                    <Icons.dislike className={'w-6 h-7 brightness-0 invert ml-2 mr-1'}/>
+                    <Icons.dislike className={'w-6 h-6 brightness-0 invert ml-2 mr-1'}/>
                 ) : (
-                    <Icons.dislike_filled className={'w-6 h-7 brightness-0 invert ml-2 mr-1'}/>
+                    <Icons.dislike_filled className={'w-6 h-6 brightness-0 invert ml-2 mr-1'}/>
                 )}
-                <Modal isOpen={isDisLikeModalOpen} onClose={handleModalClose}>
+                <Modal isOpen={isDisLikeModalOpen} onClose={handleModalClose} styles={styles}>
                     <span
                         className={'px-5 pt-5 text-base'}>Nie podoba Ci się ten film?</span>
                     <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, żeby Twoja opinia została wzięta pod uwagę.</span>
                     <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
                 </Modal>
             </div>
-
-        </div>
-    );
-};
+        </>
+    )
+}
 
 export default LikeDislikeButton;

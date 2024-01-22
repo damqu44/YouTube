@@ -4,9 +4,10 @@ type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    styles: string;
 };
 
-const Modal: React.FC<ModalProps> = ({isOpen, onClose, children}) => {
+const Modal: React.FC<ModalProps> = ({isOpen, onClose, children, styles}) => {
     const modalRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -34,8 +35,9 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, children}) => {
     }, [isOpen, onClose, modalRef]);
     return (
         <div
+            // absolute min-w-[400px] min-h-[174px] bg-darkgray z-[9] flex-col top-full left-0 rounded-md
             ref={modalRef}
-            className={`${isOpen ? "flex" : "hidden"} absolute min-w-[400px] min-h-[174px] bg-darkgray z-[9] flex-col top-full left-0 rounded-md`}>
+            className={`${isOpen ? "flex" : "hidden"} ${styles}`}>
             {children}
         </div>
     );

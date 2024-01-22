@@ -20,6 +20,7 @@ type VideoProps = {
 
 const Video: React.FC<VideoProps> = (props) => {
 
+    console.log(window.innerWidth)
     return (
         <ReactPlayerContainer props={{
             _id: props._id,

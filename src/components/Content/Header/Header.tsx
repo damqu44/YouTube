@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <div id={'chips-wrapper'} className={'flex flex-row w-full justify-center items-center sticky top-14'}>
+        <div id={'chips-wrapper'} className={'flex flex-row w-full justify-center items-center sticky top-14 overflow-hidden'}>
             <div id={'header-left-arrow'} className={'mr-2 header-arrow'}>
                 <Image src={leftarrow} alt={'left arrow'} className={'brightness-0 invert'}/>
             </div>

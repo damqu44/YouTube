@@ -1,0 +1,70 @@
+@media only screen and (max-width: 1074px) {
+    /*tutaj chowany secondarysection*/
+    #full-video {
+        height: 360px;
+    }
+
+    #primary {
+        width: 640px;
+    }
+}
+
+@media only screen and (min-width: 1075px) {
+    #full-video {
+        height: 350px;
+    }
+
+    #primary {
+        width: 640px;
+    }
+}
+
+@media only screen and (min-width: 1250px) {
+    #full-video {
+        height: 430px;
+    }
+
+    #primary {
+        width: 700px;
+    }
+}
+
+@media only screen and (min-width: 1480px) {
+    #full-video {
+        height: 520px;
+    }
+
+    #primary {
+        width: 990px;
+    }
+}
+
+@media only screen and (min-width: 1700px) {
+    #full-video {
+        height: 610px;
+    }
+
+    #primary {
+        width: 1090px;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    #full-video {
+        height: 695px;
+    }
+
+    #primary {
+        width: 1236px;
+    }
+}
+
+@media only screen and (min-width: 2100px) {
+    #full-video {
+        height: 720px;
+    }
+
+    #primary {
+        width: 1300px;
+    }
+}

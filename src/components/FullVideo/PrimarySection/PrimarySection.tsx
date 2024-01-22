@@ -1,6 +1,7 @@
 import React from "react";
 import AboveTheFold from "@/components/FullVideo/PrimarySection/AboveTheFold/AboveTheFold";
 import Comments from "@/components/FullVideo/PrimarySection/Comments/Comments";
+import './PrimarySection.css'
 
 type VideoProps = {
     _id: string;
@@ -21,13 +22,14 @@ const PrimarySection: React.FC<VideoProps> = (props) => {
 
     return (
         <>
-            <div id={'primary'} className={'ml-20 mr-6 w-3/4 min-h-screen'}>
-                <div id={'player'} className={'h-full'}>
-                    <div id={'aspect-content'} className={'h-full'}>
+            <div id={'primary'} className={'ml-32 mr-6 w-full max-w-[1300px] min-h-screen'}>
+                <div id={'player'} className={'h-auto'}>
+                    <div id={'aspect-content'} className={'h-auto'}>
                         <iframe
-                            src={`https://www.youtube.com/embed/${props.url_id}?autoplay=1`}
+                            id={'full-video'}
+                            src={`https://www.youtube.com/embed/${props.url_id}`}
                             title={props.title}
-                            className={'w-full rounded-xl'}
+                            className={'rounded-xl w-full'}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
                         ></iframe>

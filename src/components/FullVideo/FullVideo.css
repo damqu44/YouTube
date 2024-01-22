@@ -16,3 +16,34 @@
     width: 100%;
     cursor: pointer;
 }
+
+.action-button {
+    position: relative;
+    /*display: flex;*/
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF1A;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+
+.action-button:hover, .chip:hover, .infocards-buttons:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+}
+
+.border-right {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.border-left {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/*.line::after {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    right: 0;*/
+/*    box-shadow: 0 0 0 .3px white;*/
+/*    height: 28px;*/
+/*}*/

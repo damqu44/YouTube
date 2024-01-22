@@ -17,10 +17,11 @@ export default function Guide() {
     const {user} = UserAuth()
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 250) {
+            if (window.innerWidth <= 780) {
                 setIsGuideVisible(false);
             } else if (window.innerWidth <= 1320) {
                 setIsGuideMiniOpen(true);
+                setIsGuideVisible(true);
             } else {
                 setIsGuideMiniOpen(false);
                 setIsGuideVisible(true);
