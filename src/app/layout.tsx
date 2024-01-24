@@ -7,21 +7,18 @@ import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
 import {AuthContextProvider} from "@/contexts/AuthContext";
 import {ResultsProvider} from "@/contexts/resultsContext";
-import {getUser} from "@/utils/Auth";
 
 const inter = Inter({subsets: ['latin']})
 
 export const metadata: Metadata = {
     title: 'Youtube',
-    description: "My Youtube's duplicate.",
+    description: "Youtube's duplicate.",
+    authors: {name: 'Damian Charążka'},
+    generator: 'Next.js',
+    publisher: 'Vercel',
 }
 
-export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode,
-}) {
-
+export default function RootLayout({children,}: { children: React.ReactNode, }) {
 
     return (
         <>

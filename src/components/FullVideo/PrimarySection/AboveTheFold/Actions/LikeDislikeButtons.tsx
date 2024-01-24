@@ -8,6 +8,7 @@ import LoginButton from "@/components/auth/login-button";
 import Modal from "./Modal";
 import {onSnapshot} from "firebase/firestore";
 import '../../../FullVideo.css'
+
 interface LikeDislikeButtonProps {
     _id: string;
     likes: string;
@@ -56,26 +57,30 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
 
 
     const changeVideosInteractions = async (like: boolean, disLike: boolean) => {
-        if (isAuth && userRef && videosInteractions) {
-            try {
-                const existingIndex = videosInteractions.findIndex(video => video.id === _id);
-                setLike(like)
-                setDisLike(disLike)
-                if (existingIndex !== -1) {
-                    await updateDoc(userRef, {
-                        videosInteractions: arrayRemove(videosInteractions[existingIndex]),
-                    });
-                }
+        if (isAuth && userRef) {
+            if (videosInteractions) {
+                try {
+                    const existingIndex = videosInteractions.findIndex(video => video.id === _id);
+                    setLike(like)
+                    setDisLike(disLike)
+                    if (existingIndex !== -1) {
+                        await updateDoc(userRef, {
+                            videosInteractions: arrayRemove(videosInteractions[existingIndex]),
+                        });
+                    }
 
-                await updateDoc(userRef, {
-                    videosInteractions: arrayUnion({
-                        id: _id,
-                        like: like,
-                        disLike: disLike,
-                    }),
-                })
-            } catch (err) {
-                console.error(err)
+                    await updateDoc(userRef, {
+                        videosInteractions: arrayUnion({
+                            id: _id,
+                            like: like,
+                            disLike: disLike,
+                        }),
+                    })
+
+                } catch
+                    (err) {
+                    console.error(err)
+                }
             }
         } else {
             if (like) {
@@ -113,19 +118,19 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
         <>
             <div
                 onClick={!like ? handleClickToLikeVideo : handleClickToUnLikeVideo}
-                 className={'action-button flex rounded-l-full border-right'}>
-                    {!like ? (
-                        <Icons.like className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
-                    ) : (
-                        <Icons.like_filled className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
-                    )}
-                    <span className={'mr-4'}>{likes}</span>
-                    <Modal isOpen={isLikeModalOpen} onClose={handleModalClose} styles={styles}>
+                className={'action-button flex rounded-l-full border-right'}>
+                {!like ? (
+                    <Icons.like className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
+                ) : (
+                    <Icons.like_filled className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
+                )}
+                <span className={'mr-4'}>{likes}</span>
+                <Modal isOpen={isLikeModalOpen} onClose={handleModalClose} styles={styles}>
                     <span
                         className={'px-5 pt-5 text-base'}>Podoba Ci się ten film?</span>
-                        <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, żeby Twoja opinia została wzięta pod uwagę.</span>
-                        <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
-                    </Modal>
+                    <span className={'px-5 pt-3 text-sm text-secondary'}>Zaloguj się, żeby Twoja opinia została wzięta pod uwagę.</span>
+                    <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
+                </Modal>
             </div>
             <div onClick={!disLike ? handleClickToDisLikeVideo : handleClickToUnDisLikeVideo}
                  className={'action-button rounded-r-full mr-2 border-left'}>
