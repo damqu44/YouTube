@@ -55,7 +55,6 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
         checkVideosInteractions();
     }, [isAuth, userRef, _id])
 
-
     const changeVideosInteractions = async (like: boolean, disLike: boolean) => {
         if (isAuth && userRef) {
             if (videosInteractions) {

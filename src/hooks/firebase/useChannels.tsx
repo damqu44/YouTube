@@ -33,7 +33,6 @@ const useChannels = () => {
                         videos,
                     };
                 });
-                console.log(channelsWithVideos)
                 setChannels(channelsWithVideos);
             } catch (error) {
                 setError((error as Error).message);

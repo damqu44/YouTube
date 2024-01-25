@@ -5,3 +5,9 @@
 #details-results {
     width: 720px;
 }
+
+
+.react-player iframe {
+    width: 100% !important;
+    height: 100% !important;
+}

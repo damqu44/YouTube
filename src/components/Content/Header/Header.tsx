@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import './Header.css'
 import leftarrow from '@/../public/icons/left-arrow.svg'

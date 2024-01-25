@@ -12,6 +12,7 @@ const config: Config = {
         primary: '#FFFFFF1A',
         secondary: '#AAAAAA',
         lightgray: '#FFFFFF33',
+        skeletongray: 'rgba(255,255,255,0.1)',
         darkgray: '#212121',
         myblue: '#3ea4fb'
       },

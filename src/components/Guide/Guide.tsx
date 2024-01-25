@@ -12,9 +12,10 @@ import {useEffect} from "react";
 import {UserAuth} from "@/contexts/AuthContext";
 
 export default function Guide() {
-    const {isGuideMiniOpen, setIsGuideMiniOpen} = useGuideContext()
-    const {isGuideVisible, setIsGuideVisible} = useGuideContext()
-    const {user} = UserAuth()
+    const {isGuideMiniOpen, setIsGuideMiniOpen, isGuideVisible, setIsGuideVisible} = useGuideContext()
+    const {user, isUserLoading} = UserAuth()
+
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 780) {
@@ -26,20 +27,23 @@ export default function Guide() {
                 setIsGuideMiniOpen(false);
                 setIsGuideVisible(true);
             }
-        };
+        }
 
         handleResize();  // Initial call
         window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("resize", handleResize);
-        };
+        }
     }, [setIsGuideVisible, setIsGuideMiniOpen]);
+
+    if (isUserLoading) {
+        return <div className={'w-[228px]'}></div>
+    }
 
     return (
         <>
             {isGuideVisible ? (
-                <div id={'guide'}>
                     <ShortsProvider>
                         {!isGuideMiniOpen ? (
                             <div id={'guide-sections'} className={'flex flex-col w-64 p-4 sticky top-14 pb-14'}>
@@ -56,10 +60,7 @@ export default function Guide() {
                             </div>
                         )}
                     </ShortsProvider>
-                </div>
-            ) : (
-                <></>
-            )}
+            ) : null}
         </>
     )
 }

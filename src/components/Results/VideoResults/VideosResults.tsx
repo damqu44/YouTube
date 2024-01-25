@@ -3,12 +3,12 @@ import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
 import useVideos from "@/hooks/firebase/useVideos";
 import {VideoItem} from "@/lib/types";
-import React, {useEffect, useState} from "react";
-import VideoResult from "@/components/Results/VideoResults/VideoResult/VideoResult";
+import React, {useEffect} from "react";
 import Loading from "@/components/ui/loading/loading";
 import Error from "@/components/ui/error/error";
 import NotFound from "@/components/ui/error/notFound";
 import {useResults} from "@/contexts/resultsContext";
+import Video from "@/components/Content/VideoList/Video/Video";
 
 interface VideoResultsProps {
     resultsId: string;
@@ -64,8 +64,7 @@ const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsId}) => {
             <>
                 {sortedVideos?.map((video, index) => (
                     <div key={index} id={'video-result'} className={'mb-5 flex w-full'}>
-
-                        <VideoResult
+                        <Video
                             key={video.id}
                             _id={video.id}
                             title={video.title}
@@ -79,6 +78,10 @@ const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsId}) => {
                             category={video.category}
                             description={video.description}
                             url_id={video.url_id}
+                            videoType='result'
+                            flexDirection='row'
+                            height='220px'
+                            width='360px'
                         />
                     </div>
                 ))}

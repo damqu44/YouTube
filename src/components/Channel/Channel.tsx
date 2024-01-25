@@ -123,7 +123,12 @@ const Channel: FC<ChannelProps> = ({channelId}) => {
                                channelId={channelDetails._id}
                                thumbnail={video.thumbnail} views={video.views} date={video.date}
                                duration={video.duration} avatar_link={null}
-                               category={video.category} url_id={video.url_id}/>
+                               category={video.category} url_id={video.url_id}
+                               description={video.description}
+                               videoType='main'
+                               flexDirection='column'
+                               height='100%'
+                               width='100%'/>
                     </div>
                 ))}
             </div>

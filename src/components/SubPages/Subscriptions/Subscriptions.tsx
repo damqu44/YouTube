@@ -3,15 +3,24 @@ import React from "react";
 import {Icons} from "@/components/icons";
 import LoginButton from '@/components/auth/login-button'
 import Loading from "@/components/ui/loading/loading";
-import {isAuthenticated} from "@/utils/Auth";
 import SubscriptionsVideosList from "@/components/SubPages/Subscriptions/SubscriptionsVideosList";
+import {UserAuth} from "@/contexts/AuthContext";
+import Container from "@/components/ui/Container";
+
+
+interface Subscriptions {
+    id: string;
+}
 
 const Subscriptions = () => {
-    const isAuth = isAuthenticated()
+    const {user, isUserLoading} = UserAuth();
 
+    if (isUserLoading) {
+        return <Loading/>
+    }
     return (
         <>
-            {!isAuth ? (
+            {!user?.email ? (
                 <div className={'w-full flex flex-col items-center pt-36'}>
                     <Icons.subs className={'brightness-0 invert h-32 w-32'}/>
                     <div className={'flex flex-col justify-center items-center py-6 px-14'}>
@@ -24,13 +33,14 @@ const Subscriptions = () => {
                     <div><LoginButton/></div>
                 </div>
             ) : (
-                <div id={'primary'} className={'flex flex-col justify-start items-center px-7 w-full'}>
-                        <div id={'contents'} className={'h-full w-full flex justify-center items-start'}>
-                            <div id={'contents-row'} className={'w-full flex flex-wrap justify-start items-start'}>
-                                <SubscriptionsVideosList/>
-                            </div>
+                <div className={'w-full flex justify-center items-start'}>
+                    <Container>
+                        <div id={'contents-row'} className={'w-full flex flex-wrap justify-start items-start'}>
+                            <SubscriptionsVideosList/>
                         </div>
-                </div>            )}
+                    </Container>
+                </div>
+            )}
         </>
     )
 }

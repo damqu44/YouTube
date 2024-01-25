@@ -817,139 +817,168 @@ export const Icons = {
                 d="M7.5 12c0 .83-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5.67-1.5 1.5-1.5 1.5.67 1.5 1.5zm4.5-1.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm6 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
         </svg>
     ),
-    scissors: (props: IconProps) => (
+    three_lines: (props: IconProps) => (
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 24 24"
-             focusable="false"
              {...props}
         >
-            <path
-                d="M8 7c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zm-1 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm3.79-7.77L21 18.44V20h-3.27l-5.76-5.76-1.27 1.27c.19.46.3.96.3 1.49 0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4c.42 0 .81.08 1.19.2l1.37-1.37-1.11-1.11C8 10.89 7.51 11 7 11c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4c0 .43-.09.84-.21 1.23zm-.71.71-.43-.44.19-.58c.11-.34.16-.64.16-.92 0-1.65-1.35-3-3-3S4 5.35 4 7s1.35 3 3 3c.36 0 .73-.07 1.09-.21l.61-.24.46.46 1.11 1.11.71.71-.71.71-1.37 1.37-.43.43-.58-.18C7.55 14.05 7.27 14 7 14c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3c0-.38-.07-.75-.22-1.12l-.25-.61.47-.47 1.27-1.27.71-.71.71.71L18.15 19H20v-.15l-9.92-9.91zM17.73 4H21v1.56l-5.52 5.52-2.41-2.41L17.73 4zm.42 1-3.67 3.67 1 1L20 5.15V5h-1.85z"/>
+            <path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"/>
         </svg>
     ),
-    microphone: (props: IconProps) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            focusable="false"
-            {...props}
-        >
-            <path
-                d="M12 3c-1.66 0-3 1.37-3 3.07v5.86c0 1.7 1.34 3.07 3 3.07s3-1.37 3-3.07V6.07C15 4.37 13.66 3 12 3zm6.5 9h-1c0 3.03-2.47 5.5-5.5 5.5S6.5 15.03 6.5 12h-1c0 3.24 2.39 5.93 5.5 6.41V21h2v-2.59c3.11-.48 5.5-3.17 5.5-6.41z"/>
-        </svg>
-    ),
-    alert: (props: IconProps) => (
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
+    scissors:
+        (props: IconProps) => (
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 focusable="false"
+                 {...props}
+            >
+                <path
+                    d="M8 7c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zm-1 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm3.79-7.77L21 18.44V20h-3.27l-5.76-5.76-1.27 1.27c.19.46.3.96.3 1.49 0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4c.42 0 .81.08 1.19.2l1.37-1.37-1.11-1.11C8 10.89 7.51 11 7 11c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4c0 .43-.09.84-.21 1.23zm-.71.71-.43-.44.19-.58c.11-.34.16-.64.16-.92 0-1.65-1.35-3-3-3S4 5.35 4 7s1.35 3 3 3c.36 0 .73-.07 1.09-.21l.61-.24.46.46 1.11 1.11.71.71-.71.71-1.37 1.37-.43.43-.58-.18C7.55 14.05 7.27 14 7 14c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3c0-.38-.07-.75-.22-1.12l-.25-.61.47-.47 1.27-1.27.71-.71.71.71L18.15 19H20v-.15l-9.92-9.91zM17.73 4H21v1.56l-5.52 5.52-2.41-2.41L17.73 4zm.42 1-3.67 3.67 1 1L20 5.15V5h-1.85z"/>
+            </svg>
+        ),
+    microphone:
+        (props: IconProps) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                focusable="false"
+                {...props}
+            >
+                <path
+                    d="M12 3c-1.66 0-3 1.37-3 3.07v5.86c0 1.7 1.34 3.07 3 3.07s3-1.37 3-3.07V6.07C15 4.37 13.66 3 12 3zm6.5 9h-1c0 3.03-2.47 5.5-5.5 5.5S6.5 15.03 6.5 12h-1c0 3.24 2.39 5.93 5.5 6.41V21h2v-2.59c3.11-.48 5.5-3.17 5.5-6.41z"/>
+            </svg>
+        ),
+    alert:
+        (props: IconProps) => (
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                {...props}
+            >
 
-            <path
-                d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z"
-                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 9V13" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 17.0195V17" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-    ),
-    not_found: (props: IconProps) => (
-        <svg
-            viewBox="0 0 24 24"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                d="M5.84301215,4.55890685 C9.24342264,1.15849636 14.7565774,1.15849636 18.1569879,4.55890685 C21.4893901,7.89130914 21.5560382,13.252791 18.356932,16.6663564 L18.1569879,16.8728826 C17.2419979,17.7878725 15.7116094,19.2826735 13.5641649,21.3589636 C12.6919186,22.2023085 11.3080914,22.2022001 10.4359799,21.3587188 L6.5863078,17.6101042 C6.30208268,17.3299283 6.0543257,17.0841961 5.84301215,16.8728826 C2.44260165,13.4724721 2.44260165,7.95931735 5.84301215,4.55890685 Z M17.0963277,5.61956702 C14.2817036,2.80494297 9.71829638,2.80494297 6.90367232,5.61956702 C4.08904826,8.43419108 4.08904826,12.9975983 6.90367232,15.8122224 L8.59986042,17.4841867 C9.38268933,18.2492508 10.3424212,19.181446 11.478793,20.2805069 C11.7694967,20.5616672 12.2307719,20.5617033 12.5215209,20.2805882 L15.4959128,17.3910853 C16.1544227,16.746944 16.6879447,16.2206054 17.0963277,15.8122224 C19.9109517,12.9975983 19.9109517,8.43419108 17.0963277,5.61956702 Z M14.9462117,7.61294647 L15.0303301,7.68556462 C15.2965966,7.95183118 15.3208027,8.36849486 15.1029482,8.66210636 L15.0303301,8.74622479 L13.061,10.7158947 L15.0303301,12.6855646 C15.2965966,12.9518312 15.3208027,13.3684949 15.1029482,13.6621064 L15.0303301,13.7462248 C14.7640635,14.0124914 14.3473998,14.0366974 14.0537883,13.8188429 L13.9696699,13.7462248 L12,11.7768947 L10.0303301,13.7462248 C9.76406352,14.0124914 9.34739984,14.0366974 9.05378835,13.8188429 L8.96966991,13.7462248 C8.70340335,13.4799582 8.6791973,13.0632945 8.89705176,12.7696831 L8.96966991,12.6855646 L10.939,10.7158947 L8.96966991,8.74622479 C8.70340335,8.47995823 8.6791973,8.06329455 8.89705176,7.76968305 L8.96966991,7.68556462 C9.23593648,7.41929806 9.65260016,7.395092 9.94621165,7.61294647 L10.0303301,7.68556462 L12,9.6548947 L13.9696699,7.68556462 C14.2359365,7.41929806 14.6526002,7.395092 14.9462117,7.61294647 Z">
-            </path>
-        </svg>
-    ),
-    muted: (props: IconProps) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-            viewBox="0 0 36 36"
-            {...props}
-        >
+                <path
+                    d="M2.20164 18.4695L10.1643 4.00506C10.9021 2.66498 13.0979 2.66498 13.8357 4.00506L21.7984 18.4695C22.4443 19.6428 21.4598 21 19.9627 21H4.0373C2.54022 21 1.55571 19.6428 2.20164 18.4695Z"
+                    stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 9V13" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 17.0195V17" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        ),
+    not_found:
+        (props: IconProps) => (
+            <svg
+                viewBox="0 0 24 24"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                {...props}
+            >
+                <path
+                    d="M5.84301215,4.55890685 C9.24342264,1.15849636 14.7565774,1.15849636 18.1569879,4.55890685 C21.4893901,7.89130914 21.5560382,13.252791 18.356932,16.6663564 L18.1569879,16.8728826 C17.2419979,17.7878725 15.7116094,19.2826735 13.5641649,21.3589636 C12.6919186,22.2023085 11.3080914,22.2022001 10.4359799,21.3587188 L6.5863078,17.6101042 C6.30208268,17.3299283 6.0543257,17.0841961 5.84301215,16.8728826 C2.44260165,13.4724721 2.44260165,7.95931735 5.84301215,4.55890685 Z M17.0963277,5.61956702 C14.2817036,2.80494297 9.71829638,2.80494297 6.90367232,5.61956702 C4.08904826,8.43419108 4.08904826,12.9975983 6.90367232,15.8122224 L8.59986042,17.4841867 C9.38268933,18.2492508 10.3424212,19.181446 11.478793,20.2805069 C11.7694967,20.5616672 12.2307719,20.5617033 12.5215209,20.2805882 L15.4959128,17.3910853 C16.1544227,16.746944 16.6879447,16.2206054 17.0963277,15.8122224 C19.9109517,12.9975983 19.9109517,8.43419108 17.0963277,5.61956702 Z M14.9462117,7.61294647 L15.0303301,7.68556462 C15.2965966,7.95183118 15.3208027,8.36849486 15.1029482,8.66210636 L15.0303301,8.74622479 L13.061,10.7158947 L15.0303301,12.6855646 C15.2965966,12.9518312 15.3208027,13.3684949 15.1029482,13.6621064 L15.0303301,13.7462248 C14.7640635,14.0124914 14.3473998,14.0366974 14.0537883,13.8188429 L13.9696699,13.7462248 L12,11.7768947 L10.0303301,13.7462248 C9.76406352,14.0124914 9.34739984,14.0366974 9.05378835,13.8188429 L8.96966991,13.7462248 C8.70340335,13.4799582 8.6791973,13.0632945 8.89705176,12.7696831 L8.96966991,12.6855646 L10.939,10.7158947 L8.96966991,8.74622479 C8.70340335,8.47995823 8.6791973,8.06329455 8.89705176,7.76968305 L8.96966991,7.68556462 C9.23593648,7.41929806 9.65260016,7.395092 9.94621165,7.61294647 L10.0303301,7.68556462 L12,9.6548947 L13.9696699,7.68556462 C14.2359365,7.41929806 14.6526002,7.395092 14.9462117,7.61294647 Z">
+                </path>
+            </svg>
+        ),
+    muted:
+        (props: IconProps) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 36 36"
+                {...props}
+            >
 
-            <use className="ytp-svg-shadow" xmlns="http://www.w3.org/1999/xlink" href="#ytp-id-2"/>
-            <path className="ytp-svg-fill"
-                  d="m 21.48,17.98 c 0,-1.77 -1.02,-3.29 -2.5,-4.03 v 2.21 l 2.45,2.45 c .03,-0.2 .05,-0.41 .05,-0.63 z m 2.5,0 c 0,.94 -0.2,1.82 -0.54,2.64 l 1.51,1.51 c .66,-1.24 1.03,-2.65 1.03,-4.15 0,-4.28 -2.99,-7.86 -7,-8.76 v 2.05 c 2.89,.86 5,3.54 5,6.71 z M 9.25,8.98 l -1.27,1.26 4.72,4.73 H 7.98 v 6 H 11.98 l 5,5 v -6.73 l 4.25,4.25 c -0.67,.52 -1.42,.93 -2.25,1.18 v 2.06 c 1.38,-0.31 2.63,-0.95 3.69,-1.81 l 2.04,2.05 1.27,-1.27 -9,-9 -7.72,-7.72 z m 7.72,.99 -2.09,2.08 2.09,2.09 V 9.98 z"
-                  id="ytp-id-2"/>
-        </svg>
-    ),
-    not_muted: (props: IconProps) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-            viewBox="0 0 36 36"
-            {...props}
-        >
+                <use className="ytp-svg-shadow" xmlns="http://www.w3.org/1999/xlink" href="#ytp-id-2"/>
+                <path className="ytp-svg-fill"
+                      d="m 21.48,17.98 c 0,-1.77 -1.02,-3.29 -2.5,-4.03 v 2.21 l 2.45,2.45 c .03,-0.2 .05,-0.41 .05,-0.63 z m 2.5,0 c 0,.94 -0.2,1.82 -0.54,2.64 l 1.51,1.51 c .66,-1.24 1.03,-2.65 1.03,-4.15 0,-4.28 -2.99,-7.86 -7,-8.76 v 2.05 c 2.89,.86 5,3.54 5,6.71 z M 9.25,8.98 l -1.27,1.26 4.72,4.73 H 7.98 v 6 H 11.98 l 5,5 v -6.73 l 4.25,4.25 c -0.67,.52 -1.42,.93 -2.25,1.18 v 2.06 c 1.38,-0.31 2.63,-0.95 3.69,-1.81 l 2.04,2.05 1.27,-1.27 -9,-9 -7.72,-7.72 z m 7.72,.99 -2.09,2.08 2.09,2.09 V 9.98 z"
+                      id="ytp-id-2"/>
+            </svg>
+        ),
+    not_muted:
+        (props: IconProps) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                viewBox="0 0 36 36"
+                {...props}
+            >
 
-            <path className="ytp-svg-fill ytp-svg-volume-animation-speaker"
-                  d="M8,21 L12,21 L17,26 L17,10 L12,15 L8,15 L8,21 Z M19,14 L19,22 C20.48,21.32 21.5,19.77 21.5,18 C21.5,16.26 20.48,14.74 19,14 Z"
-                  fill="currentColor" id="ytp-id-15"/>
-            <path className="ytp-svg-fill ytp-svg-volume-animation-hider"/>
-        </svg>
-    ),
-    comments: (props: IconProps) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            focusable="false"
-            {...props}
-        >
-            <path clipRule="evenodd"
-                  d="M21 5c0-1.105-.895-2-2-2H5c-1.105 0-2 .895-2 2v12c0 1.105.895 2 2 2h12l3.146 3.146c.315.315.854.092.854-.353V5ZM7 9c0-.552.448-1 1-1h8c.552 0 1 .448 1 1s-.448 1-1 1H8c-.552 0-1-.448-1-1Zm1 3c-.552 0-1 .448-1 1s.448 1 1 1h5c.552 0 1-.448 1-1s-.448-1-1-1H8Z"
-                  fillRule="evenodd"/>
-        </svg>
-    ),
-    eyeShowPassword: (props: IconProps) => (
-        <svg
-            width="800px"
-            height="800px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
-                  strokeLinejoin="round"/>
-            <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
-                  strokeLinejoin="round"/>
-            <circle cx="12" cy="12" r="3" stroke="#000000" strokeWidth="2" strokeLinecap="round"
-                    strokeLinejoin="round"/>
-        </svg>
-    ),
-    eyeHidePassword: (props: IconProps) => (
-        <svg
-            width="800px"
-            height="800px"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path d="M2 2L22 22" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path
-                d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
-                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path
-                d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
-                stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-    ),
-    error: (props: IconProps) => (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 88 88"
-            {...props}
-        >
-            <image
-                href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAYAAAAcaxDBAAACCUlEQVR4nO2d2W3DMBAFJSOt5D/9d5JqHMDA2gx18HqUeMwUEHEHj+sFIYXr78/30gBP0RLWu0v5uum5KoGhv3u54CuF1pIY+8xL5F4h9A6Re9g6qoqtKbQVkT5VxdYQ2qpInypilUJ7EekjFfsQL6pnJDUohI4g0yiupWTLjyTSpagF5CZ0VJkuWTXmCJ1BppFca6rQmWQaSTWnCJ1RphFde6zQmWUaUQ5UcygkCCWdH4IuQkKRueXUyZlQZB5z6IYeKuZIKOkMs+uIhIrZOxxpJZ2hw4kW1vn010lCxfhC6Z3p/HNGQsW4QklnPm93JFQMQsWYULZ7OS+HJFQMQsUgVMyD/inlSULFIFQMQsUgVAxCxSBUDELFIFQMQsUgVAxCxSBUzF0fz8bQ5aENCRWDUDEIFYNQMY8W/q3EQKwkVAxCxSBUjA32a4ODdA8v3Lq81ktCxSBUjCuU8SmftzsSKsYXSkrT4SuQmuydh7YyQvVwHrrZ0SRUzJFQemmYXUckVMyZUFJ6zKGbUEKRuuXUScyWR+qHoAt6qJhYoaQ00kFKQmeWGl176pafUWpSzTk9dCapybXm/ijNIDWrxpKXxeyBo32JVxQWxdg0UlqLa1HNoSNIldSgfD+01xbQ7MUARi9iu7m6wmhVbLeXqxitiB3m+h/DLegquUNfUOXiFzrGFWrLsvwBtAc9992e76YAAAAASUVORK5CYII="/>
-        </svg>
-    ),
-    avatar: AvatarIcon,
-    placeholder: ImageIcon,
+                <path className="ytp-svg-fill ytp-svg-volume-animation-speaker"
+                      d="M8,21 L12,21 L17,26 L17,10 L12,15 L8,15 L8,21 Z M19,14 L19,22 C20.48,21.32 21.5,19.77 21.5,18 C21.5,16.26 20.48,14.74 19,14 Z"
+                      fill="currentColor" id="ytp-id-15"/>
+                <path className="ytp-svg-fill ytp-svg-volume-animation-hider"/>
+            </svg>
+        ),
+    comments:
+        (props: IconProps) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                focusable="false"
+                {...props}
+            >
+                <path clipRule="evenodd"
+                      d="M21 5c0-1.105-.895-2-2-2H5c-1.105 0-2 .895-2 2v12c0 1.105.895 2 2 2h12l3.146 3.146c.315.315.854.092.854-.353V5ZM7 9c0-.552.448-1 1-1h8c.552 0 1 .448 1 1s-.448 1-1 1H8c-.552 0-1-.448-1-1Zm1 3c-.552 0-1 .448-1 1s.448 1 1 1h5c.552 0 1-.448 1-1s-.448-1-1-1H8Z"
+                      fillRule="evenodd"/>
+            </svg>
+        ),
+    eyeShowPassword:
+        (props: IconProps) => (
+            <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                {...props}
+            >
+                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                      strokeLinejoin="round"/>
+                <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                      strokeLinejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="#000000" strokeWidth="2" strokeLinecap="round"
+                        strokeLinejoin="round"/>
+            </svg>
+        ),
+    eyeHidePassword:
+        (props: IconProps) => (
+            <svg
+                width="800px"
+                height="800px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                {...props}
+            >
+                <path d="M2 2L22 22" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                    d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
+                    stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                    d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
+                    stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        ),
+    error:
+        (props: IconProps) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 88 88"
+                {...props}
+            >
+                <image
+                    href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABUCAYAAAAcaxDBAAACCUlEQVR4nO2d2W3DMBAFJSOt5D/9d5JqHMDA2gx18HqUeMwUEHEHj+sFIYXr78/30gBP0RLWu0v5uum5KoGhv3u54CuF1pIY+8xL5F4h9A6Re9g6qoqtKbQVkT5VxdYQ2qpInypilUJ7EekjFfsQL6pnJDUohI4g0yiupWTLjyTSpagF5CZ0VJkuWTXmCJ1BppFca6rQmWQaSTWnCJ1RphFde6zQmWUaUQ5UcygkCCWdH4IuQkKRueXUyZlQZB5z6IYeKuZIKOkMs+uIhIrZOxxpJZ2hw4kW1vn010lCxfhC6Z3p/HNGQsW4QklnPm93JFQMQsWYULZ7OS+HJFQMQsUgVMyD/inlSULFIFQMQsUgVAxCxSBUDELFIFQMQsUgVAxCxSBUzF0fz8bQ5aENCRWDUDEIFYNQMY8W/q3EQKwkVAxCxSBUjA32a4ODdA8v3Lq81ktCxSBUjCuU8SmftzsSKsYXSkrT4SuQmuydh7YyQvVwHrrZ0SRUzJFQemmYXUckVMyZUFJ6zKGbUEKRuuXUScyWR+qHoAt6qJhYoaQ00kFKQmeWGl176pafUWpSzTk9dCapybXm/ijNIDWrxpKXxeyBo32JVxQWxdg0UlqLa1HNoSNIldSgfD+01xbQ7MUARi9iu7m6wmhVbLeXqxitiB3m+h/DLegquUNfUOXiFzrGFWrLsvwBtAc9992e76YAAAAASUVORK5CYII="/>
+            </svg>
+        ),
+    plus:
+        (props: IconProps) => (
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 {...props}
+            >
+                <path d="M20 12h-8v8h-1v-8H3v-1h8V3h1v8h8v1z"/>
+            </svg>
+        ),
+    avatar:
+    AvatarIcon,
+    placeholder:
+    ImageIcon,
 }

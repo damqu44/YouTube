@@ -3,6 +3,8 @@ import '../../Content.css'
 import VideoThumbnail from "@/components/Content/VideoList/Video/VideoThumbnail";
 import VideoDetails from "@/components/Content/VideoList/Video/VideoDetails";
 import ReactPlayerContainer from "@/components/reactPlayer/ReactPlayerContainer";
+import {Property} from "csstype";
+import Skeleton from "@/components/Content/VideoList/Video/Skeleton";
 
 type VideoProps = {
     _id: string;
@@ -16,25 +18,32 @@ type VideoProps = {
     avatar_link: string | null;
     category: string[];
     url_id: string;
+    description: string;
+    flexDirection: Property.FlexDirection | undefined;
+    height: Property.Height | undefined;
+    width: Property.Width | undefined;
+    videoType: string;
 };
 
 const Video: React.FC<VideoProps> = (props) => {
-
-    console.log(window.innerWidth)
     return (
-        <ReactPlayerContainer props={{
-            _id: props._id,
-            url_id: props.url_id,
-            flexDirection: 'column',
-            height: '176px',
-            width: '100%'
-        }}>
-            <VideoThumbnail thumbnail={props.thumbnail} duration={props.duration} _id={props.duration}
-                            url_id={props.url_id}/>
-            <VideoDetails avatar_link={props.avatar_link} channelId={props.channelId} _id={props._id}
-                          title={props.title} channel={props.channel} views={props.views} date={props.date}/>
-        </ReactPlayerContainer>
-
+        <>
+            <ReactPlayerContainer props={{
+                _id: props._id,
+                url_id: props.url_id,
+                flexDirection: props.flexDirection,
+                height: props.height,
+                width: props.width,
+                videoType: props.videoType,
+            }}>
+                <VideoThumbnail thumbnail={props.thumbnail} duration={props.duration} _id={props.duration}
+                                url_id={props.url_id} videoType={props.videoType}/>
+                <VideoDetails avatar_link={props.avatar_link} channelId={props.channelId} _id={props._id}
+                              description={props.description}
+                              title={props.title} channel={props.channel} views={props.views} date={props.date}
+                              videoType={props.videoType}/>
+            </ReactPlayerContainer>
+        </>
     )
 };
 export default Video

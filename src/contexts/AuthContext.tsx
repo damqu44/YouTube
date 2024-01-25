@@ -19,19 +19,22 @@ interface AuthContextProps {
     signUp?: (email: string, password: string) => Promise<any>;
     logIn?: (email: string, password: string) => Promise<any>;
     logOut?: () => Promise<void>;
+    isUserLoading?: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps>({user: null});
 
 export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [user, setUser] = useState<FirebaseUser | null>(null);
-
+    const [isUserLoading, setIsUserLoading] = useState<boolean>(true)
     function signUp(email: string, password: string): Promise<any> {
         return createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setDoc(doc(db, 'users', email), {
                     subscriptions: [],
-                    likedVideos: []
+                    videosInteractions: [],
+                    shortsInteractions: [],
+                    savedVideos: []
                 })
                 return userCredential
             })
@@ -52,22 +55,17 @@ export const AuthContextProvider: React.FC<AuthProviderProps> = ({children}) => 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
+            setIsUserLoading(false)
         })
         return () => {
             unsubscribe()
         }
     }, [])
 
-    return <AuthContext.Provider value={{signUp, logIn, logOut, user}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{signUp, logIn, logOut, user, isUserLoading}}>{children}</AuthContext.Provider>
 }
 
 export function UserAuth() {
     return useContext(AuthContext)
 }
 
-// export function GetUser(): Promise<FirebaseUser | null> {
-//     return new Promise((resolve) => {
-//         const {user} = useContext(AuthContext)
-//         resolve(user)
-//     })
-// }

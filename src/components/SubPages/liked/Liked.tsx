@@ -82,6 +82,11 @@ const Liked = () => {
                                     avatar_link={video.channelInfo.avatar_link}
                                     category={video.category}
                                     url_id={video.url_id}
+                                    description={video.description}
+                                    videoType='main'
+                                    flexDirection='column'
+                                    height='100%'
+                                    width='100%'
                                 />
                             </div>
                         ))}

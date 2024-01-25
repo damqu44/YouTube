@@ -11,6 +11,7 @@ const ReactPlayerContainer: React.FC<{
         flexDirection: Property.FlexDirection | undefined;
         height: Property.Height | undefined;
         width: Property.Width | undefined;
+        videoType: string;
     }
 }> = ({children, props}) => {
     const [showReactPlayer, setShowReactPlayer] = useState(false)
@@ -24,21 +25,23 @@ const ReactPlayerContainer: React.FC<{
                 {children}
             </div>
             {showReactPlayer && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: '0',
-                        left: '0',
-                        width: props.width,
-                        maxHeight: props.height,
-                        overflow: 'hidden'
-                    }}>
-                    <ReactPlayerContent props={{
-                        _id: props._id,
-                        url_id: props.url_id,
-                        height: props.height
-                    }}/>
-                </div>)}
+                <div className={'absolute top-0 left-0 h-0'} style={{width: props.width}}>
+                    <div
+                        style={{
+                            position: "relative",
+                            overflow: 'hidden',
+                            width: '100%',
+                            paddingTop: '56.25%',
+                        }}>
+                        <ReactPlayerContent props={{
+                            _id: props._id,
+                            url_id: props.url_id,
+                            height: props.height,
+                            videoType: props.videoType,
+                        }}/>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

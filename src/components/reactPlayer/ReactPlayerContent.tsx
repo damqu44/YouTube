@@ -9,6 +9,7 @@ interface ReactPlayerContentProps {
         _id: string;
         url_id: string;
         height: Property.Height | undefined;
+        videoType: string;
     }
 }
 
@@ -28,8 +29,14 @@ const ReactPlayerContent: React.FC<ReactPlayerContentProps> = ({props}) => {
                     playing={true}
                     controls={false}
                     url={`https://www.youtube.com/embed/${props.url_id}`}
-                    width="100%"
-                    height= {props.height}
+                    width='100%'
+                    height='100%'
+                    className={'react-player'}
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '0'
+                    }}
                     volume={isReactPlayerMuted}
                     onProgress={(state) => setPlayed(state.played)}
                 >
@@ -37,8 +44,10 @@ const ReactPlayerContent: React.FC<ReactPlayerContentProps> = ({props}) => {
                 <ReactPlayerBackDrop toggleMuted={toggleMuted} isReactPlayerMuted={isReactPlayerMuted} props={{
                     _id: props._id,
                     url_id: props.url_id,
-                    height: props.height
+                    height: props.height,
+                    videoType: props.videoType,
                 }}/>
+
             </>
         )
     }

@@ -5,10 +5,12 @@ import './Guide.css'
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {UserAuth} from "@/contexts/AuthContext";
+import {useState} from "react";
 
 export default function GuideNav() {
     const currentRoute = usePathname();
     const {user} = UserAuth()
+    const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
     return (
         <div id={'nav'} className={'flex flex-col'}>
@@ -29,48 +31,78 @@ export default function GuideNav() {
             </Link>
             {user?.email ? (
                 <>
-                    <Link id={'youtube-music'} className={'guide-item'} target={'_blank'}
-                          href={'https://music.youtube.com/'}>
+                    <Link
+                        className={'guide-item'} target={'_blank'}
+                        href={'https://music.youtube.com/'}>
                         <Icons.youtube_music_white className={'guide-icon'}/>
                         <span>YouTube Music</span>
                     </Link>
                     <div className={'line'}></div>
-                    <Link id={'you'} className={currentRoute === '/feed/you' ? 'guide-item active' : 'guide-item'}
-                          href={'/feed/you'}>
+                    <Link
+                        className={currentRoute === '/feed/you' ? 'guide-item active' : 'guide-item'}
+                        href={'/feed/you'}>
                         <span className={'mr-2 font-bold text-base'}>Ty</span>
                         <Icons.right_arrow_light className={'w-5 h-5 brightness-100 invert'}/>
                     </Link>
-                    <Link className={currentRoute === `/${user?.email}` ? 'guide-item active' : 'guide-item'}
-                          href={`/${user?.email}`}>
+                    <Link
+                        className={currentRoute === `/${user?.email}` ? 'guide-item active' : 'guide-item'}
+                        href={`/${user?.email}`}>
                         <Icons.your_profile className={'guide-icon'}/>
                         <span>Twój kanał</span>
                     </Link>
-                    <Link id={'history'}
-                          className={currentRoute === '/feed/history' ? 'guide-item active' : 'guide-item'}
-                          href={'/feed/history'}>
+                    <Link
+                        className={currentRoute === '/feed/history' ? 'guide-item active' : 'guide-item'}
+                        href={'/feed/history'}>
                         <Icons.history className={'guide-icon'}/>
                         <span>Historia</span>
                     </Link>
-                    <Link className={'guide-item'}
-                          href={'https://studio.youtube.com/channel/'} target={'_blank'}>
+                    <Link
+                        className={'guide-item'}
+                        href={'https://studio.youtube.com/channel/'} target={'_blank'}>
                         <Icons.your_vid className={'guide-icon'}/>
                         <span>Twoje filmy</span>
                     </Link>
-                    <Link className={currentRoute === '/playlist/to-watch' ? 'guide-item active' : 'guide-item'}
-                          href={'/playlist/to-watch'}>
+                    <Link
+                        className={currentRoute === '/playlist/to-watch' ? 'guide-item active' : 'guide-item'}
+                        href={'/playlist/to-watch'}>
                         <Icons.to_watch className={'guide-icon'}/>
                         <span>Do obejrzenia</span>
                     </Link>
-                    <Link id={'downloads'}
-                          className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
-                          href={'/feed/downloads'}>
+                    <Link
+                        className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
+                        href={'/feed/downloads'}>
                         <Icons.download className={'guide-icon'}/>
                         <span>Pobrane</span>
                     </Link>
-                    <button id={'more'} className={'guide-item'}>
-                        <Icons.down_arrow className={'guide-icon'}/>
-                        <span>Pokaż więcej</span>
-                    </button>
+                    {isExpanded ? (
+                        <>
+                            <Link
+                                className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
+                                href={'/feed/liked'}>
+                                <Icons.like className={'guide-icon'}/>
+                                <span>Polubione filmy</span>
+                            </Link>
+                            <Link
+                                className={currentRoute === '/feed/downloads' ? 'guide-item active' : 'guide-item'}
+                                href={'/feed/saved'}>
+                                <Icons.save className={'guide-icon'}/>
+                                <span>Zapisane filmy</span>
+                            </Link>
+                            <button
+                                onClick={() => setIsExpanded(false)}
+                                className={'guide-item'}>
+                                <Icons.up_arrow className={'guide-icon'}/>
+                                <span>Pokaż mniej</span>
+                            </button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={() => setIsExpanded(true)}
+                            className={'guide-item'}>
+                            <Icons.down_arrow className={'guide-icon'}/>
+                            <span>Pokaż więcej</span>
+                        </button>
+                    )}
                     <div className={'line'}></div>
                 </>
             ) : (
