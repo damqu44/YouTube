@@ -1,6 +1,5 @@
 import Image from "next/image";
 import monkey from '@/../public/monkey.png'
-import youtubelogo from '@/../public/icons/yttextblack.svg'
 import {Icons} from "@/components/icons";
 import Link from "next/link";
 
@@ -17,7 +16,7 @@ const NotFoundPage = () => {
                 </div>
                 <div id={'error-masthead'} className={'flex justify-center items-center mt-6'}>
                     <Link  href={'/'} id={'error-logo-container'} className={'mr-2 flex justify-center items-center'}>
-                        <Image src={youtubelogo} alt={'youtube logo'} width={125} height={30}/>
+                        <Icons.youtube_logo_text_black className={'w-[125px] h-[30px]'}/>
                     </Link>
                     <div id={'error-masthead-search'} className={'flex justify-center items-center'}>
                         <input id={'error-masthead-search-terms'} name={'search_query'} type={'text'}

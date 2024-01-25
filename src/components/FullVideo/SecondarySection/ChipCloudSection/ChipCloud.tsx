@@ -1,41 +1,87 @@
-import Image from "next/image";
-import leftarrowicon from "@/../public/icons/left-arrow.svg";
-import rightarrowicon from "@/../public/icons/right-arrow.svg";
-import React from "react";
+'use client'
+import React, {useEffect, useRef, useState} from "react"
+import '../../FullVideo.css'
+import {Icons} from "@/components/icons"
+import {UserAuth} from "@/contexts/AuthContext";
+
 
 const ChipCloud = () => {
+    const {user, isUserLoading} = UserAuth()
+    const chipsContainerRef = useRef<HTMLDivElement>(null);
+    const [isChipsContainerAtStart, setIsChipsContainerAtStart] = useState<boolean>(true)
+    const [isChipsContainerAtEnd, setIsChipsContainerAtEnd] = useState<boolean>(false)
+    const scrollLeft = () => {
+        if (chipsContainerRef.current) {
+            chipsContainerRef.current.scrollLeft -= 100;
+        }
+    }
+
+    const scrollRight = () => {
+        if (chipsContainerRef.current) {
+            chipsContainerRef.current.scrollLeft += 100;
+        }
+    }
+
+    const handleScroll = () => {
+        if (chipsContainerRef.current) {
+            const isAtStart = chipsContainerRef.current.scrollLeft === 0;
+            const isAtEnd = chipsContainerRef.current.scrollLeft + chipsContainerRef.current.clientWidth === chipsContainerRef.current.scrollWidth;
+
+            isAtStart ? setIsChipsContainerAtStart(true) : setIsChipsContainerAtStart(false)
+            isAtEnd ? setIsChipsContainerAtEnd(true) : setIsChipsContainerAtEnd(false)
+        }
+    }
+
+    useEffect(() => {
+        if (chipsContainerRef.current) {
+            chipsContainerRef.current.addEventListener("scroll", handleScroll);
+        }
+        return () => {
+            if (chipsContainerRef.current) {
+                chipsContainerRef.current.removeEventListener("scroll", handleScroll);
+            }
+        }
+    }, [chipsContainerRef.current])
+
+    if (isUserLoading) {
+        return
+    }
+
     return (
-        <div id={'chip-cloud'}
-             className={'flex flex-row w-full h-full text-sm font-medium justify-center items-center py-4'}>
-            <div id={'chip-left-arrow'} className={'mr-2 arrow'}>
-                <Image src={leftarrowicon} alt={'left arrow to expand chip cloud'}
-                       className={'brightness-0 invert'}/>
+        <div
+            className={user?.email ? 'flex flex-row w-[440px] h-full text-sm font-medium justify-between items-center py-4' : 'hidden'}>
+            <div onClick={scrollLeft}
+                 className={isChipsContainerAtStart ? 'hidden' : 'flex mr-2 justify-center items-center w-[40px] h-[40px] rounded-full cursor-pointer hover:bg-primary'}>
+                <Icons.right_arrow_light
+                    className={'w-5 h-5 brightness-0 invert rotate-180'}/>
             </div>
-            <div id={'chips'} className={'flex flex-row overflow-hidden w-full'}>
-                <div id={'chip-all'}
-                     className={'chip active'}>
+            <div ref={chipsContainerRef}
+                 className={`${!isChipsContainerAtStart && !isChipsContainerAtEnd ? 'w-[340px]' : 'w-[390px]'} flex flex-row overflow-hidden`}>
+                <div
+                    className={'chip active'}>
                     <span>Wszystkie</span>
                 </div>
-                <div id={'chip-similar'}
-                     className={'chip'}>
+                <div
+                    className={'chip'}>
                     <span>Podobne</span>
                 </div>
-                <div id={'chip-foryou'}
-                     className={'chip'}>
+                <div
+                    className={'chip'}>
                     <span>Dla ciebie</span>
                 </div>
-                <div id={'chip-recentlyadded'}
-                     className={'chip'}>
+                <div
+                    className={'chip'}>
                     <span>Ostatnio przesłane</span>
                 </div>
-                <div id={'chip-watched'}
-                     className={'chip'}>
+                <div
+                    className={'chip'}>
                     <span>Obejrzane</span>
                 </div>
             </div>
-            <div id={'chip-right-arrow'} className={'ml-2 arrow'}>
-                <Image src={rightarrowicon} alt={'right arrow to expand chip cloud'}
-                       className={'brightness-0 invert'}/>
+            <div onClick={scrollRight}
+                 className={isChipsContainerAtEnd ? 'hidden' : 'ml-2 flex justify-center items-center w-[40px] h-[40px] rounded-full cursor-pointer hover:bg-primary'}>
+                <Icons.right_arrow_light
+                    className={'w-5 h-5 brightness-0 invert'}/>
             </div>
         </div>
     )

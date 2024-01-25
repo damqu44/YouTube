@@ -1,9 +1,3 @@
-import shortsicon from '@/../public/icons/shorts.svg'
-import subscriptionsicon from '@/../public/icons/subscriptions.svg'
-import homeicon from '@/../public/icons/home.svg'
-import youicon from '@/../public/icons/you.svg'
-import historyicon from '@/../public/icons/history.svg'
-import Image from "next/image";
 import './Guide.css'
 import Link from "next/link";
 import {usePathname} from "next/navigation";

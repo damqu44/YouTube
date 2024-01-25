@@ -2,7 +2,6 @@
 import './MastHead.css'
 import Image from "next/image";
 import LoginButton from '@/components/auth/login-button'
-import menuicon from '@/../public/icons/menu.svg'
 import {LogoutButton} from "@/components/auth/logout-button";
 import {Icons} from "@/components/icons";
 import React, {useEffect, useRef, useState} from 'react';
@@ -47,7 +46,7 @@ export default function MastHeadEnd() {
                 !user?.email ? (
                     <div id={'buttons'} className={'flex justify-center items-center'}>
                         <button id={'menu-button'} className={'w-10 h-10 flex items-center'}>
-                            <Image src={menuicon} alt={'menu icon'} className={'w-8 h-8 brightness-0 invert mt-2'}/>
+                            <Icons.three_dots className={'w-6 h-6 brightness-0 invert mt-2 rotate-90 cursor-not-allowed'}/>
                         </button>
                         <LoginButton/>
                     </div>

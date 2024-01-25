@@ -3,7 +3,6 @@ import React from "react";
 import {Icons} from "@/components/icons";
 import LoginButton from '@/components/auth/login-button'
 import {isAuthenticated} from "@/utils/Auth";
-import Loading from "@/components/ui/loading/loading";
 
 const You = () => {
     const isAuth = isAuthenticated()
