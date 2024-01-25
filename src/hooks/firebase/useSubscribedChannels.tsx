@@ -9,7 +9,6 @@ import {isAuthenticated} from "@/utils/Auth";
 
 type ChannelItemId = ChannelItem & { id: string }
 const useSubscribedChannels = () => {
-    const isAuth = isAuthenticated()
     const [subscribedChannels, setSubscribedChannels] = useState<ChannelItem[]>([]);
     const [isChannelsLoading, setIsChannelsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null | Error>(null);
@@ -23,7 +22,7 @@ const useSubscribedChannels = () => {
     }, [user?.email])
 
     useEffect(() => {
-        if (!isAuth) {
+        if (!user?.email) {
             setIsChannelsLoading(false)
             return
         } else {
@@ -57,7 +56,7 @@ const useSubscribedChannels = () => {
 
             fetchData();
         }
-    }, [subscriptions]);
+    }, [subscriptions, user?.email]);
 
     return {subscribedChannels, isChannelsLoading, error};
 }

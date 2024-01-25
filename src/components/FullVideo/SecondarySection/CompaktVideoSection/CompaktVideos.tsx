@@ -10,10 +10,10 @@ const CompaktVideos: React.FC<CompaktVideosProps> = ({videos}) => {
 
     return (
         <div className={'w-full min-h-screen flex flex-col justify-start items-start'}>
-            {videos.map((video) => (
+            {videos.map((video, index) => (
                 <div className={'h-24 w-full flex flex-row justify-center items-start mb-2'}>
                     <Video
-                        key={video.id}
+                        key={index}
                         _id={video.id}
                         title={video.title}
                         channel={video.channelInfo!.name}

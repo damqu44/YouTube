@@ -16,8 +16,7 @@ import {VideoItem, VideoInteractions} from "@/lib/types";
 
 
 const Liked = () => {
-    const isAuth = isAuthenticated()
-    const {user} = UserAuth();
+    const {user, isUserLoading} = UserAuth();
     const userEmail = user?.email;
     const [likedVideos, setLikedVideos] = useState<VideoItem[]>([])
     const {videos, isVideosLoading} = useVideos()
@@ -26,7 +25,7 @@ const Liked = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        if (videos.length > 0 && isAuth) {
+        if (videos.length > 0 && userEmail) {
             try {
                 onSnapshot(doc(db, 'users', `${userEmail}`), (doc) => {
                     const foundInteractionsVideos = doc.data()?.videosInteractions
@@ -40,7 +39,7 @@ const Liked = () => {
         setIsLoading(false)
     }, [userEmail, videos])
 
-    if (isLoading || isVideosLoading) {
+    if (isLoading || isVideosLoading || isUserLoading) {
         return <Loading/>
     }
     if (error) {
@@ -49,7 +48,7 @@ const Liked = () => {
 
     return (
         <>
-            {!isAuth ? (
+            {!userEmail ? (
                 <div className={'w-full flex flex-col items-center pt-36'}>
                     <Icons.like_filled className={'brightness-0 invert h-32 w-32'}/>
                     <div className={'flex flex-col justify-center items-center py-6 px-14'}>

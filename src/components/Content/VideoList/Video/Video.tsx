@@ -27,7 +27,6 @@ type VideoProps = {
 
 const Video: React.FC<VideoProps> = (props) => {
     return (
-        <>
             <ReactPlayerContainer props={{
                 _id: props._id,
                 url_id: props.url_id,
@@ -43,7 +42,6 @@ const Video: React.FC<VideoProps> = (props) => {
                               title={props.title} channel={props.channel} views={props.views} date={props.date}
                               videoType={props.videoType}/>
             </ReactPlayerContainer>
-        </>
     )
 };
 export default Video

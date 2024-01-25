@@ -53,7 +53,7 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
             }
         }
         checkVideosInteractions();
-    }, [isAuth, userRef, _id])
+    }, [isAuth, userRef, _id, videosInteractions])
 
     const changeVideosInteractions = async (like: boolean, disLike: boolean) => {
         if (isAuth && userRef) {
