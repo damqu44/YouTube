@@ -2,7 +2,8 @@
 import React from "react";
 import './Header.css'
 import {useCategory} from "@/contexts/VideosCategoryContext";
-import { Icons } from "@/components/icons";
+import {Icons} from "@/components/icons";
+import ScrollArea from "@/components/ScrollArea";
 
 const categories = [
     {id: 'WSZYSTKO', value: 'Wszystko', category: ''},
@@ -25,26 +26,21 @@ const Header: React.FC = () => {
     };
 
     return (
-        <div id={'chips-wrapper'} className={'flex flex-row w-full justify-center items-center sticky top-14 overflow-hidden'}>
-            <div id={'header-left-arrow'} className={'mr-2 header-arrow'}>
-                <Icons.right_arrow_light className={'brightness-0 invert rotate-180'}/>
-            </div>
-            <div id={'chips-content'}
-                 className={'flex w-full justify-start items-center text-sm font-bold'}>
-                {categories.map((category) => (
-                    <div
-                        key={category.id}
-                        className={`chip ${selectedCategory === category.id || (category.id === 'WSZYSTKO' && !selectedCategory) ? 'active' : ''}`}
-                        onClick={() => handleChipClick(category.category)}
-                    >
-                        {category.value}
-                    </div>
-                ))}
-            </div>
-            <div id={'header-right-arrow'} className={'ml-2 header-arrow'}>
-                <Icons.right_arrow_light className={'brightness-0 invert'}/>
-            </div>
-        </div>
+        <ScrollArea
+            styles={{
+                containerStyle: 'flex flex-row w-full justify-start items-center sticky top-14 overflow-hidden z-[35] bg-primaryStrong',
+                contentStyle: 'flex w-full justify-start items-center text-sm font-bold w-[100%] overflow-hidden',
+            }}>
+            {categories.map((category) => (
+                <div
+                    key={category.id}
+                    className={`chip ${selectedCategory === category.id || (category.id === 'WSZYSTKO' && !selectedCategory) ? 'active' : ''}`}
+                    onClick={() => handleChipClick(category.category)}
+                >
+                    {category.value}
+                </div>
+            ))}
+        </ScrollArea>
     )
 }
 

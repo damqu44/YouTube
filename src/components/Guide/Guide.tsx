@@ -1,4 +1,5 @@
 'use client'
+import './Guide.css'
 import GuideNav from "@/components/Guide/GuideNav";
 import GuideExplore from "@/components/Guide/GuideExplore";
 import GuideFeatures from "@/components/Guide/GuideFeatures";
@@ -38,7 +39,7 @@ export default function Guide() {
     }, [setIsGuideVisible, setIsGuideMiniOpen]);
 
     if (isUserLoading) {
-        return <div className={'w-[228px]'}></div>
+        return <div className={'w-64 h-screen p-4 sticky top-14'}></div>
     }
 
     return (

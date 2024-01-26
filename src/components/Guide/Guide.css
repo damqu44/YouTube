@@ -1,5 +1,4 @@
 #guide-sections {
-    background-color: rgb(15, 15, 15);
     z-index: 40;
     height: calc(100vh - 56px);
     overflow-y: auto;
