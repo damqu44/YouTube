@@ -11,7 +11,6 @@ const SecondarySection: React.FC<VideoProps> = (props) => {
     const [isSecondaryVisible, setIsSecondaryVisible] = useState<boolean>()
     const {user, isUserLoading} = UserAuth()
 
-
     useEffect(() => {
             const handleSecondaryVisibility = () => {
                 if (window.innerWidth <= 1020) {

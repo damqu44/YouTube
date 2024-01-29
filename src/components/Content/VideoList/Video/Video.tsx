@@ -4,7 +4,6 @@ import VideoThumbnail from "@/components/Content/VideoList/Video/VideoThumbnail"
 import VideoDetails from "@/components/Content/VideoList/Video/VideoDetails";
 import ReactPlayerContainer from "@/components/reactPlayer/ReactPlayerContainer";
 import {Property} from "csstype";
-import Skeleton from "@/components/Content/VideoList/Video/Skeleton";
 
 type VideoProps = {
     _id: string;

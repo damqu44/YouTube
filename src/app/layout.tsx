@@ -6,7 +6,6 @@ import MastHeadContainer from "@/components/MastHead/MastHeadContainer";
 import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
 import {AuthContextProvider} from "@/contexts/AuthContext";
-import {ResultsProvider} from "@/contexts/resultsContext";
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
 
 const inter = Inter({subsets: ['latin']})
@@ -29,10 +28,8 @@ export default function RootLayout({children,}: { children: React.ReactNode, }) 
                 <ActivePageProvider>
                     <GuideProvider>
                         <CategoryProvider>
-                            <ResultsProvider>
-                                <MastHeadContainer/>
-                                {children}
-                            </ResultsProvider>
+                            <MastHeadContainer/>
+                            {children}
                         </CategoryProvider>
                     </GuideProvider>
                 </ActivePageProvider>

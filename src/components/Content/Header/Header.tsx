@@ -2,7 +2,6 @@
 import React from "react";
 import './Header.css'
 import {useCategory} from "@/contexts/VideosCategoryContext";
-import {Icons} from "@/components/icons";
 import ScrollArea from "@/components/ScrollArea";
 
 const categories = [

@@ -1,26 +1,19 @@
-import Guide from "@/components/Guide/Guide";
-import Container from "@/components/ui/Container";
 import Header from "@/components/Content/Header/Header";
 import VideoList from "@/components/Content/VideoList/VideoList";
 import React from "react";
+import GuideContainer from "@/components/ui/GuideContainer";
+import NotFound from "@/components/ui/error/notFound";
+import getVideosWithChannels from "@/lib/fetchers/videosWithChannels";
 
-const HomePage = () => {
+export default async function HomePage() {
+    const videosWithChannels = await getVideosWithChannels()
 
     return (
-        <>
-            <div id={'content'} className={'flex w-full'}>
-                <Guide/>
-                <div className={'w-full flex justify-center items-start'}>
-                    <Container>
-                        <Header/>
-                        <div id={'contents-row'} className={'w-full flex flex-wrap justify-start items-start'}>
-                            <VideoList/>
-                        </div>
-                    </Container>
-                </div>
+        <GuideContainer>
+            <Header/>
+            <div id={'contents-row'} className={'w-full flex flex-wrap justify-start items-start'}>
+                {!videosWithChannels ? <NotFound/> : <VideoList videos={videosWithChannels}/>}
             </div>
-        </>
+        </GuideContainer>
     )
 }
-
-export default HomePage;

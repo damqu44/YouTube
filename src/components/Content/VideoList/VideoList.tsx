@@ -1,15 +1,17 @@
 'use client'
-import useVideos from "@/hooks/firebase/useVideos";
 import Video from "@/components/Content/VideoList/Video/Video";
 import {useCategory} from "@/contexts/VideosCategoryContext";
 import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
-import Error from "@/components/ui/error/error";
 import NotFound from "@/components/ui/error/notFound";
 import React, {useEffect, useState} from "react";
-import Skeleton from "@/components/Content/VideoList/Video/Skeleton";
+import {SkeletonMain} from "@/components/Content/VideoList/Video/Skeleton";
+import {VideoItem} from "@/lib/types";
 
-const VideoList = () => {
-    const {videos, isVideosLoading, error} = useVideos()
+interface VideoListProps {
+    videos: VideoItem[]
+}
+
+const VideoList: React.FC<VideoListProps> = ({videos}) => {
     const {selectedCategory} = useCategory()
     const {sortedVideos} = useSortByCategoryVideos(videos, selectedCategory, 'category')
     const [isLoading, setIsLoading] = useState(true)
@@ -17,14 +19,12 @@ const VideoList = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setIsLoading(false);
-        }, 1000);
+        }, 500);
 
         return () => clearTimeout(timeoutId);
     }, []);
 
-    if (error) {
-        return <Error/>
-    }
+
     if (sortedVideos?.length === 0 && !isLoading) {
         return <NotFound/>
     }
@@ -58,14 +58,13 @@ const VideoList = () => {
                     ))}
                 </>
             ) : (
-                Array.from({length: 32}, (_, index) => (
+                Array.from({length: videos.length}, (_, index) => (
                         <div key={index} id={'video'} className={'mt-3 mb-5 mr-3'}>
-                            <Skeleton key={index} videoType={'main'}/>
+                            <SkeletonMain/>
                         </div>
                     )
                 )
             )}
-
         </>
     )
 }

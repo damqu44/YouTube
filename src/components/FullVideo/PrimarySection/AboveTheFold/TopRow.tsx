@@ -12,17 +12,13 @@ import ShareButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Acti
 import SettingsButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/SettingsButton";
 import DownloadButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/DownloadButton";
 import ClipButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/ClipButton";
+import {VideoItem} from "@/lib/types";
 
 type VideoProps = {
-    _id: string;
-    channel: string;
-    subscriptions: string;
-    likes: string;
-    avatar_link: string;
-    channelId: string;
+    video: VideoItem
 };
 
-const TopRow: React.FC<VideoProps> = (props) => {
+const TopRow: React.FC<VideoProps> = ({video}) => {
     const isAuth = isAuthenticated()
     const {formatSubscribers} = useNumbersFormatting();
     const [isSaveButtonVisible, setIsSaveButtonVisible] = useState<boolean>(false)
@@ -46,9 +42,9 @@ const TopRow: React.FC<VideoProps> = (props) => {
     return (
         <div className={'flex flex-row justify-between mt-4 w-full'}>
             <div className={'flex flex-row justify-center items-center'}>
-                <Link className={'mr-3 h-10 w-10'} href={`/${props.channelId}`}>
-                    {props.avatar_link ? (
-                        <Image src={props.avatar_link} alt={'channel image'} width={40} height={40}
+                <Link className={'mr-3 h-10 w-10'} href={`/${video.channelInfo._id}`}>
+                    {video.channelInfo.avatar_link ? (
+                        <Image src={video.channelInfo.avatar_link} alt={'channel image'} width={40} height={40}
                                className={'rounded-full cursor-pointer'}></Image>
                     ) : (
                         <Icons.profile className={'w-10 h-10 rounded-full cursor-pointer'}/>
@@ -56,22 +52,22 @@ const TopRow: React.FC<VideoProps> = (props) => {
                 </Link>
                 <div id={'channel-info'}
                      className={'flex flex-col justify-center items-center pr-8'}>
-                    <Link id={'channel'} href={`/${props.channelId}`}
+                    <Link id={'channel'} href={`/${video.channelInfo._id}`}
                           className={'w-full h-6 text-base font-medium cursor-pointer overflow-hidden'}>
-                        {props.channel}
+                        {video.channelInfo.name}
                     </Link>
                     <div id={'subscriptions'}
                          className={'w-full flex flex-row'}>
-                        <div className={'text-xs gray-color truncate'}>{formatSubscribers(props.subscriptions)}</div>
+                        <div className={'text-xs gray-color truncate'}>{formatSubscribers(video.channelInfo.subscriptions)}</div>
                     </div>
                 </div>
                 <div id={'subscribe-button'}>
-                    <SubscribeButton channelId={props.channelId}/>
+                    <SubscribeButton channelId={video.channelInfo._id}/>
                 </div>
             </div>
             <div
                 className={'flex flex-row justify-end items-center text-sm font-medium text-white whitespace-nowrap'}>
-                <LikeDislikeButtons _id={props._id} likes={props.likes}/>
+                <LikeDislikeButtons _id={video.id} likes={video.likes}/>
                 <ShareButton/>
                 {!isAuth ? (
                     <SaveButton isButtonVisible={isSaveButtonVisible}/>

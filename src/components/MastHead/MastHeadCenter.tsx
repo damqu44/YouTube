@@ -41,13 +41,14 @@ const MastHeadCenter: React.FC = () => {
                     </div>
                 </div>
 
-                <button id={'search-icon-legacy'} className={'flex justify-center items-center h-10 w-16'}
-                        onClick={handleSubmit}>
+                <button
+                    className={'flex justify-center items-center h-10 w-16 bg-primary rounded-tr-[20px] rounded-br-[20px]'}
+                    onClick={handleSubmit}>
                     <Icons.magnifier className={'h-5 w-5 brightness-0 invert'}/>
                 </button>
             </div>
-            <button id={'voice-search-button'}
-                    className={'flex justify-center items-center rounded-full w-10 h-10 ml-4 bg-primary hover:bg-lightgray'}>
+            <button
+                className={'flex justify-center items-center rounded-full w-10 h-10 ml-4 bg-primary hover:bg-lightgray cursor-not-allowed'}>
                 <Icons.microphone className={'h-6 w-6 brightness-0 invert'}/>
             </button>
         </div>

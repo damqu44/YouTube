@@ -1,3 +1,4 @@
+'use client'
 import React, {useRef, useState} from "react";
 import '../Results/Results.css'
 import ReactPlayerContent from "@/components/reactPlayer/ReactPlayerContent";
@@ -31,7 +32,8 @@ const ReactPlayerContainer: React.FC<{
                             position: "relative",
                             overflow: 'hidden',
                             width: '100%',
-                            paddingTop: '56.25%',
+                            paddingTop: props.videoType === 'result' ? '' : '56.25%',
+                            height: props.videoType === 'result' ? '220px' : ''
                         }}>
                         <ReactPlayerContent props={{
                             _id: props._id,

@@ -2,35 +2,38 @@
 import React from "react"
 import '../../FullVideo.css'
 import ScrollArea from "@/components/ScrollArea";
+import {useCategory} from "@/contexts/VideosCategoryContext";
 
+const categories = [
+    {id: 'WSZYSTKO', value: 'Wszystkie', category: ''},
+    {id: 'PODOBNE', value: 'Podobne', category: "PODOBNE"},
+    {id: 'DLA_CIEBIE', value: 'Dla ciebie', category: "DLA_CIEBIE"},
+    {id: 'OSTATNIO_PRZESLANE', value: 'Ostatnio przesłane', category: "OSTATNIO_PRZESLANE"},
+    {id: 'OBEJRZANE', value: 'Obejrzane', category: "OBEJRZANE"},
 
+];
 const ChipCloud = () => {
+    const {selectedCategory, setSelectedCategory} = useCategory();
+
+    const handleChipClick = (category: string) => {
+        setSelectedCategory(category);
+    };
+
     return (
-            <ScrollArea styles={{
-                containerStyle: 'flex flex-row w-[440px] h-full text-sm font-medium justify-between items-center py-4',
-                contentStyle: 'flex flex-row w-[100%] overflow-hidden',
-            }}>
+        <ScrollArea styles={{
+            containerStyle: 'flex flex-row w-[440px] h-full text-sm font-medium justify-between items-center py-4',
+            contentStyle: 'flex flex-row w-[100%] overflow-hidden',
+        }}>
+            {categories.map((category) => (
                 <div
-                    className={'chip active'}>
-                    <span>Wszystkie</span>
+                    key={category.id}
+                    className={`chip ${selectedCategory === category.id || (category.id === 'WSZYSTKO' && !selectedCategory) ? 'active' : ''}`}
+                    onClick={() => handleChipClick(category.category)}
+                >
+                    {category.value}
                 </div>
-                <div
-                    className={'chip'}>
-                    <span>Podobne</span>
-                </div>
-                <div
-                    className={'chip'}>
-                    <span>Dla ciebie</span>
-                </div>
-                <div
-                    className={'chip'}>
-                    <span>Ostatnio przesłane</span>
-                </div>
-                <div
-                    className={'chip'}>
-                    <span>Obejrzane</span>
-                </div>
-            </ScrollArea>
+            ))}
+        </ScrollArea>
     )
 }
 

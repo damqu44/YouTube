@@ -10,7 +10,7 @@ interface pageProps {
     }
 }
 
-export default async function ChannelMainPage({params}: pageProps) {
+export default async function ChannelVideosPage({params}: pageProps) {
     const channelId = decodeURIComponent(params.channelId)
     const getChannelVideosById = async (channelId: string) => {
 

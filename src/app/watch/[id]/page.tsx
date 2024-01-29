@@ -1,7 +1,8 @@
-import React, {FC} from 'react'
+import React from 'react'
 import './player.css'
 import FullVideo from "@/components/FullVideo/FullVideo";
-import type {Metadata} from "next";
+import getVideosWithChannels from "@/lib/fetchers/videosWithChannels";
+import {notFound} from "next/navigation";
 
 interface pageProps {
     params: {
@@ -10,16 +11,21 @@ interface pageProps {
 }
 
 
-const FullVideoPage: FC<pageProps> = ({params}) => {
+export default async function FullVideoPage({params}: pageProps) {
+    const videoId = decodeURIComponent(params.id)
+    const videos = await getVideosWithChannels()
+    const selectedVideo = videos?.find(video => video.id === videoId);
+
+    if (!selectedVideo || !videos) {
+        notFound()
+    }
 
 
     return (
         <>
-            <FullVideo videoId={params.id}/>
+            <FullVideo videos={videos} videoId={videoId} selectedVideo={selectedVideo}/>
         </>
 
     )
 }
-
-export default FullVideoPage
 

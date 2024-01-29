@@ -1,16 +1,31 @@
 'use client'
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {VideoItem} from "@/lib/types";
 import Video from "@/components/Content/VideoList/Video/Video";
+import {SkeletonCompakt} from "@/components/Content/VideoList/Video/Skeleton";
+import {useCategory} from "@/contexts/VideosCategoryContext";
+import useSortByCategoryVideos from "@/hooks/sorts/useSortByCategoryVideos";
 
 type CompaktVideosProps = {
     videos: VideoItem[]
 }
 const CompaktVideos: React.FC<CompaktVideosProps> = ({videos}) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const {selectedCategory} = useCategory()
+    const {sortedVideos} = useSortByCategoryVideos(videos, selectedCategory, 'category')
+
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+    }, []);
 
     return (
         <div className={'w-full min-h-screen flex flex-col justify-start items-start'}>
-            {videos.map((video, index) => (
+            {!isLoading ? (sortedVideos?.map((video, index) => (
                 <div
                     key={index}
                     className={'h-24 w-full flex flex-row justify-center items-start mb-2'}>
@@ -33,8 +48,16 @@ const CompaktVideos: React.FC<CompaktVideosProps> = ({videos}) => {
                         width='168px'
                     />
                 </div>
-            ))}
+            ))) : (
+                Array.from({length: videos.length}, (_, index) => (
+                        <div key={index} className={'h-24 w-full flex flex-row justify-center items-start mb-2'}>
+                            <SkeletonCompakt/>
+                        </div>
+                    )
+                ))
+            }
         </div>
+
     )
 }
 

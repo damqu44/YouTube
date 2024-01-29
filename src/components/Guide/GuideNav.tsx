@@ -13,7 +13,7 @@ export default function GuideNav() {
     const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
     return (
-        <div id={'nav'} className={'flex flex-col'}>
+        <div id={'nav'} className={'flex flex-col w-full'}>
             <Link id={'home'} className={currentRoute === '/' ? 'guide-item active' : 'guide-item'} href={'/'}>
                 <Icons.home className={'guide-icon'}/>
                 <span>Główna</span>

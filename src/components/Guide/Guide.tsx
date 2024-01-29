@@ -16,7 +16,6 @@ export default function Guide() {
     const {isGuideMiniOpen, setIsGuideMiniOpen, isGuideVisible, setIsGuideVisible} = useGuideContext()
     const {user, isUserLoading} = UserAuth()
 
-
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 780) {
@@ -45,9 +44,12 @@ export default function Guide() {
     return (
         <>
             {isGuideVisible ? (
-                    <ShortsProvider>
-                        {!isGuideMiniOpen ? (
-                            <div id={'guide-sections'} className={'flex flex-col w-64 p-4 sticky top-14 pb-14'}>
+                <ShortsProvider>
+                    {!isGuideMiniOpen ? (
+                        <div id={'guide-scrollbar'}
+                             className={'flex w-[250px] min-w-[250px] h-full p-4 mr-4 sticky top-14 mb-2 bg-primaryStrong z-[35]'}>
+                            <div id={'guide-sections'}
+                                 className={'flex flex-col w-[216px]'}>
                                 <GuideNav/>
                                 {user?.email ? <GuideSubscriptions/> : null}
                                 <GuideExplore/>
@@ -55,12 +57,13 @@ export default function Guide() {
                                 <GuideMenu/>
                                 <GuideFooter/>
                             </div>
-                        ) : (
-                            <div id={'guide-sections'} className={'flex sticky top-14'}>
-                                <GuideMini/>
-                            </div>
-                        )}
-                    </ShortsProvider>
+                        </div>
+                    ) : (
+                        <div id={'guide-sections'} className={'flex sticky top-14 bg-primaryStrong'}>
+                            <GuideMini/>
+                        </div>
+                    )}
+                </ShortsProvider>
             ) : null}
         </>
     )

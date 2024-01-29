@@ -13,6 +13,7 @@ export default function MastHeadEnd() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
+
         const handleOutsideClick = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setIsMenuOpen(false)
@@ -54,10 +55,10 @@ export default function MastHeadEnd() {
                     <>
                         <div className={'relative px-2 flex justify-start items-center'}>
                             <button
-                                className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
+                                className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-not-allowed'}>
                                 <Icons.create className={'w-6 h-6 invert '}/></button>
                             <button
-                                className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-pointer'}>
+                                className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-not-allowed'}>
                                 <Icons.notifications className={'w-6 h-6 invert'}/></button>
                             <button
                                 onClick={toggleMenu}

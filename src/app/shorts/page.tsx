@@ -1,6 +1,6 @@
-import Guide from "@/components/Guide/Guide";
 import Shorts from "@/components/shorts/shorts";
 import {FC} from "react";
+import GuideContainer from "@/components/ui/GuideContainer";
 
 interface pageProps {
     params: {
@@ -11,12 +11,9 @@ interface pageProps {
 const ShortsPage: FC<pageProps> = ({params}) => {
 
     return (
-        <>
-            <div id={'content'} className={'flex flex-row w-full h-full'}>
-                <Guide/>
-                <Shorts videoId={params.id}/>
-            </div>
-        </>
+            <GuideContainer>
+                    <Shorts videoId={params.id}/>
+            </GuideContainer>
     )
 }
 

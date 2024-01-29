@@ -5,7 +5,8 @@ import React, {useEffect, useState} from "react";
 interface ContainerProps {
     children: React.ReactNode;
 }
-const Container: React.FC <ContainerProps>= ({children}) => {
+
+const Container: React.FC<ContainerProps> = ({children}) => {
     const {isGuideVisible, isGuideMiniOpen} = useGuideContext()
     const [contentsWidth, setContentsWidth] = useState('100%')
 
@@ -20,10 +21,12 @@ const Container: React.FC <ContainerProps>= ({children}) => {
     }, [isGuideMiniOpen, isGuideVisible])
 
     return (
-        <div id={'contents'}
-             style={{width: contentsWidth}}
-             className={`h-full flex flex-col justify-start items-start max-w-[2150px]`}>
-            {children}
+        <div className={'w-full flex justify-center items-start'}>
+            <div id={'contents'}
+                 style={{width: contentsWidth}}
+                 className={`h-full w-full flex flex-col justify-start items-start max-w-[2150px]`}>
+                {children}
+            </div>
         </div>
     )
 }

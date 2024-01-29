@@ -68,7 +68,9 @@
     background-color: white;
 }
 
-.chip.active span {
-    color: black;
+.chip.active {
+    background-color: #fff;
+    color: #222222;
+    font-weight: normal;
 }
 

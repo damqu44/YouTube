@@ -6,22 +6,16 @@ import {Icons} from "@/components/icons";
 import React, {useState} from "react";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
 import Link from "next/link";
+import {VideoItem} from "@/lib/types";
 
 
 type VideoProps = {
-    _id: string;
-    views: string;
-    date: string;
-    channel: string;
-    subscriptions: string;
-    description: string;
-    avatar_link: string;
-    channelId: string;
+    video: VideoItem
 }
-const Description: React.FC<VideoProps> = (props) => {
+const Description: React.FC<VideoProps> = ({video}) => {
     const {formatSubscribers} = useNumbersFormatting();
     const [isExpanded, setIsExpanded] = useState(false);
-    const descriptionLines = props.description.split('\\n');
+    const descriptionLines = video.description.split('\\n');
 
     const toggleDescription = () => {
         setIsExpanded((prev) => !prev);
@@ -34,12 +28,12 @@ const Description: React.FC<VideoProps> = (props) => {
                  className={'w-full flex'}>
                 <div id={'video-views'}
                      className={'flex flex-row justify-start items-center text-sm font-bold mr-2'}>
-                    <div>{props.views}</div>
+                    <div>{video.views}</div>
                     <div>{'\u00A0wyświetleń'}</div>
                 </div>
                 <div id={'video-date'}
                      className={'text-sm font-semibold mr-2 flex flex-row justify-start items-center'}>
-                    {formatToWordDate(props.date)}
+                    {formatToWordDate(video.date)}
                 </div>
                 <div id={'hashtags'} className={'flex'}>
                     <div className={'text-center mr-2 text-sky-600'}>#gothic1</div>
@@ -76,10 +70,10 @@ const Description: React.FC<VideoProps> = (props) => {
                          className={'w-full flex flex-col justify-start items-start mt-6'}>
                         <div id={'infocards-header'}
                              className={'w-full h-20 flex flex-row justify-start items-start'}>
-                            <Link id={'channel-avatar'} href={`/${props.channelId}`}>
-                                {props.avatar_link ? (
+                            <Link id={'channel-avatar'} href={`/${video.channelInfo.avatar_link}`}>
+                                {video.channelInfo.avatar_link ? (
                                     <Image
-                                        src={props.avatar_link}
+                                        src={video.channelInfo.avatar_link}
                                         width={72} height={72} alt={'channel image'}
                                         className={'rounded-full cursor-pointer'}></Image>
                                 ) : (
@@ -88,24 +82,24 @@ const Description: React.FC<VideoProps> = (props) => {
                             </Link>
                             <div id={'infocards-by-line-container'}
                                  className={'w-full h-full text-xs text-white flex flex-col justify-center items-start pl-4'}>
-                                <Link id={'video-channel'} href={`/${props.channelId}`} className={'text-lg'}>
-                                    {props.channel}
+                                <Link id={'video-channel'} href={`/${video.channelInfo._id}`} className={'text-lg'}>
+                                    {video.channel}
                                 </Link>
-                                <Link id={'video-subscriptions'} href={`/${props.channelId}`}
+                                <Link id={'video-subscriptions'} href={`/${video.channelInfo._id}`}
                                       className={'text-sm flex flex-row'}>
-                                    <div>{formatSubscribers(props.subscriptions)}</div>
+                                    <div>{formatSubscribers(video.channelInfo.subscriptions)}</div>
                                 </Link>
                             </div>
                         </div>
                         <div id={'infocards-action-buttons'}
                              className={'w-full flex flex-row justify-start items-start mt-3 mb-8'}>
-                            <Link id={'infocard-video-button'} href={`/${props.channelId}/wideo`}
+                            <Link id={'infocard-video-button'} href={`/${video.channelInfo._id}/videos`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 mr-3 cursor-pointer'}>
                                 <Icons.your_vid
                                     className={'brightness-0 invert mr-2'}/>
                                 <span className={'text-sm font-medium'}>Wideo</span>
                             </Link>
-                            <Link id={'infocard-info-button'} href={`/${props.channelId}`}
+                            <Link id={'infocard-info-button'} href={`/${video.channelInfo._id}`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 cursor-pointer'}>
                                 <Icons.your_profile
                                     className={'brightness-0 invert mr-2'}/>
@@ -115,7 +109,7 @@ const Description: React.FC<VideoProps> = (props) => {
                     </div>
                 </div>
                 {isExpanded ? (
-                    <div id={'collapse'} className={'absolute font-bold bottom-2 z-20 cursor-pointer'}
+                    <div id={'collapse'} className={'absolute font-bold bottom-2 z-5 cursor-pointer'}
                          onClick={toggleDescription}>Pokaż mniej</div>
                 ) : (
                     <div id={'collapse'} className={'collapse-expand'}
