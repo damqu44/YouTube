@@ -1,14 +1,11 @@
 import Guide from "@/components/Guide/Guide";
-import {isAuthenticated} from "@/utils/Auth";
 import {redirect} from "next/navigation";
 import React from "react";
+import {isUserAuthenticated} from "@/lib/firebase/firebase-admin";
 
-const DownloadPage = () => {
-    const isAuth = isAuthenticated
+export async function DownloadPage () {
+    if (!await isUserAuthenticated()) redirect("/");
 
-    if(!isAuth) {
-        redirect('/')
-    }
 
     return (
             <div id={'content'} className={'flex flex-row w-full h-full'}>

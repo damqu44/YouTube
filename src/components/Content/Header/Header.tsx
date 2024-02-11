@@ -26,6 +26,7 @@ const Header: React.FC = () => {
 
     return (
         <ScrollArea
+            arrows={{isAtStart: true, isAtEnd: true}}
             styles={{
                 containerStyle: 'flex flex-row w-full justify-start items-center sticky top-14 overflow-hidden z-[35] bg-primaryStrong',
                 contentStyle: 'flex w-full justify-start items-center text-sm font-bold w-[100%] overflow-hidden',

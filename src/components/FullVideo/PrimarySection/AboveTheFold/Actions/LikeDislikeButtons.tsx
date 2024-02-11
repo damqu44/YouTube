@@ -1,13 +1,13 @@
+import '../../../FullVideo.css'
 import React, {useEffect, useState} from "react";
 import {arrayRemove, arrayUnion, doc, updateDoc} from "@firebase/firestore";
-import {db} from "@/lib/firebase/firebase";
-import {UserAuth} from "@/contexts/AuthContext";
-import {isAuthenticated} from "@/utils/Auth";
-import {Icons} from "@/components/icons";
 import LoginButton from "@/components/auth/login-button";
 import Modal from "./Modal";
 import {onSnapshot} from "firebase/firestore";
-import '../../../FullVideo.css'
+import {db} from "@/lib/firebase/firebase";
+import {Icons} from "@/components/icons";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
+
 
 interface LikeDislikeButtonProps {
     _id: string;
@@ -21,8 +21,7 @@ interface VideoInteractions {
 }
 
 const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
-    const isAuth = isAuthenticated();
-    const {user} = UserAuth();
+    const {user} = useAuthUser()
     const userEmail = user?.email;
     const userRef = userEmail ? doc(db, 'users', userEmail) : null;
     const [videosInteractions, setVideosInteractions] = useState<VideoInteractions[]>([])
@@ -41,7 +40,7 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
     //check is video liked
     useEffect(() => {
         const checkVideosInteractions = async () => {
-            if (isAuth && userRef) {
+            if (userEmail && userRef) {
                 const existingIndex = videosInteractions?.findIndex(video => video.id === _id);
                 if (existingIndex !== -1) {
                     const foundVideo = videosInteractions?.find(video => video.id === _id)
@@ -53,10 +52,10 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
             }
         }
         checkVideosInteractions();
-    }, [isAuth, userRef, _id, videosInteractions])
+    }, [userEmail, userRef, _id, videosInteractions])
 
     const changeVideosInteractions = async (like: boolean, disLike: boolean) => {
-        if (isAuth && userRef) {
+        if (userEmail && userRef) {
             if (videosInteractions) {
                 try {
                     const existingIndex = videosInteractions.findIndex(video => video.id === _id);

@@ -5,8 +5,8 @@ import React from "react";
 import MastHeadContainer from "@/components/MastHead/MastHeadContainer";
 import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
-import {AuthContextProvider} from "@/contexts/AuthContext";
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
+import {AuthUserProvider} from "@/hooks/firebase/useAuthUser";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -22,9 +22,9 @@ export default function RootLayout({children,}: { children: React.ReactNode, }) 
 
     return (
         <>
-            <AuthContextProvider>
-                <html lang="en">
-                <body className={inter.className}>
+            <html lang="en">
+            <body className={inter.className}>
+            <AuthUserProvider>
                 <ActivePageProvider>
                     <GuideProvider>
                         <CategoryProvider>
@@ -33,10 +33,9 @@ export default function RootLayout({children,}: { children: React.ReactNode, }) 
                         </CategoryProvider>
                     </GuideProvider>
                 </ActivePageProvider>
-                </body>
-                </html>
-            </AuthContextProvider>
+            </AuthUserProvider>
+            </body>
+            </html>
         </>
-
     )
 }

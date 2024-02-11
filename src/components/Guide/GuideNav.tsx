@@ -4,12 +4,12 @@ import LoginButton from '@/components/auth/login-button'
 import './Guide.css'
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {UserAuth} from "@/contexts/AuthContext";
 import {useState} from "react";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 export default function GuideNav() {
+    const {user} = useAuthUser()
     const currentRoute = usePathname();
-    const {user} = UserAuth()
     const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
     return (

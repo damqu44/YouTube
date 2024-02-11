@@ -5,14 +5,14 @@ import GuideExplore from "@/components/Guide/GuideExplore";
 import GuideFeatures from "@/components/Guide/GuideFeatures";
 import GuideMenu from "@/components/Guide/GuideMenu";
 import GuideFooter from "@/components/Guide/GuideFooter";
-import {UserAuth} from "@/contexts/AuthContext";
-import React, {useEffect, useRef, useState} from "react";
+import {useGuideContext} from "@/contexts/GuideContext";
+import React, {useEffect, useRef} from "react";
 import {Icons} from "@/components/icons";
 import Link from "next/link";
-import {useGuideContext} from "@/contexts/GuideContext";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 const DynamicGuide: React.FC = () => {
-    const {user, isUserLoading} = UserAuth()
+    const {user} = useAuthUser()
     const guideRef = useRef<HTMLDivElement | null>(null);
     const {toggleDynamicGuide, isDynamicGuideOpen, setIsDynamicGuideOpen} = useGuideContext()
 

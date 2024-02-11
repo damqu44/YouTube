@@ -2,10 +2,9 @@
 import React from "react";
 import {Icons} from "@/components/icons";
 import LoginButton from '@/components/auth/login-button'
-import Loading from "@/components/ui/loading/loading";
 import SubscriptionsVideosList from "@/components/SubPages/Subscriptions/SubscriptionsVideosList";
-import {UserAuth} from "@/contexts/AuthContext";
 import Container from "@/components/ui/Container";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 
 interface Subscriptions {
@@ -13,11 +12,8 @@ interface Subscriptions {
 }
 
 const Subscriptions = () => {
-    const {user, isUserLoading} = UserAuth();
+    const {user} = useAuthUser()
 
-    if (isUserLoading) {
-        return <Loading/>
-    }
     return (
         <>
             {!user?.email ? (

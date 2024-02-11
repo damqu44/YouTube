@@ -7,12 +7,16 @@ interface ScrollAreaProps {
         containerStyle: string;
         contentStyle: string;
     }
+    arrows: {
+        isAtStart: boolean
+        isAtEnd: boolean;
+    }
 }
 
-const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles}) => {
+const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles,arrows}) => {
     const chipsContainerRef = useRef<HTMLDivElement>(null);
-    const [isChipsContainerAtStart, setIsChipsContainerAtStart] = useState<boolean>(true)
-    const [isChipsContainerAtEnd, setIsChipsContainerAtEnd] = useState<boolean>(false)
+    const [isChipsContainerAtStart, setIsChipsContainerAtStart] = useState<boolean>(arrows.isAtStart)
+    const [isChipsContainerAtEnd, setIsChipsContainerAtEnd] = useState<boolean>(arrows.isAtEnd)
     const scrollLeft = () => {
         if (chipsContainerRef.current) {
             chipsContainerRef.current.scrollLeft -= 100;
@@ -28,7 +32,7 @@ const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles}) => {
     const handleScroll = () => {
         if (chipsContainerRef.current) {
             const isAtStart = chipsContainerRef.current.scrollLeft === 0;
-            const isAtEnd = chipsContainerRef.current.scrollLeft + chipsContainerRef.current.clientWidth + 5 >= chipsContainerRef.current.scrollWidth;
+            const isAtEnd = chipsContainerRef.current.scrollLeft + chipsContainerRef.current.clientWidth + 2 >= chipsContainerRef.current.scrollWidth;
 
             isAtStart ? setIsChipsContainerAtStart(true) : setIsChipsContainerAtStart(false)
             isAtEnd ? setIsChipsContainerAtEnd(true) : setIsChipsContainerAtEnd(false)
@@ -53,9 +57,6 @@ const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles}) => {
         }
     }, [chipsContainerRef.current])
 
-    useEffect(() => {
-        handleScroll();
-    }, []);
 
     return (
 
@@ -68,7 +69,7 @@ const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles}) => {
             </div>
             <div
                 ref={chipsContainerRef}
-                 className={styles.contentStyle}>
+                className={styles.contentStyle}>
                 {children}
             </div>
             <div onClick={scrollRight}

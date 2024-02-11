@@ -1,14 +1,13 @@
 import React from "react";
+import {ChannelItem} from "@/lib/types";
 import Guide from "@/components/Guide/Guide";
 import Container from "@/components/ui/Container";
-import ChannelHeader from "@/components/Channel/ChannelHeader";
 import ChannelTabs from "@/components/Channel/ChannelTabs";
 import {ChannelLayoutProvider} from "@/contexts/ChannelContext";
-import {db} from "@/lib/firebase/firebase";
-import {collection, getDocs, query, where} from "firebase/firestore";
-import {ChannelItem} from "@/lib/types";
-import {redirect} from "next/navigation";
 import {notFound} from 'next/navigation';
+import {collection, getDocs, query, where} from "firebase/firestore";
+import ChannelHeader from "@/components/Channel/ChannelHeader";
+import {db} from "@/lib/firebase/firebase";
 
 interface ChannelLayoutProps {
     params: {

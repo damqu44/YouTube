@@ -1,9 +1,8 @@
 'use client'
 import {useEffect, useState} from 'react';
-import {ChannelItem, VideoItem} from "@/lib/types";
+import {ChannelItem} from "@/lib/types";
 import {fetchVideos} from "@/hooks/firebase/fetchVideos";
 import {fetchChannels} from "@/hooks/firebase/fetchChannels";
-import Video from "@/components/Content/VideoList/Video/Video";
 
 const useChannels = () => {
     const [channels, setChannels] = useState<ChannelItem[]>([]);

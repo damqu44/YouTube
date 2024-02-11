@@ -4,15 +4,15 @@ import Video from "@/components/Content/VideoList/Video/Video";
 import Loading from "@/components/ui/loading/loading";
 import Error from "@/components/ui/error/error";
 import React, {useEffect, useState} from "react";
-import {UserAuth} from "@/contexts/AuthContext";
 import {VideoItem} from "@/lib/types";
 import {onSnapshot} from "firebase/firestore";
 import {doc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
 import Subscriptions from "@/components/SubPages/Subscriptions/Subscriptions";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 const VideoList = () => {
-    const {user, isUserLoading} = UserAuth();
+    const {user} = useAuthUser()
     const [subscribedChannelsVideos, setSubscribedChannelsVideos] = useState<VideoItem[]>([])
     const {videos, isVideosLoading} = useVideos()
     const [isLoading, setIsLoading] = useState(false)

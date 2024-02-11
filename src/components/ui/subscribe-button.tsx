@@ -1,31 +1,29 @@
 import React, {useEffect, useRef, useState} from "react";
 import {arrayUnion, doc, getDoc, updateDoc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
-import {UserAuth} from "@/contexts/AuthContext";
-import {isAuthenticated} from "@/utils/Auth";
 import useSubscribedChannels from "@/hooks/firebase/useSubscribedChannels";
 import LoginButton from "@/components/auth/login-button";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 interface SubscribeButtonProps {
     channelId: string;
-
 }
 
 const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
-    const isAuth = isAuthenticated()
-    const {user} = UserAuth()
     const [sub, setSub] = useState<boolean>(false)
     const {subscribedChannels} = useSubscribedChannels()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const subButtonRef = useRef<HTMLDivElement>(null);
 
+    const {user} = useAuthUser()
     const userEmail = user?.email;
     const userRef = userEmail ? doc(db, 'users', userEmail) : null
+    console.log(user)
 
     //check is channel subscribed
     useEffect(() => {
         const checkSubscription = async () => {
-            if (isAuth && userEmail && userRef) {
+            if (userEmail && userRef) {
                 try {
                     const docSnap = await getDoc(userRef);
                     if (docSnap.exists()) {
@@ -42,7 +40,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
         };
 
         checkSubscription();
-    }, [isAuth, userEmail, userRef, channelId]);
+    }, [userEmail, userRef, channelId]);
 
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
@@ -70,7 +68,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
 
     //make channel be subscribed
     const subChannel = async () => {
-        if (isAuth && userEmail && userRef) {
+        if (userEmail && userRef) {
             setSub(true)
             await updateDoc(userRef, {
                 subscriptions: arrayUnion({

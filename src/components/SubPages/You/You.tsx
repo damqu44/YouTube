@@ -2,14 +2,14 @@
 import React from "react";
 import {Icons} from "@/components/icons";
 import LoginButton from '@/components/auth/login-button'
-import {isAuthenticated} from "@/utils/Auth";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 const You = () => {
-    const isAuth = isAuthenticated()
+    const {user} = useAuthUser()
 
     return (
         <>
-            {!isAuth ? (
+            {!user?.email ? (
                 <div className={'w-full flex flex-col items-center pt-36'}>
                     <Icons.your_lib className={'brightness-0 invert h-32 w-32'}/>
                     <div className={'flex flex-col justify-center items-center py-6 px-14'}>

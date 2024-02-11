@@ -1,6 +1,6 @@
+import React from "react";
 import Header from "@/components/Content/Header/Header";
 import VideoList from "@/components/Content/VideoList/VideoList";
-import React from "react";
 import GuideContainer from "@/components/ui/GuideContainer";
 import NotFound from "@/components/ui/error/notFound";
 import getVideosWithChannels from "@/lib/fetchers/videosWithChannels";

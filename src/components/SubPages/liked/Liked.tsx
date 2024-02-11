@@ -1,11 +1,9 @@
 'use client'
 import React, {useEffect, useState} from "react";
 import Error from "@/components/ui/error/error";
-import {isAuthenticated} from "@/utils/Auth";
 import {onSnapshot} from "firebase/firestore";
 import {doc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
-import {UserAuth} from "@/contexts/AuthContext";
 import Loading from "@/components/ui/loading/loading";
 import {Icons} from "@/components/icons";
 import Link from "next/link";
@@ -13,10 +11,11 @@ import LoginButton from "@/components/auth/login-button";
 import Video from "@/components/Content/VideoList/Video/Video";
 import useVideos from "@/hooks/firebase/useVideos";
 import {VideoItem, VideoInteractions} from "@/lib/types";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 
 const Liked = () => {
-    const {user, isUserLoading} = UserAuth();
+    const {user} = useAuthUser()
     const userEmail = user?.email;
     const [likedVideos, setLikedVideos] = useState<VideoItem[]>([])
     const {videos, isVideosLoading} = useVideos()
@@ -39,7 +38,7 @@ const Liked = () => {
         setIsLoading(false)
     }, [userEmail, videos])
 
-    if (isLoading || isVideosLoading || isUserLoading) {
+    if (isLoading || isVideosLoading) {
         return <Loading/>
     }
     if (error) {

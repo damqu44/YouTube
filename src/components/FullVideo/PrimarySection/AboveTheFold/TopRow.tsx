@@ -1,11 +1,10 @@
+import '../../FullVideo.css'
 import Image from "next/image";
 import {Icons} from "@/components/icons";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import SubscribeButton from "@/components/ui/subscribe-button";
 import {useNumbersFormatting} from "@/hooks/formats/useNumbersFormatting";
-import {isAuthenticated} from "@/utils/Auth";
-import '../../FullVideo.css'
 import LikeDislikeButtons from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/LikeDislikeButtons";
 import SaveButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/SaveButton";
 import ShareButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/ShareButton";
@@ -13,13 +12,14 @@ import SettingsButton from "@/components/FullVideo/PrimarySection/AboveTheFold/A
 import DownloadButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/DownloadButton";
 import ClipButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/ClipButton";
 import {VideoItem} from "@/lib/types";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 type VideoProps = {
     video: VideoItem
 };
 
 const TopRow: React.FC<VideoProps> = ({video}) => {
-    const isAuth = isAuthenticated()
+    const {user} = useAuthUser()
     const {formatSubscribers} = useNumbersFormatting();
     const [isSaveButtonVisible, setIsSaveButtonVisible] = useState<boolean>(false)
     const [isDownloadButtonVisible, setIsDownloadButtonVisible] = useState<boolean>(false)
@@ -58,7 +58,8 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
                     </Link>
                     <div id={'subscriptions'}
                          className={'w-full flex flex-row'}>
-                        <div className={'text-xs gray-color truncate'}>{formatSubscribers(video.channelInfo.subscriptions)}</div>
+                        <div
+                            className={'text-xs gray-color truncate'}>{formatSubscribers(video.channelInfo.subscriptions)}</div>
                     </div>
                 </div>
                 <div id={'subscribe-button'}>
@@ -69,7 +70,7 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
                 className={'flex flex-row justify-end items-center text-sm font-medium text-white whitespace-nowrap'}>
                 <LikeDislikeButtons _id={video.id} likes={video.likes}/>
                 <ShareButton/>
-                {!isAuth ? (
+                {!user?.email ? (
                     <SaveButton isButtonVisible={isSaveButtonVisible}/>
                 ) : (
                     <>

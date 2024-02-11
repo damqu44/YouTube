@@ -1,17 +1,18 @@
 'use client'
 import './MastHead.css'
 import Image from "next/image";
-import LoginButton from '@/components/auth/login-button'
-import {LogoutButton} from "@/components/auth/logout-button";
 import {Icons} from "@/components/icons";
 import React, {useEffect, useRef, useState} from 'react';
-import {UserAuth} from "@/contexts/AuthContext";
+import LoginButton from '@/components/auth/login-button'
+import {LogoutButton} from "@/components/auth/logout-button";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 export default function MastHeadEnd() {
-    // @ts-ignore
-    const {user} = UserAuth()
+    const {user, isLoading} = useAuthUser()
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false)
     const menuRef = useRef<HTMLDivElement | null>(null);
+
     useEffect(() => {
 
         const handleOutsideClick = (event: MouseEvent) => {
@@ -37,9 +38,47 @@ export default function MastHeadEnd() {
         };
     }, [isMenuOpen])
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 640) {
+                setIsSearchVisible(true);
+            } else {
+                setIsSearchVisible(false);
+            }
+        }
+
+        handleResize();  // Initial call
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        }
+    }, [])
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     }
+
+    const Skeleton = () => {
+        return (
+            <div className={'p-0 m-0 w-[33%] mr-2 animate-pulse'}>
+                <div className={'bg-skeletongray rounded-full '}
+                     style={{width: '32px', height: '32px'}}>
+                </div>
+            </div>
+        )
+    }
+
+    if (isLoading) {
+        return (
+            <div id={'end'} className={'flex justify-center items-center mr-8'}>
+                <Skeleton/>
+                <Skeleton/>
+                <Skeleton/>
+            </div>
+        )
+    }
+
     return (
 
         <div id={'end'} className={'flex justify-center items-center mr-8'}>
@@ -47,13 +86,24 @@ export default function MastHeadEnd() {
                 !user?.email ? (
                     <div id={'buttons'} className={'flex justify-center items-center'}>
                         <button id={'menu-button'} className={'w-10 h-10 flex items-center'}>
-                            <Icons.three_dots className={'w-6 h-6 brightness-0 invert mt-2 rotate-90 cursor-not-allowed'}/>
+                            <Icons.three_dots
+                                className={'w-6 h-6 brightness-0 invert mt-2 rotate-90 cursor-not-allowed'}/>
                         </button>
                         <LoginButton/>
                     </div>
                 ) : (
                     <>
                         <div className={'relative px-2 flex justify-start items-center'}>
+                            {isSearchVisible ? (
+                                <>
+                                    <button
+                                        className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-not-allowed'}>
+                                        <Icons.magnifier className={'w-6 h-6 invert '}/></button>
+                                    <button
+                                        className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-not-allowed'}>
+                                        <Icons.microphone className={'w-6 h-6 invert '}/></button>
+                                </>
+                            ) : null}
                             <button
                                 className={'p-2 mr-2 rounded-full hover:bg-primary focus:bg-lightgray cursor-not-allowed'}>
                                 <Icons.create className={'w-6 h-6 invert '}/></button>

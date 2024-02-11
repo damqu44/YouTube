@@ -1,9 +1,10 @@
 import './Guide.css'
 import {Icons} from "@/components/icons";
-import {UserAuth} from "@/contexts/AuthContext";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
+import Link from "next/link";
 
 export default function GuideFeatures() {
-    const {user} = UserAuth()
+    const {user} = useAuthUser()
 
     return (
         <>
@@ -20,10 +21,10 @@ export default function GuideFeatures() {
             <div className={'line'}/>
             <div id={'more'}>
                 <span className={'text-base pl-3'}>Więcej z YouTube</span>
-                <div id={'yt-premium'} className={'guide-item'}>
+                <Link href={'/premium'} className={'guide-item'}>
                     <Icons.youtube_logo className={'guide-icon color'}/>
                     <span>YouTube Premium</span>
-                </div>
+                </Link>
                 <div id={'yt-music'} className={'guide-item'}>
                     <Icons.youtube_music className={'guide-icon color'}/>
                     <span>YouTube Music</span>

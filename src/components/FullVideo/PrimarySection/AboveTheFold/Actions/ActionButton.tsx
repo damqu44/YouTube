@@ -1,10 +1,6 @@
 import Modal from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/Modal";
 import LoginButton from "@/components/auth/login-button";
 import React, {useState} from "react";
-import {isAuthenticated} from "@/utils/Auth";
-import {UserAuth} from "@/contexts/AuthContext";
-import {doc} from "@firebase/firestore";
-import {db} from "@/lib/firebase/firebase";
 import '@/components/FullVideo/FullVideo.css'
 
 interface ActionButtonProps {
@@ -18,10 +14,6 @@ interface ActionButtonProps {
 }
 
 const ActionButton: React.FC<ActionButtonProps> = (props) => {
-    const isAuth = isAuthenticated();
-    const {user} = UserAuth();
-    const userEmail = user?.email;
-    const userRef = userEmail ? doc(db, 'users', userEmail) : null;
     const [isModalOpen, setIsModalOpen] = useState<boolean>(props.modal);
 
     const handleModalClose = () => {

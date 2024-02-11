@@ -2,14 +2,14 @@ import CompaktVideos from "@/components/FullVideo/SecondarySection/CompaktVideoS
 import React, {useEffect, useState} from "react";
 import {VideoItem} from "@/lib/types";
 import ChipCloud from "@/components/FullVideo/SecondarySection/ChipCloudSection/ChipCloud";
-import {UserAuth} from "@/contexts/AuthContext";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 type VideoProps = {
     videos: VideoItem[]
 }
 const SecondarySection: React.FC<VideoProps> = (props) => {
     const [isSecondaryVisible, setIsSecondaryVisible] = useState<boolean>()
-    const {user, isUserLoading} = UserAuth()
+    const {user, isLoading} = useAuthUser()
 
     useEffect(() => {
             const handleSecondaryVisibility = () => {
@@ -29,7 +29,7 @@ const SecondarySection: React.FC<VideoProps> = (props) => {
         }, []
     )
 
-    if (isUserLoading) {
+    if (isLoading) {
         return (
             <div className={'mr-24 w-[440px] h-screen'}></div>
         )

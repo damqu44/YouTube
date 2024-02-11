@@ -10,11 +10,11 @@ import {useGuideContext} from "@/contexts/GuideContext";
 import GuideSubscriptions from "@/components/Guide/GuideSubscriptions";
 import {ShortsProvider} from "@/contexts/shortsContext";
 import {useEffect} from "react";
-import {UserAuth} from "@/contexts/AuthContext";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 export default function Guide() {
     const {isGuideMiniOpen, setIsGuideMiniOpen, isGuideVisible, setIsGuideVisible} = useGuideContext()
-    const {user, isUserLoading} = UserAuth()
+    const {user, isLoading} = useAuthUser()
 
     useEffect(() => {
         const handleResize = () => {
@@ -37,8 +37,9 @@ export default function Guide() {
         }
     }, [setIsGuideVisible, setIsGuideMiniOpen]);
 
-    if (isUserLoading) {
-        return <div className={'w-64 h-screen p-4 sticky top-14'}></div>
+
+    if (isLoading) {
+        return <div className={'w-[250px] min-w-[250px] p-4 mr-4 h-screen sticky top-14'}></div>
     }
 
     return (

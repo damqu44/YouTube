@@ -20,7 +20,7 @@ const ChipCloud = () => {
     };
 
     return (
-        <ScrollArea styles={{
+        <ScrollArea arrows={{isAtStart: true, isAtEnd: false}} styles={{
             containerStyle: 'flex flex-row w-[440px] h-full text-sm font-medium justify-between items-center py-4',
             contentStyle: 'flex flex-row w-[100%] overflow-hidden',
         }}>

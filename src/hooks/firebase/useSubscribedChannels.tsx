@@ -3,17 +3,16 @@ import {useEffect, useState} from 'react';
 import {collection, onSnapshot, query} from "firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
 import {ChannelItem} from "@/lib/types";
-import {UserAuth} from "@/contexts/AuthContext";
 import {doc} from "@firebase/firestore";
-import {isAuthenticated} from "@/utils/Auth";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 type ChannelItemId = ChannelItem & { id: string }
 const useSubscribedChannels = () => {
+    const {user} = useAuthUser()
     const [subscribedChannels, setSubscribedChannels] = useState<ChannelItem[]>([]);
     const [isChannelsLoading, setIsChannelsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null | Error>(null);
     const [subscriptions, setSubscriptions] = useState<{ id: string }[]>([])
-    const {user} = UserAuth()
 
     useEffect(() => {
         onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
