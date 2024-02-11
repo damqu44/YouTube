@@ -55,7 +55,7 @@ const ScrollArea: React.FC<ScrollAreaProps> = ({children, styles,arrows}) => {
                 window.removeEventListener("resize", handleResize)
             }
         }
-    }, [chipsContainerRef.current])
+    }, [chipsContainerRef.current, handleResize])
 
 
     return (

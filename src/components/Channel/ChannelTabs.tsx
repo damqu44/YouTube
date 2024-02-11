@@ -22,7 +22,7 @@ const ChannelTabs: React.FC<ChannelTabsProps> = ({channelData}) => {
         } else {
             setActiveContent('main')
         }
-    }, [path]);
+    }, [path, setActiveContent]);
 
     if (channelData._id === '') {
         return

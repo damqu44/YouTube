@@ -39,7 +39,7 @@ const DynamicGuide: React.FC = () => {
             document.removeEventListener('click', handleOutsideClick);
             document.removeEventListener('keydown', handleEscapeKey);
         };
-    }, [isDynamicGuideOpen])
+    }, [isDynamicGuideOpen, setIsDynamicGuideOpen])
 
     return (
         <>

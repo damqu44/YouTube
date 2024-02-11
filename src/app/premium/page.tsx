@@ -1,7 +1,7 @@
 import Guide from "@/components/Guide/Guide";
 import Premium from "@/components/Premium";
 
-const YouPage = () => {
+const PremiumPage = () => {
     return (
         <>
             <div id={'content'} className={'flex flex-row w-full h-full'}>
@@ -11,4 +11,4 @@ const YouPage = () => {
         </>
     )
 }
-export default YouPage
+export default PremiumPage

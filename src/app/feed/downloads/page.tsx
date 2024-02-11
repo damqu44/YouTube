@@ -3,7 +3,7 @@ import {redirect} from "next/navigation";
 import React from "react";
 import {isUserAuthenticated} from "@/lib/firebase/firebase-admin";
 
-export async function DownloadPage () {
+export default async function DownloadPage () {
     if (!await isUserAuthenticated()) redirect("/");
 
 
@@ -14,5 +14,3 @@ export async function DownloadPage () {
             </div>
     )
 }
-
-export default DownloadPage
