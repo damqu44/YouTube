@@ -31,6 +31,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
 
     const userRef = doc(db, 'users', comment.author)
     const videoRef = doc(db, "videos", video.id);
+    const formattedDate = useFormatDate(comment.timeAdded)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -221,7 +222,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
                                   className={'text-[13px] mr-1'}>{author?.userData.displayName}</Link>
                             <div
                                 className={'text-[12px] text-secondary'}>
-                                {useFormatDate(comment.timeAdded)}
+                                {formattedDate}
                                 {comment.isEdited ? ' (edytowany)' : null}
                             </div>
                         </div>
