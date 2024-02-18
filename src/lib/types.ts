@@ -13,6 +13,7 @@ export interface VideoItem {
     duration: string;
     description: string;
     category: string[];
+    comments: CommentItem[];
     channelInfo: ChannelItem;
 }
 
@@ -29,6 +30,7 @@ export interface VideoItemWithoutChannelInfo {
     duration: string;
     description: string;
     category: string[];
+    comments: CommentItem[];
 }
 export interface ChannelItem {
     _id: string;
@@ -44,4 +46,35 @@ export interface VideoInteractions {
     id: string;
     like: boolean;
     disLike: boolean;
+}
+
+export interface CommentItem {
+    author: string;
+    id: string;
+    isEdited: boolean;
+    value: string;
+    timeAdded: string;
+    likes: string[];
+    disLikes: string[];
+    replies?: CommentItem[];
+}
+
+export interface UserItem {
+    userData: {
+        creationTime: Date;
+        displayName: string;
+        email: string;
+        photoURL: string;
+    },
+    subscriptions: [];
+    shorts: {
+        liked: [];
+        disLiked: [];
+        saved: [];
+    },
+    videos: {
+        liked: [];
+        disLiked: [];
+        saved: [];
+    }
 }

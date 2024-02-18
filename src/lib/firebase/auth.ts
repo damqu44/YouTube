@@ -19,12 +19,27 @@ export async function signInWithGoogle() {
             if (!userDocSnapshot.exists()) {
                 // User doesn't exist in the database, create a new user
                 await setDoc(userDocRef, {
+                    userData: {
+                        email: userCreds.user.email,
+                        photoURL: userCreds.user.photoURL,
+                        displayName: userCreds.user.displayName,
+                        creationTime: userCreds.user.metadata.creationTime,
+                    },
                     subscriptions: [],
-                    savedVideos: [],
-                    likedVideos: [],
-                    disLikedVideos: [],
-                    likedShorts: [],
-                    disLikedShorts: [],
+                    videos: {
+                        liked: [],
+                        disLiked: [],
+                        saved: [],
+                    },
+                    shorts: {
+                        liked: [],
+                        disLiked: [],
+                        saved: [],
+                    },
+                    comments: {
+                        liked: [],
+                        disLiked: [],
+                    }
                 });
             }
         }

@@ -1,5 +1,5 @@
 'use client'
-import {collection, getDocs, getFirestore, onSnapshot, query} from "firebase/firestore";
+import {collection, getDocs, getFirestore,  query} from "firebase/firestore";
 import {app} from "@/lib/firebase/firebase";
 import {ChannelItem} from "@/lib/types";
 

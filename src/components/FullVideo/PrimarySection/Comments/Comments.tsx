@@ -1,12 +1,26 @@
+'use client'
 import React from "react";
-import CommentsHeader from "@/components/FullVideo/PrimarySection/Comments/CommentsHeader";
-import CommentsContents from "@/components/FullVideo/PrimarySection/Comments/CommentsContents";
+import {CommentItem, VideoItem} from "@/lib/types";
+import Comment from "@/components/FullVideo/PrimarySection/Comments/Comment";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
+import {User as FirebaseUser} from "@firebase/auth";
 
-const Comments = () => {
-    return (<div id={'comments'} className={'flex flex-col justify-start items-start mt-6'}>
-        <CommentsHeader />
-        <CommentsContents />
-    </div>)
+
+type VideoProps = {
+    video: VideoItem
+    user: FirebaseUser | null
+}
+
+const Comments: React.FC<VideoProps> = ({video, user}) => {
+    return (
+        <div id={'com-contents'} className={'mt-3 w-full'}>
+            <div id={'comment-thread'} className={'w-full'}>
+                {video.comments.map((comment: CommentItem) => (
+                    <Comment key={comment.id} video={video} comment={comment} user={user}/>
+                ))}
+            </div>
+        </div>
+    )
 }
 
 export default Comments

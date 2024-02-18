@@ -12,7 +12,7 @@ export default function LoginButton() {
         const isOk = await signInWithGoogle()
 
         if (isOk) router.push("/");
-    };
+    }
 
     return (
             <Button variant={'login'} size={'login'} onClick={handleSignIn}>

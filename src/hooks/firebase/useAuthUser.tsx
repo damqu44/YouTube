@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useMemo, useState, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { auth } from '@/lib/firebase/firebase'
 import { User as FirebaseUser } from '@firebase/auth'
 interface AuthUser {

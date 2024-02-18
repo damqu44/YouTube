@@ -1,6 +1,6 @@
 import {Icons} from "@/components/icons";
 import Modal from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/Modal";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import BackDrop from "@/components/BackDrop";
 
 interface SaveButtonProps {

@@ -18,7 +18,6 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
     const {user} = useAuthUser()
     const userEmail = user?.email;
     const userRef = userEmail ? doc(db, 'users', userEmail) : null
-    console.log(user)
 
     //check is channel subscribed
     useEffect(() => {

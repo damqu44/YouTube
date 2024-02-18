@@ -1,8 +1,9 @@
 import React from "react";
 import AboveTheFold from "@/components/FullVideo/PrimarySection/AboveTheFold/AboveTheFold";
-import Comments from "@/components/FullVideo/PrimarySection/Comments/Comments";
 import './PrimarySection.css'
 import {VideoItem} from "@/lib/types";
+import CommentsContainer from "@/components/FullVideo/PrimarySection/Comments/CommentsContainer";
+import {CommentsProvider} from "@/contexts/CommentsContext";
 
 type VideoProps = {
     video: VideoItem
@@ -26,7 +27,9 @@ const PrimarySection: React.FC<VideoProps> = ({video}) => {
                 </div>
                 <div id={'below'} className={'flex flex-col w-full'}>
                     <AboveTheFold video={video}/>
-                    <Comments/>
+                    <CommentsProvider>
+                        <CommentsContainer video={video}/>
+                    </CommentsProvider>
                 </div>
             </div>
         </>
