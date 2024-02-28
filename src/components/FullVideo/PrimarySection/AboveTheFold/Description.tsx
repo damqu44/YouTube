@@ -82,10 +82,10 @@ const Description: React.FC<VideoProps> = ({video}) => {
                             </Link>
                             <div id={'infocards-by-line-container'}
                                  className={'w-full h-full text-xs text-white flex flex-col justify-center items-start pl-4'}>
-                                <Link id={'video-channel'} href={`/${video.channelInfo._id}`} className={'text-lg'}>
+                                <Link id={'video-channel'} href={`/${video.channelInfo.id}`} className={'text-lg'}>
                                     {video.channel}
                                 </Link>
-                                <Link id={'video-subscriptions'} href={`/${video.channelInfo._id}`}
+                                <Link id={'video-subscriptions'} href={`/${video.channelInfo.id}`}
                                       className={'text-sm flex flex-row'}>
                                     <div>{formatSubscribers(video.channelInfo.subscriptions)}</div>
                                 </Link>
@@ -93,13 +93,13 @@ const Description: React.FC<VideoProps> = ({video}) => {
                         </div>
                         <div id={'infocards-action-buttons'}
                              className={'w-full flex flex-row justify-start items-start mt-3 mb-8'}>
-                            <Link id={'infocard-video-button'} href={`/${video.channelInfo._id}/videos`}
+                            <Link id={'infocard-video-button'} href={`/${video.channelInfo.id}/videos`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 mr-3 cursor-pointer'}>
                                 <Icons.your_vid
                                     className={'brightness-0 invert mr-2'}/>
                                 <span className={'text-sm font-medium'}>Wideo</span>
                             </Link>
-                            <Link id={'infocard-info-button'} href={`/${video.channelInfo._id}`}
+                            <Link id={'infocard-info-button'} href={`/${video.channelInfo.id}`}
                                   className={'infocards-buttons flex flex-row justify-start items-start border border-gray-600 rounded-xl px-36 py-1 cursor-pointer'}>
                                 <Icons.your_profile
                                     className={'brightness-0 invert mr-2'}/>

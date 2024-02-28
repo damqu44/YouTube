@@ -42,7 +42,7 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = React.memo(({channelData}) =
                         </div>
                         <div id={'channel-meta-items'} className={'text-sm flex pt-2'}>
                             <div id={'channel-id'}
-                                 className={'dark-gray-color'}>{channelData._id}</div>
+                                 className={'dark-gray-color'}>{channelData.id}</div>
                             <div id={'channel-line'}
                                  className={'dark-gray-color font-bold px-1'}>{'\u00B7'}</div>
                             <div id={'channel-subscriptions'}
@@ -65,7 +65,7 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = React.memo(({channelData}) =
                             </div>
                         </div>
                         <div id={'channel-buttons'} className={'pt-3'}>
-                            <SubscribeButton channelId={channelData._id}/>
+                            <SubscribeButton channelId={channelData.id}/>
                         </div>
                     </div>
                 </div>

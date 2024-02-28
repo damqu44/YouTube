@@ -34,18 +34,9 @@ const VideosResults: React.FC<VideoResultsProps> = React.memo(({resultsData}) =>
                         <div key={index} id={'video-result'} className={'mb-5 flex w-full'}>
                             <Video
                                 key={video.id}
-                                _id={video.id}
-                                title={video.title}
-                                channel={video.channelInfo.name}
-                                channelId={video.channelInfo._id}
-                                thumbnail={video.thumbnail}
-                                views={video.views}
-                                date={video.date}
-                                duration={video.duration}
-                                avatar_link={video.channelInfo.avatar_link}
-                                category={video.category}
-                                description={video.description}
-                                url_id={video.url_id}
+                                video={{
+                                    ...video,
+                                }}
                                 videoType='result'
                                 flexDirection='row'
                                 height='220px'

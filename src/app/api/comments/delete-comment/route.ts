@@ -1,34 +1,41 @@
-import {doc, getDoc, updateDoc} from "@firebase/firestore";
-import {CommentItem} from "@/lib/types";
+import {deleteDoc, doc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
+import {collection} from "firebase/firestore";
+import getComments from "@/lib/firebase/utils/getComments";
+import getComment from "@/lib/firebase/utils/getComment";
 
 export async function POST(req: Request) {
     const body = await req.json()
-    const videoRef = doc(db, "videos", body.video.id);
+    const {comment, user, video} = body
+
+    const videoRef = doc(db, 'videos', video.id);
+    const commentsRef = collection(videoRef, 'comments')
 
     try {
-        if (body.comment.author === body.user.email) {
-            const videoSnap = await getDoc(videoRef)
-            if (videoSnap.exists()) {
-                const videoData = videoSnap.data()
-
-                let updatedComments: CommentItem[] = [...videoData.comments]
-                if (body.comment.replies) {
-                    updatedComments = updatedComments.filter((com: CommentItem) => com.id !== body.comment.id)
-                } else {
-                    updatedComments = updatedComments.map((com: CommentItem) => {
-                        const updatedReplies = com.replies?.filter((reply: CommentItem) => reply.id !== body.comment.id)
-                        return {...com, replies: updatedReplies}
-                    })
-                }
-                await updateDoc(videoRef, {
-                    comments: updatedComments
-                })
-
+        if (comment.author === user.email) {
+            if (comment.type === 'comment') {
+                const commentRef = doc(commentsRef, comment.id)
+                await deleteDoc(commentRef)
+                const updatedComments = await getComments(video.id)
+                console.log(video.id, updatedComments)
                 return new Response(JSON.stringify({updatedComments}), {
                     status: 200,
                     headers: {'Content-Type': 'application/json'}
                 })
+
+            } else if (comment.type === 'reply') {
+                const commentRef = doc(commentsRef, comment.comment_id)
+                const repliesRef = collection(commentRef, 'replies')
+                const replyRef = doc(repliesRef, comment.reply_id)
+
+                await deleteDoc(replyRef)
+                const updatedComment = await getComment(video.id, comment.comment_id, true)
+
+                return new Response(JSON.stringify({updatedComment}), {
+                    status: 200,
+                    headers: {'Content-Type': 'application/json'}
+                })
+
             } else {
                 return new Response(JSON.stringify({error: 'Video data not found'}), {
                     status: 404,

@@ -36,7 +36,7 @@ const useSubscribedChannels = () => {
                             const channelData = doc.data() as ChannelItemId;
                             channelsArr.push({...channelData});
                             const foundSubscribedChannels = channelsArr?.filter((channel: ChannelItemId) => {
-                                const matchingSubs = subscriptions?.filter((sub) => sub.id === channel._id);
+                                const matchingSubs = subscriptions?.filter((sub) => sub.id === channel.id);
                                 return matchingSubs?.length > 0;
                             });
                             setSubscribedChannels(foundSubscribedChannels);

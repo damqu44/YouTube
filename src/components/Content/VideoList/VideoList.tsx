@@ -36,19 +36,10 @@ const VideoList: React.FC<VideoListProps> = ({videos}) => {
                     {sortedVideos?.map((video, index) => (
                         <div key={index} id={'video'} className={'mt-3 mb-5 mr-3'}>
                             <Video
+                                video={{
+                                    ...video,
+                                }}
                                 key={video.id}
-                                _id={video.id}
-                                title={video.title}
-                                channel={video.channelInfo.name}
-                                channelId={video.channelInfo._id}
-                                thumbnail={video.thumbnail}
-                                views={video.views}
-                                date={video.date}
-                                duration={video.duration}
-                                avatar_link={video.channelInfo.avatar_link}
-                                category={video.category}
-                                url_id={video.url_id}
-                                description={video.description}
                                 videoType='main'
                                 flexDirection='column'
                                 height='100%'

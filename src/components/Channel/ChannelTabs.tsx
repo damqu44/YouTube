@@ -24,7 +24,7 @@ const ChannelTabs: React.FC<ChannelTabsProps> = ({channelData}) => {
         }
     }, [path, setActiveContent]);
 
-    if (channelData._id === '') {
+    if (channelData.id === '') {
         return
     }
 
@@ -33,11 +33,11 @@ const ChannelTabs: React.FC<ChannelTabsProps> = ({channelData}) => {
             className={'w-full flex justify-center items-starts pt-4 border border-b-gray-600 border-x-0 border-t-0'}>
             <div
                 className={'w-full max-w-[1285px] flex justify-start items-start'}>
-                <Link href={`/${channelData._id}`}
+                <Link href={`/${channelData.id}`}
                       className={activeContent === 'main' ? 'active tab' : 'tab'}>Główna</Link>
-                <Link href={`/${channelData._id}/videos`}
+                <Link href={`/${channelData.id}/videos`}
                       className={activeContent === 'videos' ? 'active tab' : 'tab'}>Wideo</Link>
-                <Link href={`/${channelData._id}/shorts`}
+                <Link href={`/${channelData.id}/shorts`}
                       className={activeContent === 'shorts' ? 'active tab' : 'tab'}>Shorts</Link>
                 <div id={'channel-search'}
                      className={'dark-gray-color p-2 active:bg-gray-600 active:bg-opacity-30 rounded-full'}>

@@ -9,7 +9,7 @@ import {Icons} from "@/components/icons";
 interface VideoProps {
     avatar_link: string | null;
     channelId: string;
-    _id: string;
+    id: string;
     title: string;
     channel: string;
     views: string;
@@ -37,13 +37,13 @@ const VideoDetails: React.FC<VideoProps> = (props) => {
                             )}
                         <div className={'w-56 flex flex-col justify-start items-start text-sm'}>
                             <Link
-                                href={`/watch/${props._id}`}
+                                href={`/watch/${props.id}`}
                                 className={props.videoType === 'main' ? 'text-base font-medium cursor-pointer line-clamp-3' : props.videoType === 'compakt' ? 'text-sm mb-2 w-full max-h-10 overflow-hidden break-words cursor-pointer' : ''}>{props.title}</Link>
                             <Link
                                 className={props.videoType === 'main' ? 'w-full text-secondary hover:text-white truncate' : props.videoType === 'compakt' ? 'text-xs h-5 details-color overflow-hidden break-words' : ''}
                                 href={`/${props.channelId}`}>{props.channel}</Link>
                             <Link
-                                href={`/watch/${props._id}?autoplay=1`}
+                                href={`/watch/${props.id}?autoplay=1`}
                                 className={props.videoType === 'main' ? 'text-xs flex' : props.videoType === 'compakt' ? 'flex text-xs h-5 details-color' : ''}>
 
                                 <div className={'text-secondary'}>{formatViews(props.views)}</div>
@@ -60,9 +60,9 @@ const VideoDetails: React.FC<VideoProps> = (props) => {
             ) : props.videoType === 'result' ? (
                 <div
                     className={'p-3 w-full flex flex-col justify-start items-start text-ellipsis'}>
-                    <Link href={`/watch/${props._id}`}
+                    <Link href={`/watch/${props.id}`}
                           className={'text-lg font-medium cursor-pointer truncate'}>{props.title}</Link>
-                    <Link href={`/watch/${props._id}`} className={'text-xs flex'}>
+                    <Link href={`/watch/${props.id}`} className={'text-xs flex'}>
                         <div className={'text-secondary'}>{formatViews(props.views)}</div>
                         <div className={'font-bold px-1 text-secondary'}>{'\u00B7'}</div>
                         <div className={' text-secondary'}>{formatTimeElapsed(props.date)}</div>
@@ -77,7 +77,7 @@ const VideoDetails: React.FC<VideoProps> = (props) => {
                         <div
                             className={'text-secondary w-full text-xs truncate hover:text-white hover:text-opacity-90'}>{props.channel}</div>
                     </Link>
-                    <Link href={`/watch/${props._id}`} id={'video-description'}
+                    <Link href={`/watch/${props.id}`} id={'video-description'}
                           className={'truncate w-full text-xs text-secondary'}>
                         {descriptionLines.map((line, index) => (
                             <React.Fragment key={index}>

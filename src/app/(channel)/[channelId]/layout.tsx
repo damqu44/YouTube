@@ -22,7 +22,7 @@ export default async function ChannelLayout({params, children}: ChannelLayoutPro
     const getChannelById = async (channelId: string) => {
 
 
-        const q = query(collection(db, 'channels'), where('_id', '==', channelId))
+        const q = query(collection(db, 'channels'), where('id', '==', channelId))
 
         try {
             const querySnapshot = await getDocs(q)

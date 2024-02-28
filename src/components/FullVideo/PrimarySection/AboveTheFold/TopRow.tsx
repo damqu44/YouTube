@@ -42,7 +42,7 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
     return (
         <div className={'flex flex-row justify-between mt-4 w-full'}>
             <div className={'flex flex-row justify-center items-center'}>
-                <Link className={'mr-3 h-10 w-10'} href={`/${video.channelInfo._id}`}>
+                <Link className={'mr-3 h-10 w-10'} href={`/${video.channelInfo.id}`}>
                     {video.channelInfo.avatar_link ? (
                         <Image src={video.channelInfo.avatar_link} alt={'channel image'} width={40} height={40}
                                className={'rounded-full cursor-pointer'}></Image>
@@ -52,7 +52,7 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
                 </Link>
                 <div id={'channel-info'}
                      className={'flex flex-col justify-center items-center pr-8'}>
-                    <Link id={'channel'} href={`/${video.channelInfo._id}`}
+                    <Link id={'channel'} href={`/${video.channelInfo.id}`}
                           className={'w-full h-6 text-base font-medium cursor-pointer overflow-hidden'}>
                         {video.channelInfo.name}
                     </Link>
@@ -63,7 +63,7 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
                     </div>
                 </div>
                 <div id={'subscribe-button'}>
-                    <SubscribeButton channelId={video.channelInfo._id}/>
+                    <SubscribeButton channelId={video.channelInfo.id}/>
                 </div>
             </div>
             <div

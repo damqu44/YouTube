@@ -7,15 +7,16 @@ interface VideoProps {
     thumbnail: string;
     duration: string;
     url_id: string;
-    _id: string;
+    id: string;
     videoType: string;
 }
 
 const VideoThumbnail: React.FC<VideoProps> = (props) => {
 
     return (
-        <Link id={'thumbnail'} href={`/watch/${props._id}`}
-              className={props.videoType === 'main' ? 'relative w-full pt-[56.25%]' : props.videoType === 'compakt' ? 'relative w-[168px] h-[94px]' : props.videoType === 'result' ? 'relative w-[360px] h-[220px] flex flex-shrink-0' : ''}>
+        <Link
+            href={`/watch/${props.id}`}
+            className={props.videoType === 'main' ? 'relative w-full pt-[56.25%]' : props.videoType === 'compakt' ? 'relative w-[168px] h-[94px]' : props.videoType === 'result' ? 'relative w-[360px] h-[220px] flex flex-shrink-0' : ''}>
             <div className={'absolute top-0 left-0 w-full h-full'}>
                 <Image src={props.thumbnail}
                        fill={true}

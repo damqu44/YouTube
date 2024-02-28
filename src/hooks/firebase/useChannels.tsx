@@ -21,7 +21,7 @@ const useChannels = () => {
                     const videos = [];
 
                     for (const key in videosData) {
-                        if (videosData.hasOwnProperty(key) && videosData[key].channel_id === channel._id) {
+                        if (videosData.hasOwnProperty(key) && videosData[key].channel_id === channel.id) {
                             videos.push({
                                 ...videosData[key],
                             });

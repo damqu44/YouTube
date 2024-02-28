@@ -5,6 +5,7 @@ import {CommentItem, UserItem, VideoItem} from "@/lib/types";
 import {User as FirebaseUser} from "@firebase/auth";
 import {useCommentsContext} from "@/contexts/CommentsContext";
 import {signInWithGoogle} from "@/lib/firebase/auth";
+import {updateDoc} from "@firebase/firestore";
 
 interface NewCommentProps {
     video: VideoItem
@@ -33,7 +34,7 @@ const NewComment: React.FC<NewCommentProps> = ({
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        if (parentId && comment && !comment.replies) {
+        if (comment && comment.type === 'reply') {
             setCommentValue(`@${author?.userData.displayName}`)
         }
     }, []);
@@ -41,35 +42,6 @@ const NewComment: React.FC<NewCommentProps> = ({
     useEffect(() => {
         document.body.classList.toggle('loading', isLoading);
     }, [isLoading])
-
-    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault()
-        if (commentValue.length === 0 || commentValue.length > 1500) return
-
-        try {
-            if (editMode) {
-                const response = await makeApiCall('edit-comment')
-                if (response.updatedComments) {
-                    setComments(response.updatedComments)
-                } else if (response.newComment) {
-                    setComments(prevComments => [...prevComments, response.newComment])
-                }
-                if (onEditClose) onEditClose()
-            } else {
-                const response = await makeApiCall('add-comment')
-                if (response.updatedComments) {
-                    setComments(response.updatedComments)
-                } else if (response.newComment) {
-                    setComments(prevComments => [...prevComments, response.newComment])
-                }
-                if (onClose) onClose()
-            }
-            setCommentValue('')
-            setIsAddSectionOpen(false)
-        } catch (error) {
-            console.error('Error occurred:', error)
-        }
-    }
 
     const makeApiCall = async (action: string) => {
         setIsLoading(true)
@@ -96,6 +68,50 @@ const NewComment: React.FC<NewCommentProps> = ({
         }
     }
 
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        if (commentValue.length === 0 || commentValue.length > 1500) return
+
+        try {
+            if (editMode) {
+                const response = await makeApiCall('edit-comment')
+                if (response.updatedComment) {
+                    const foundCommentIndex = comments.findIndex((com: CommentItem) => com.id === comment?.id);
+                    setComments(prevComments => {
+                        const updatedComments = [...prevComments]
+                        updatedComments[foundCommentIndex] = response.updatedComment
+                        return updatedComments
+                    })
+                } else if (response.updatedReply) {
+                    const foundCommentIndex = comments.findIndex((com: CommentItem) => com.id === comment?.comment_id);
+                    setComments(prevComments => {
+                        const updatedComments = [...prevComments]
+                        updatedComments[foundCommentIndex] = response.updatedReply
+                        return updatedComments
+                    })
+                }
+                if (onEditClose) onEditClose()
+            } else {
+                const response = await makeApiCall('add-comment')
+                const foundCommentIndex = comments.findIndex((com: CommentItem) => com.id === comment?.id ? comment.id : comment?.comment_id);
+                if (response.updatedComments) {
+                    setComments(response.updatedComments)
+                } else if (response.updatedComment) {
+                    setComments(prevComments => {
+                        const updatedComments = [...prevComments]
+                        updatedComments[foundCommentIndex] = response.updatedComment
+                        return updatedComments
+                    })
+                }
+                if (onClose) onClose()
+            }
+            setCommentValue('')
+            setIsAddSectionOpen(false)
+        } catch (error) {
+            console.error('Error occurred:', error)
+        }
+    }
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCommentValue(event.target.value);
     }
@@ -116,9 +132,10 @@ const NewComment: React.FC<NewCommentProps> = ({
                 className={`${editMode ? 'hidden' : 'flex'} flex-row pr-3`}>
                 {user?.photoURL ? (
                     <Image src={user.photoURL} alt={'profile image'} width={40} height={40}
-                           className={`${parentId ? 'w-7 h-7' : 'h-10 w-10'} rounded-full cursor-pointer`}/>
+                           className={`${comment && comment.type === 'reply' ? 'w-7 h-7' : 'h-10 w-10'} rounded-full cursor-pointer`}/>
                 ) : (
-                    <Icons.profile className={`${parentId ? 'w-7 h-7' : 'h-10 w-10'} rounded-full cursor-pointer`}/>
+                    <Icons.profile
+                        className={`${comment && comment.type === 'reply' ? 'w-7 h-7' : 'h-10 w-10'} rounded-full cursor-pointer`}/>
                 )}
             </div>
             <div className={'flex-grow flex flex-col pr-5'}>
@@ -131,7 +148,7 @@ const NewComment: React.FC<NewCommentProps> = ({
                         className={'w-full placeholder-input'}/>
                 </div>
                 <div className={'flex w-full justify-between items-center mt-1'}>
-                    {editMode || isAddSectionOpen && !parentId || parentId ? (
+                    {editMode || isAddSectionOpen && !comment?.id && !comment?.comment_id || comment?.id || comment?.comment_id ? (
                         <>
                             <div className={'flex justify-start items-center text-red-500 text-sm'}>
                                 <div
@@ -142,7 +159,7 @@ const NewComment: React.FC<NewCommentProps> = ({
                             <div
                                 className={'flex flex-row justify-end items-center text-sm'}>
                                 <div
-                                    onClick={editMode ? onEditClose : parentId ? onClose : () => setIsAddSectionOpen(false)}
+                                    onClick={editMode ? onEditClose : comment && comment.id || comment?.comment_id ? onClose : () => setIsAddSectionOpen(false)}
 
                                     className={'mr-5 cursor-pointer rounded-3xl font-bold px-4 py-2 hover:bg-primary'}>Anuluj
                                 </div>

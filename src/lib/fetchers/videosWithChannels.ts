@@ -7,7 +7,7 @@ export default async function getVideosWithChannels() {
     const channelsData = await getChannels()
 
     const videosWithChannels = videosData?.map((video: VideoItem) => {
-        const associatedChannel = channelsData?.find((channel: ChannelItem) => channel._id === video.channel_id);
+        const associatedChannel = channelsData?.find((channel: ChannelItem) => channel.id === video.channel_id);
 
         return {
             ...video,

@@ -19,7 +19,7 @@ export default function GuideSubscriptions() {
                         <span className={'text-base font-bold'}>Subskrypcje</span>
                     </Link>
                     {subscribedChannels.map((sub, index) => (
-                        <Link href={`/${sub?._id}`} key={index} className={'guide-item'}>
+                        <Link href={`/${sub?.id}`} key={index} className={'guide-item'}>
                             {sub.avatar_link ? (
                                 <Image src={sub.avatar_link} alt={'channel image'} width={24} height={24}
                                        className={'mr-5'}></Image>

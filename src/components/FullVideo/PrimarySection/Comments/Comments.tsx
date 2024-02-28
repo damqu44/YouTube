@@ -2,7 +2,6 @@
 import React from "react";
 import {CommentItem, VideoItem} from "@/lib/types";
 import Comment from "@/components/FullVideo/PrimarySection/Comments/Comment";
-import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 import {User as FirebaseUser} from "@firebase/auth";
 
 
@@ -13,8 +12,10 @@ type VideoProps = {
 
 const Comments: React.FC<VideoProps> = ({video, user}) => {
     return (
-        <div id={'com-contents'} className={'mt-3 w-full'}>
-            <div id={'comment-thread'} className={'w-full'}>
+        <div
+            className={'mt-3 w-full'}>
+            <div
+                className={'w-full'}>
                 {video.comments.map((comment: CommentItem) => (
                     <Comment key={comment.id} video={video} comment={comment} user={user}/>
                 ))}

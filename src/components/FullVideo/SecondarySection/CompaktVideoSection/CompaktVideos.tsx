@@ -30,18 +30,14 @@ const CompaktVideos: React.FC<CompaktVideosProps> = ({videos}) => {
                     key={index}
                     className={'h-24 w-full flex flex-row justify-center items-start mb-2'}>
                     <Video
-                        _id={video.id}
-                        title={video.title}
-                        channel={video.channelInfo!.name}
-                        channelId={video.channelInfo!._id}
-                        thumbnail={video.thumbnail}
-                        views={video.views}
-                        date={video.date}
-                        duration={video.duration}
-                        category={video.category}
-                        avatar_link={null}
-                        url_id={video.url_id}
-                        description={video.description}
+                        key={video.id}
+                        video={{
+                            ...video,
+                            channelInfo: {
+                                ...video.channelInfo,
+                                avatar_link: null
+                            }
+                        }}
                         videoType='compakt'
                         flexDirection='row'
                         height='96px'

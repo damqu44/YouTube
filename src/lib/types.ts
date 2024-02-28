@@ -33,9 +33,9 @@ export interface VideoItemWithoutChannelInfo {
     comments: CommentItem[];
 }
 export interface ChannelItem {
-    _id: string;
+    id: string;
     name: string;
-    avatar_link: string;
+    avatar_link: string | null;
     description: string;
     subscriptions: string;
     videos_amount: string;
@@ -51,11 +51,14 @@ export interface VideoInteractions {
 export interface CommentItem {
     author: string;
     id: string;
+    comment_id?: string;
+    reply_id?: string;
     isEdited: boolean;
     value: string;
     timeAdded: string;
     likes: string[];
     disLikes: string[];
+    type: string;
     replies?: CommentItem[];
 }
 

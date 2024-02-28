@@ -83,8 +83,8 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = ({channelId}) => {
     const unSubChannel = async (passedID: string) => {
         try {
             if (userRef) {
-                const result = subscribedChannels.filter((channel) => channel._id !== passedID)
-                const resultId = result.map((channel) => ({id: channel._id}))
+                const result = subscribedChannels.filter((channel) => channel.id !== passedID)
+                const resultId = result.map((channel) => ({id: channel.id}))
                 setSub(false)
                 await updateDoc(userRef, {
                     subscriptions: resultId,

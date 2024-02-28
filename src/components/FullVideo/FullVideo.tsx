@@ -7,18 +7,17 @@ import DynamicGuide from "@/components/Guide/DynamicGuide";
 
 interface FullVideoProps {
     videos: VideoItem[]
-    videoId: string
-    selectedVideo: VideoItem
+    video: VideoItem
 }
 
 
-const FullVideo: FC<FullVideoProps> = ({videos, videoId, selectedVideo}) => {
+const FullVideo: FC<FullVideoProps> = ({videos, video}) => {
 
     return (
         <>
             <div id={'content'} className={'flex w-full h-full justify-center items-start pt-5'}>
                 <DynamicGuide/>
-                <PrimarySection video={selectedVideo}/>
+                <PrimarySection video={video}/>
                 <SecondarySection videos={videos}/>
             </div>
         </>
