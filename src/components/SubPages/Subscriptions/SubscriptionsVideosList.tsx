@@ -13,6 +13,7 @@ import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 const VideoList = () => {
     const {user} = useAuthUser()
+    const userEmail = user?.userData.email
     const [subscribedChannelsVideos, setSubscribedChannelsVideos] = useState<VideoItem[]>([])
     const {videos, isVideosLoading} = useVideos()
     const [isLoading, setIsLoading] = useState(false)
@@ -20,9 +21,9 @@ const VideoList = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        if (videos.length > 0 && user?.email) {
+        if (videos.length > 0 && userEmail) {
             try {
-                onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+                onSnapshot(doc(db, 'users', `${userEmail}`), (doc) => {
                     const foundSubscribedChannels = doc.data()?.subscriptions
                     const subscribedChannelsVideos = videos.filter(video => foundSubscribedChannels?.find((subscribedChannel: Subscriptions) => subscribedChannel.id === video.channel_id))
                     setSubscribedChannelsVideos(subscribedChannelsVideos)
@@ -32,7 +33,7 @@ const VideoList = () => {
             }
         }
         setIsLoading(false)
-    }, [user?.email, videos])
+    }, [userEmail, videos])
 
     if (isLoading || isVideosLoading) {
         return <Loading/>

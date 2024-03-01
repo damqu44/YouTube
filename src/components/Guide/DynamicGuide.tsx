@@ -63,7 +63,7 @@ const DynamicGuide: React.FC = () => {
                         <div id={'guide-sections'}
                              className={'flex flex-col w-[216px]'}>
                             <GuideNav/>
-                            {user?.email ? <GuideSubscriptions/> : null}
+                            {user?.userData.email ? <GuideSubscriptions/> : null}
                             <GuideExplore/>
                             <GuideFeatures/>
                             <GuideMenu/>

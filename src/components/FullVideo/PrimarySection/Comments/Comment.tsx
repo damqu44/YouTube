@@ -8,7 +8,6 @@ import {db} from "@/lib/firebase/firebase";
 import useFormatDate from "@/hooks/formats/useFormatDate";
 import Link from "next/link";
 import NewComment from "@/components/FullVideo/PrimarySection/Comments/NewComment";
-import {User as FirebaseUser} from "@firebase/auth";
 import Modal from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/Modal";
 import {useCommentsContext} from "@/contexts/CommentsContext";
 import {signInWithGoogle} from "@/lib/firebase/auth";
@@ -16,7 +15,7 @@ import {signInWithGoogle} from "@/lib/firebase/auth";
 interface CommentProps {
     video: VideoItem
     comment: CommentItem
-    user: FirebaseUser | null
+    user: UserItem | null
 }
 
 const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
@@ -65,11 +64,11 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
             return response.json();
         } catch (error) {
             setIsLoading(false)
-            throw new Error('Błąd podczas wywoływania API');
+            throw new Error('Błąd podczas wywoływania API:', error as Error);
         }
     }
     const handleToggleLikeDisLikeComment = async (type: string) => {
-        if (!user?.email) {
+        if (!user?.userData.email) {
             await signInWithGoogle()
             return
         }
@@ -89,7 +88,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
     }
     const handleDeleteComment = async () => {
 
-        if (!user?.email) {
+        if (!user?.userData.email) {
             await signInWithGoogle()
             return
         }
@@ -112,7 +111,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
     }
 
     const handleToggleAddComment = async () => {
-        if (!user?.email) {
+        if (!user?.userData.email) {
             await signInWithGoogle()
             return
         }
@@ -170,7 +169,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
                                 <div
                                     onClick={() => handleToggleLikeDisLikeComment('like')}
                                     className={'cursor-pointer mr-0.5 rounded-full w-8 h-8 hover:bg-primary flex justify-center items-center'}>
-                                    {user?.email && comment.likes.includes(user.email) ? (
+                                    {user?.userData.email && comment.likes.includes(user.userData.email) ? (
                                         <Icons.like_filled
                                             className={'brightness-0 invert w-6 h-6 '}/>
                                     ) : (
@@ -184,7 +183,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
                             <div
                                 onClick={() => handleToggleLikeDisLikeComment('dislike')}
                                 className={'cursor-pointer rounded-full w-8 h-8 hover:bg-primary flex justify-center items-center mr-1'}>
-                                {user?.email && comment.disLikes.includes(user.email) ? (
+                                {user?.userData.email && comment.disLikes.includes(user.userData.email) ? (
                                     <Icons.dislike_filled
                                         className={'brightness-0 invert w-6 h-6 '}/>
                                 ) : (
@@ -236,7 +235,7 @@ const Comment: React.FC<CommentProps> = ({video, comment, user}) => {
             <Modal
                 styles={'absolute min-w-[50px] bg-darkgray z-[9] flex-col top-[40px] right-0 py-1 rounded-md'}
                 isOpen={isSettingsModalOpen} onClose={handleModalToggle}>
-                {user?.email && author?.userData.email === user.email ? (
+                {user?.userData.email && author?.userData.email === user.userData.email ? (
                     <>
                         <div
                             onClick={() => setIsInEditMode(prevState => !prevState)}

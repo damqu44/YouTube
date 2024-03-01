@@ -11,15 +11,14 @@ import ShareButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Acti
 import SettingsButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/SettingsButton";
 import DownloadButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/DownloadButton";
 import ClipButton from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/ClipButton";
-import {VideoItem} from "@/lib/types";
-import {useAuthUser} from "@/hooks/firebase/useAuthUser";
+import {UserItem, VideoItem} from "@/lib/types";
 
 type VideoProps = {
     video: VideoItem
-};
+    user: UserItem | null
+}
 
-const TopRow: React.FC<VideoProps> = ({video}) => {
-    const {user} = useAuthUser()
+const TopRow: React.FC<VideoProps> = ({video, user}) => {
     const {formatSubscribers} = useNumbersFormatting();
     const [isSaveButtonVisible, setIsSaveButtonVisible] = useState<boolean>(false)
     const [isDownloadButtonVisible, setIsDownloadButtonVisible] = useState<boolean>(false)
@@ -68,9 +67,9 @@ const TopRow: React.FC<VideoProps> = ({video}) => {
             </div>
             <div
                 className={'flex flex-row justify-end items-center text-sm font-medium text-white whitespace-nowrap'}>
-                <LikeDislikeButtons _id={video.id} likes={video.likes}/>
+                <LikeDislikeButtons video={video} user={user}/>
                 <ShareButton/>
-                {!user?.email ? (
+                {!user?.userData.email ? (
                     <SaveButton isButtonVisible={isSaveButtonVisible}/>
                 ) : (
                     <>

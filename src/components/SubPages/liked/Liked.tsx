@@ -16,7 +16,7 @@ import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 const Liked = () => {
     const {user} = useAuthUser()
-    const userEmail = user?.email;
+    const userEmail = user?.userData.email;
     const [likedVideos, setLikedVideos] = useState<VideoItem[]>([])
     const {videos, isVideosLoading} = useVideos()
     const [isLoading, setIsLoading] = useState(false)

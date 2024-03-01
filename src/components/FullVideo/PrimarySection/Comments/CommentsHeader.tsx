@@ -1,7 +1,7 @@
 import {Icons} from "@/components/icons";
 import React, {useState} from "react";
 import {useAuthUser} from "@/hooks/firebase/useAuthUser";
-import {VideoItem} from "@/lib/types";
+import {UserItem, VideoItem} from "@/lib/types";
 import NewComment from "@/components/FullVideo/PrimarySection/Comments/NewComment";
 import {useCommentsContext} from "@/contexts/CommentsContext";
 import Modal from "@/components/FullVideo/PrimarySection/AboveTheFold/Actions/Modal";
@@ -9,7 +9,7 @@ import {User as FirebaseUser} from "@firebase/auth";
 
 type CommentsHeaderProps = {
     video: VideoItem
-    user: FirebaseUser | null
+    user: UserItem | null
 }
 
 const CommentsHeader: React.FC<CommentsHeaderProps> = ({video, user}) => {

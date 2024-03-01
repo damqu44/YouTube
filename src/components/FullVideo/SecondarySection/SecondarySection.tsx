@@ -39,7 +39,7 @@ const SecondarySection: React.FC<VideoProps> = (props) => {
         <div id={'secondary'}
              style={{display: isSecondaryVisible ? 'flex' : 'none'}}
              className={'mr-24 w-[440px] min-h-screen flex-col justify-start items-center'}>
-            {user?.email ? <ChipCloud/> : null}
+            {user?.userData.email ? <ChipCloud/> : null}
             <CompaktVideos videos={props.videos}/>
         </div>
     )

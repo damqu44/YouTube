@@ -9,7 +9,7 @@ const You = () => {
 
     return (
         <>
-            {!user?.email ? (
+            {!user?.userData.email ? (
                 <div className={'w-full flex flex-col items-center pt-36'}>
                     <Icons.your_lib className={'brightness-0 invert h-32 w-32'}/>
                     <div className={'flex flex-col justify-center items-center py-6 px-14'}>

@@ -5,7 +5,8 @@ export interface VideoItem {
     title: string;
     channel_id: string;
     channel: string;
-    likes: string;
+    likes: string[];
+    disLikes: string[];
     views: string;
     date: string;
     thumbnail: string;
@@ -22,7 +23,8 @@ export interface VideoItemWithoutChannelInfo {
     title: string;
     channel_id: string;
     channel: string;
-    likes: string;
+    likes: string[];
+    disLikes: string[];
     views: string;
     date: string;
     thumbnail: string;

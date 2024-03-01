@@ -1,15 +1,20 @@
 import React from "react";
 import AboveTheFold from "@/components/FullVideo/PrimarySection/AboveTheFold/AboveTheFold";
 import './PrimarySection.css'
-import {VideoItem} from "@/lib/types";
 import CommentsContainer from "@/components/FullVideo/PrimarySection/Comments/CommentsContainer";
 import {CommentsProvider} from "@/contexts/CommentsContext";
+import {notFound} from "next/navigation";
+import {VideoItem} from "@/lib/types";
 
-type VideoProps = {
+interface PrimarySectionProps {
     video: VideoItem
-};
+}
 
-const PrimarySection: React.FC<VideoProps> = ({video}) => {
+const PrimarySection: React.FC<PrimarySectionProps> = ({video}) => {
+    if (!video) {
+        notFound()
+    }
+
     return (
         <>
             <div id={'primary'} className={'ml-32 mr-6 w-full max-w-[1300px] min-h-screen'}>

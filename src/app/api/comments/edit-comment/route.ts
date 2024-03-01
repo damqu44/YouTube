@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
 
     try {
-        if (comment.author === user.email) {
+        if (comment.author === user.userData.email) {
             if (comment.type === 'comment') {
                 const commentRef = doc(commentsRef, comment.id)
 

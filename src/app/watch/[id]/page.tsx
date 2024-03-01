@@ -5,8 +5,9 @@ import getVideosWithChannels from "@/lib/fetchers/videosWithChannels";
 import {notFound} from "next/navigation";
 import {doc, getDoc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
-import {ChannelItem,  VideoItem, VideoItemWithoutChannelInfo} from "@/lib/types";
+import {ChannelItem, VideoItem, VideoItemWithoutChannelInfo} from "@/lib/types";
 import getComments from "@/lib/firebase/utils/getComments";
+
 interface pageProps {
     params: {
         id: string
@@ -37,9 +38,7 @@ export default async function FullVideoPage({params}: pageProps) {
     }
 
     return (
-        <>
-            <FullVideo videos={videos} video={updatedVideo}/>
-        </>
+        <FullVideo videos={videos} video={updatedVideo}/>
     )
 }
 

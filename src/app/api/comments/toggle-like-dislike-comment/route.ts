@@ -9,11 +9,12 @@ import getReply from "@/lib/firebase/utils/getReply";
 export async function POST(req: Request) {
     const body = await req.json()
     const {video, comment, user, action} = body
+    const userEmail = user.userData.email
     const videoRef = doc(db, "videos", video.id)
     const commentsRef = collection(videoRef, 'comments')
 
     try {
-        if (user.email) {
+        if (userEmail) {
             let updatedLikes: string[]
             let updatedDislikes: string[]
             let commentToInteract: CommentItem | null
@@ -29,24 +30,24 @@ export async function POST(req: Request) {
                 updatedDislikes = commentToInteract.disLikes
 
                 if (action === 'like') {
-                    const isUserLikedComment = commentToInteract.likes.includes(user.email)
+                    const isUserLikedComment = commentToInteract.likes.includes(userEmail)
 
                     if (!isUserLikedComment) {
-                        updatedLikes.push(user.email)
+                        updatedLikes.push(userEmail)
                     } else {
-                        updatedLikes = updatedLikes.filter(email => email !== user.email);
+                        updatedLikes = updatedLikes.filter(email => email !== userEmail);
                     }
-                    updatedDislikes = updatedDislikes.filter(email => email !== user.email);
+                    updatedDislikes = updatedDislikes.filter(email => email !== userEmail);
 
                 } else if (action === 'dislike') {
-                    const isUserDisLikedComment = commentToInteract.disLikes.includes(user.email)
+                    const isUserDisLikedComment = commentToInteract.disLikes.includes(userEmail)
 
                     if (!isUserDisLikedComment) {
-                        updatedDislikes.push(user.email);
+                        updatedDislikes.push(userEmail);
                     } else {
-                        updatedDislikes = updatedDislikes.filter(email => email !== user.email);
+                        updatedDislikes = updatedDislikes.filter(email => email !== userEmail);
                     }
-                    updatedLikes = updatedLikes.filter(email => email !== user.email);
+                    updatedLikes = updatedLikes.filter(email => email !== userEmail);
                 }
 
                 const commentToFetch = {

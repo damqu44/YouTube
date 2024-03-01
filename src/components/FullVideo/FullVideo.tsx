@@ -4,6 +4,7 @@ import PrimarySection from "@/components/FullVideo/PrimarySection/PrimarySection
 import SecondarySection from "@/components/FullVideo/SecondarySection/SecondarySection";
 import {VideoItem} from "@/lib/types";
 import DynamicGuide from "@/components/Guide/DynamicGuide";
+import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 
 interface FullVideoProps {
     videos: VideoItem[]

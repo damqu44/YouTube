@@ -12,7 +12,7 @@ interface NewCommentProps {
     parentId?: string
     onClose?: () => void
     onEditClose?: () => void
-    user: FirebaseUser | null
+    user: UserItem | null
     editMode?: boolean
     comment?: CommentItem
     author?: UserItem
@@ -117,7 +117,7 @@ const NewComment: React.FC<NewCommentProps> = ({
     }
 
     const handleAddSectionOpen = async () => {
-        if (!user?.email) {
+        if (!user?.userData.email) {
             await signInWithGoogle()
             return
         } else {
@@ -130,8 +130,8 @@ const NewComment: React.FC<NewCommentProps> = ({
             className={'w-full flex flex-row'}>
             <div
                 className={`${editMode ? 'hidden' : 'flex'} flex-row pr-3`}>
-                {user?.photoURL ? (
-                    <Image src={user.photoURL} alt={'profile image'} width={40} height={40}
+                {user?.userData.photoURL ? (
+                    <Image src={user.userData.photoURL} alt={'profile image'} width={40} height={40}
                            className={`${comment && comment.type === 'reply' ? 'w-7 h-7' : 'h-10 w-10'} rounded-full cursor-pointer`}/>
                 ) : (
                     <Icons.profile

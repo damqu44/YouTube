@@ -1,20 +1,19 @@
-import {doc, setDoc} from "@firebase/firestore";
+import {doc} from "@firebase/firestore";
 import {db} from "@/lib/firebase/firebase";
-import {addDoc, collection, getDocs} from "firebase/firestore";
-import {CommentItem} from "@/lib/types";
+import {addDoc, collection} from "firebase/firestore";
 import getComments from "@/lib/firebase/utils/getComments";
 import getComment from "@/lib/firebase/utils/getComment";
 
 export async function POST(req: Request) {
     const body = await req.json()
-    const {video, comment, commentValue, user, parentId} = body
+    const {video, comment, commentValue, user} = body
     const videoRef = doc(db, "videos", video.id);
     const commentsRef = collection(videoRef, 'comments')
 
     const createNewCommentObject = (commentValue: string, type: string) => {
         return {
             value: commentValue,
-            author: user!.email!,
+            author: user!.userData.email!,
             isEdited: false,
             timeAdded: new Date().toISOString(),
             likes: [],
@@ -24,7 +23,7 @@ export async function POST(req: Request) {
     }
 
     try {
-        if (user.email) {
+        if (user.userData.email) {
             if (!comment) {
                 const newComment = createNewCommentObject(commentValue, 'comment')
                 await addDoc(commentsRef, newComment)

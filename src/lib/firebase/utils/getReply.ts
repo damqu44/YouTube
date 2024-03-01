@@ -11,18 +11,18 @@ async function getReply(videoId: string, commentId: string, replyId: string, wit
         const repliesRef = collection(commentRef, 'replies')
         const replyRef = doc(repliesRef, replyId)
 
-        const replyData = await getDoc(replyRef)
-        const replyDoc = replyData.data() as CommentItem
+        const replyDoc = await getDoc(replyRef)
+        const replyData = replyDoc.data() as CommentItem
 
         if (withId) {
             return {
                 reply_id: replyId,
                 comment_id: commentId,
-                ...replyDoc
+                ...replyData
             }
         } else {
             return {
-                ...replyDoc
+                ...replyData
             }
         }
 

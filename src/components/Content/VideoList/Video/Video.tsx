@@ -27,10 +27,7 @@ const Video: React.FC<VideoProps> = (props) => {
         }}>
             <VideoThumbnail thumbnail={video.thumbnail} duration={video.duration} id={video.duration}
                             url_id={video.url_id} videoType={props.videoType}/>
-            <VideoDetails avatar_link={video.channelInfo.avatar_link} channelId={video.channel_id} id={video.id}
-                          description={video.description}
-                          title={video.title} channel={video.channel} views={video.views} date={video.date}
-                          videoType={props.videoType}/>
+            <VideoDetails video={video} videoType={props.videoType}/>
         </ReactPlayerContainer>
     )
 };

@@ -11,7 +11,7 @@ export async function signInWithGoogle() {
         const userCreds = await signInWithPopup(auth, provider);
         const idToken = await userCreds.user.getIdToken();
         const userEmail = userCreds.user.email
-
+        console.log(userCreds)
         if(userEmail) {
             const userDocRef = doc(db, 'users', userEmail);
             const userDocSnapshot = await getDoc(userDocRef);

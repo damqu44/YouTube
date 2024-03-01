@@ -43,7 +43,7 @@ const SaveButton: React.FC <SaveButtonProps>= ({isButtonVisible}) => {
                             <div className={'pl-4 text-md hover:text-white/80'}>Przykładowa lista</div>
                         </li>
                     </ul>
-                    <div className={'flex py-2 pl-4 pr-12 cursor-pointer'}>
+                    <div className={'flex py-2 pl-4 pr-12 cursor-pointer items-center'}>
                         <Icons.plus className={'w-6 h-6 brightness-0 invert mr-3'}/>
                         <div className={'hover:text-white/80'}>Utwórz nową playlistę</div>
                     </div>

@@ -9,19 +9,20 @@ import {useAuthUser} from "@/hooks/firebase/useAuthUser";
 type ChannelItemId = ChannelItem & { id: string }
 const useSubscribedChannels = () => {
     const {user} = useAuthUser()
+    const userEmail = user?.userData.email
     const [subscribedChannels, setSubscribedChannels] = useState<ChannelItem[]>([]);
     const [isChannelsLoading, setIsChannelsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null | Error>(null);
     const [subscriptions, setSubscriptions] = useState<{ id: string }[]>([])
 
     useEffect(() => {
-        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+        onSnapshot(doc(db, 'users', `${userEmail}`), (doc) => {
             setSubscriptions(doc.data()?.subscriptions)
         })
-    }, [user?.email])
+    }, [userEmail])
 
     useEffect(() => {
-        if (!user?.email) {
+        if (!userEmail) {
             setIsChannelsLoading(false)
             return
         } else {
@@ -55,7 +56,7 @@ const useSubscribedChannels = () => {
 
             fetchData();
         }
-    }, [subscriptions, user?.email]);
+    }, [subscriptions, userEmail]);
 
     return {subscribedChannels, isChannelsLoading, error};
 }

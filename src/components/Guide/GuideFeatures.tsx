@@ -8,7 +8,7 @@ export default function GuideFeatures() {
 
     return (
         <>
-            {!user?.email ? (
+            {!user?.userData.email ? (
                 <>
                     <div className={'line'}/>
 

@@ -7,6 +7,7 @@ import {ActivePageProvider} from "@/contexts/ActivePageContext";
 import {GuideProvider} from "@/contexts/GuideContext";
 import {CategoryProvider} from "@/contexts/VideosCategoryContext";
 import {AuthUserProvider} from "@/hooks/firebase/useAuthUser";
+import LoadingBar from "@/components/LoadingBar";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -24,6 +25,7 @@ export default function RootLayout({children,}: { children: React.ReactNode, }) 
         <>
             <html lang="en">
             <body className={inter.className}>
+            <LoadingBar/>
             <AuthUserProvider>
                 <ActivePageProvider>
                     <GuideProvider>

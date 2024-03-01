@@ -83,7 +83,7 @@ export default function MastHeadEnd() {
 
         <div id={'end'} className={'flex justify-center items-center mr-8'}>
             {
-                !user?.email ? (
+                !user?.userData.email ? (
                     <div id={'buttons'} className={'flex justify-center items-center'}>
                         <button id={'menu-button'} className={'w-10 h-10 flex items-center'}>
                             <Icons.three_dots
@@ -113,8 +113,8 @@ export default function MastHeadEnd() {
                             <button
                                 onClick={toggleMenu}
                                 className={'rounded-full border border-transparent focus:border focus:border-myblue'}>
-                                {user?.photoURL ? (
-                                    <Image src={user?.photoURL} alt={'profile image'} width={32} height={32}
+                                {user?.userData.photoURL ? (
+                                    <Image src={user?.userData.photoURL} alt={'profile image'} width={32} height={32}
                                            className={'rounded-full cursor-pointer'}/>
                                 ) : (
                                     <Icons.profile className={'rounded-full h-8 w-8'}/>
@@ -126,17 +126,17 @@ export default function MastHeadEnd() {
                                     <div id={'profile-header'}
                                          className={'w-full flex flex-row p-4'}>
                                         <div className={'mr-2'}>
-                                            {user?.photoURL ? (
+                                            {user?.userData.photoURL ? (
 
-                                                <Image src={user?.photoURL} alt={'profile image'} width={40} height={40}
+                                                <Image src={user?.userData.photoURL} alt={'profile image'} width={40} height={40}
                                                        className={'rounded-full cursor-pointer mx-2'}/>
                                             ) : (
                                                 <Icons.profile className={'rounded-full h-8 w-8'}/>
                                             )}
                                         </div>
                                         <div>
-                                            <div className={'text-base'}>{user?.displayName}</div>
-                                            <div className={'text-base'}>{user?.email}</div>
+                                            <div className={'text-base'}>{user?.userData.displayName}</div>
+                                            <div className={'text-base'}>{user?.userData.email}</div>
                                             <div className={'text-sm pt-1 cursor-pointer text-myblue'}>Wyświetl swój
                                                 kanał
                                             </div>

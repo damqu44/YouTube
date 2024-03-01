@@ -36,8 +36,6 @@ const Description: React.FC<VideoProps> = ({video}) => {
                     {formatToWordDate(video.date)}
                 </div>
                 <div id={'hashtags'} className={'flex'}>
-                    <div className={'text-center mr-2 text-sky-600'}>#gothic1</div>
-                    <div className={'text-center mr-2 text-sky-600'}>#gothic2</div>
                 </div>
             </div>
             <div id={'description-inline-expander'}

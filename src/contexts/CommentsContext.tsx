@@ -1,12 +1,10 @@
 import {CommentItem, UserItem} from "@/lib/types";
-import React, {createContext, ReactNode, useContext, useEffect, useState} from "react";
-import {useAuthUser} from "@/hooks/firebase/useAuthUser";
-import {User as FirebaseUser} from "@firebase/auth";
+import React, {createContext, ReactNode, useContext, useState} from "react";
 
 interface CommentsContextType {
     comments: CommentItem[]
     setComments: React.Dispatch<React.SetStateAction<CommentItem[]>>
-    sortComments: (method: string, user?: FirebaseUser) => void
+    sortComments: (method: string, user?: UserItem) => void
 }
 
 const CommentsContext = createContext<CommentsContextType | undefined>(undefined)
@@ -21,7 +19,7 @@ export const useCommentsContext = () => {
 
 export const CommentsProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [comments, setComments] = useState<CommentItem[]>([])
-    const sortComments = (method: string, user?: FirebaseUser) => {
+    const sortComments = (method: string, user?: UserItem) => {
         const commentsCopy = [...comments];
 
         switch (method) {
@@ -47,9 +45,9 @@ export const CommentsProvider: React.FC<{ children: ReactNode }> = ({children}) 
         return comments.sort((a, b) => new Date(b.timeAdded).getTime() - new Date(a.timeAdded).getTime());
     }
 
-    const sortByUser = (comments: CommentItem[], user: FirebaseUser) => {
-        const userComments = comments.filter(comment => comment.author === user.email);
-        const otherComments = comments.filter(comment => comment.author !== user.email);
+    const sortByUser = (comments: CommentItem[], user: UserItem) => {
+        const userComments = comments.filter(comment => comment.author === user.userData.email);
+        const otherComments = comments.filter(comment => comment.author !== user.userData.email);
 
         const sortedUserComments = sortByPopularity(userComments);
         const sortedOtherComments = sortByPopularity(otherComments);

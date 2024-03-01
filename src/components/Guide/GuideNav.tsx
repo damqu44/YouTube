@@ -29,7 +29,7 @@ export default function GuideNav() {
                 <Icons.subs className={'guide-icon'}/>
                 <span>Subskrypcje</span>
             </Link>
-            {user?.email ? (
+            {user?.userData.email ? (
                 <>
                     <Link
                         className={'guide-item'} target={'_blank'}
@@ -45,8 +45,8 @@ export default function GuideNav() {
                         <Icons.right_arrow_light className={'w-5 h-5 brightness-100 invert'}/>
                     </Link>
                     <Link
-                        className={currentRoute === `/${user?.email}` ? 'guide-item active' : 'guide-item'}
-                        href={`/${user?.email}`}>
+                        className={currentRoute === `/${user?.userData.email}` ? 'guide-item active' : 'guide-item'}
+                        href={`/${user?.userData.email}`}>
                         <Icons.your_profile className={'guide-icon'}/>
                         <span>Twój kanał</span>
                     </Link>

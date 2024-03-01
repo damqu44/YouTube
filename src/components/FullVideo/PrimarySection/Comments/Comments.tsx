@@ -1,13 +1,13 @@
 'use client'
 import React from "react";
-import {CommentItem, VideoItem} from "@/lib/types";
+import {CommentItem, UserItem, VideoItem} from "@/lib/types";
 import Comment from "@/components/FullVideo/PrimarySection/Comments/Comment";
 import {User as FirebaseUser} from "@firebase/auth";
 
 
 type VideoProps = {
     video: VideoItem
-    user: FirebaseUser | null
+    user: UserItem | null
 }
 
 const Comments: React.FC<VideoProps> = ({video, user}) => {

@@ -1,94 +1,77 @@
 import '../../../FullVideo.css'
 import React, {useEffect, useState} from "react";
-import {arrayRemove, arrayUnion, doc, updateDoc} from "@firebase/firestore";
 import LoginButton from "@/components/auth/login-button";
 import Modal from "./Modal";
-import {onSnapshot} from "firebase/firestore";
-import {db} from "@/lib/firebase/firebase";
 import {Icons} from "@/components/icons";
-import {useAuthUser} from "@/hooks/firebase/useAuthUser";
-
+import {UserItem, VideoItem} from "@/lib/types";
 
 interface LikeDislikeButtonProps {
-    _id: string;
-    likes: string;
+    video: VideoItem;
+    user: UserItem | null;
 }
 
-interface VideoInteractions {
-    id: string;
-    like: boolean;
-    disLike: boolean;
-}
-
-const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
-    const {user} = useAuthUser()
-    const userEmail = user?.email;
-    const userRef = userEmail ? doc(db, 'users', userEmail) : null;
-    const [videosInteractions, setVideosInteractions] = useState<VideoInteractions[]>([])
+const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({video, user}) => {
+    const userEmail = user?.userData.email
+    const [likesAmount, setLikesAmount] = useState<number>(video.likes.length)
     const [like, setLike] = useState<boolean>(false)
     const [disLike, setDisLike] = useState<boolean>(false)
-    const [isLikeModalOpen, setIsLikeModalOpen] = useState<boolean>(false);
-    const [isDisLikeModalOpen, setIsDisLikeModalOpen] = useState<boolean>(false);
+    const [isLikeModalOpen, setIsLikeModalOpen] = useState<boolean>(false)
+    const [isDisLikeModalOpen, setIsDisLikeModalOpen] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        onSnapshot(doc(db, 'users', `${userEmail}`), (doc) => {
-            setVideosInteractions(doc.data()?.videosInteractions)
-        })
-    }, [userEmail])
+        setLike(video.likes.includes(userEmail as string))
+        setDisLike(video.disLikes.includes(userEmail as string))
+    }, [user]);
 
-
-    //check is video liked
-    useEffect(() => {
-        const checkVideosInteractions = async () => {
-            if (userEmail && userRef) {
-                const existingIndex = videosInteractions?.findIndex(video => video.id === _id);
-                if (existingIndex !== -1) {
-                    const foundVideo = videosInteractions?.find(video => video.id === _id)
-                    if (foundVideo) {
-                        setLike(foundVideo?.like === true);
-                        setDisLike(foundVideo?.disLike === true);
-                    }
+    const makeApiCall = async (action: string) => {
+        setIsLoading(true)
+        try {
+            const response = await fetch('/api/video/toggle-like-dislike-video', {
+                method: 'POST',
+                body: JSON.stringify({user: user, videoId: video.id, action: action}),
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            }
+            })
+            setIsLoading(false)
+            return response.json()
+        } catch (error) {
+            setIsLoading(false)
+            throw new Error('Error occurred:', error as Error)
         }
-        checkVideosInteractions();
-    }, [userEmail, userRef, _id, videosInteractions])
+    }
 
-    const changeVideosInteractions = async (like: boolean, disLike: boolean) => {
-        if (userEmail && userRef) {
-            if (videosInteractions) {
-                try {
-                    const existingIndex = videosInteractions.findIndex(video => video.id === _id);
-                    setLike(like)
-                    setDisLike(disLike)
-                    if (existingIndex !== -1) {
-                        await updateDoc(userRef, {
-                            videosInteractions: arrayRemove(videosInteractions[existingIndex]),
-                        });
-                    }
-
-                    await updateDoc(userRef, {
-                        videosInteractions: arrayUnion({
-                            id: _id,
-                            like: like,
-                            disLike: disLike,
-                        }),
-                    })
-
-                } catch
-                    (err) {
-                    console.error(err)
-                }
-            }
-        } else {
-            if (like) {
+    const handleToggleLikeDisLikeComment = async (action: string) => {
+        if (!userEmail) {
+            if (action === 'like') {
                 setIsLikeModalOpen(true)
                 setIsDisLikeModalOpen(false)
-
-            } else if (disLike) {
+            } else if (action === 'dislike') {
                 setIsDisLikeModalOpen(true)
                 setIsLikeModalOpen(false)
             }
+            return
+        }
+
+        try {
+            const response = await makeApiCall(action)
+            if (response.updatedVideo) {
+                const video = response.updatedVideo as VideoItem
+                if (video.likes.includes(userEmail)) {
+                    setLike(true)
+                    setDisLike(false)
+                } else if (video.disLikes.includes(userEmail)) {
+                    setLike(false)
+                    setDisLike(true)
+                } else {
+                    setLike(false)
+                    setDisLike(false)
+                }
+                setLikesAmount(video.likes.length)
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
         }
     }
 
@@ -97,32 +80,18 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
         setIsDisLikeModalOpen(false);
     }
 
-
-    const handleClickToDisLikeVideo = async () => {
-        await changeVideosInteractions(false, true)
-    }
-    const handleClickToUnDisLikeVideo = async () => {
-        await changeVideosInteractions(false, false)
-    }
-    const handleClickToLikeVideo = async () => {
-        await changeVideosInteractions(true, false)
-    }
-    const handleClickToUnLikeVideo = async () => {
-        await changeVideosInteractions(false, false)
-    }
-
     const styles = 'absolute min-w-[400px] min-h-[174px] bg-darkgray z-[9] flex-col top-full left-0 rounded-md'
     return (
         <>
             <div
-                onClick={!like ? handleClickToLikeVideo : handleClickToUnLikeVideo}
+                onClick={() => handleToggleLikeDisLikeComment('like')}
                 className={'action-button flex rounded-l-full border-right'}>
                 {!like ? (
                     <Icons.like className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
                 ) : (
                     <Icons.like_filled className={'w-6 h-6 brightness-0 invert mr-3 transition-all'}/>
                 )}
-                <span className={'mr-4'}>{likes}</span>
+                <span className={'mr-4'}>{likesAmount}</span>
                 <Modal isOpen={isLikeModalOpen} onClose={handleModalClose} styles={styles}>
                     <span
                         className={'px-5 pt-5 text-base'}>Podoba Ci się ten film?</span>
@@ -130,7 +99,7 @@ const LikeDislikeButton: React.FC<LikeDislikeButtonProps> = ({_id, likes}) => {
                     <div className={'px-5 pt-10 pb-5'}><LoginButton/></div>
                 </Modal>
             </div>
-            <div onClick={!disLike ? handleClickToDisLikeVideo : handleClickToUnDisLikeVideo}
+            <div onClick={() => handleToggleLikeDisLikeComment('dislike')}
                  className={'action-button rounded-r-full mr-2 border-left'}>
                 {!disLike ? (
                     <Icons.dislike className={'w-6 h-6 brightness-0 invert ml-2 mr-1'}/>
